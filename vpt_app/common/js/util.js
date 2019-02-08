@@ -50,11 +50,11 @@ function getLocation(callback) {
 				"latitude": res.latitude, //res.latitude  : -37.731856,
 				"longitude": res.longitude,//res.longitude 145.100844 //
 			}
-			net.netUtil(con.STOP_GPS_URL, 'GET', body, ret => {
-				if (ret) {
-					uni.setStorageSync('nearMeStops', ret);
+			net.netUtil(con.STOP_GPS_URL, 'GET', body, res => {
+				if (res.data) {
+					uni.setStorageSync('nearMeStops', res.data);
 					if (callback) {
-						callback(ret);
+						callback(res.data);
 					}
 				}
 			});

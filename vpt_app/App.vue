@@ -3,10 +3,11 @@
 	import net from '@/common/js/netUtil.js'
 	import con from '@/common/js/constant.js'
 	import event from "@/common/js/event.js"
+	import init from "@/common/js/data.js"
 
 	export default {
 		onLaunch: function() {
-			
+
 			util.getLocation(nearme => {
 				if (nearme && nearme.length > 0) {
 					let selectedStop = uni.getStorageSync("selectedStop");
@@ -18,19 +19,23 @@
 							'stopName': nearme[0],
 							'stopId': stopId,
 						});
-						let routeStopMap = uni.getStorageSync("routeStopMap");
-						let lines = routeStopMap[stopId];
-						uni.setStorageSync("selectedRouteIds", lines);
+						let hotKeywordList = ['Flinders Street', 'Southern Cross', 'Melbourne Central', 'Flagstaff', 'Parliament'];
+						let ret = hotKeywordList.filter(s => s == nearme[0]);
+						if (ret.length == 0) {
+							let routeStopMap = uni.getStorageSync("routeStopMap");
+							let lines = routeStopMap[stopId];
+							uni.setStorageSync("selectedRouteIds", lines);
+						}
 						event.emit('DataChanged', 'Log-Page-Btn-Press');
-						console.info("trigger the getting location");
 					}
 				}
 			});
-			this.initDirections();
-			this.initStopNameMap();
 			this.initRoutes();
+			this.initStopNameMap();
 			this.initRouteStop();
+			this.initDirections();
 			uni.removeStorageSync("fullTimetables");
+			this.loadCards();
 		},
 
 		onShow: function() {
@@ -43,54 +48,56 @@
 
 			initDirections() {
 				if (!uni.getStorageSync("directions")) {
-					net.netUtil(con.DIRECTION_URL, 'GET', {}, ret => {
-						if (ret) {
-							uni.setStorageSync("directions", ret);
-						}
-					});
+					uni.setStorageSync("directions", init.initDirections());
 				}
 			},
 			initStopNameMap() {
 				if (!uni.getStorageSync('stopNameMap')) {
-					net.netUtil(con.STOP_NAME_MAP_URL, 'GET', {}, ret => {
-						if (ret) {
-							uni.setStorageSync('stopNameMap', ret);
-						}
-					});
+					uni.setStorageSync('stopNameMap', init.initStopNameList());
 				};
 			},
 
 			initRoutes() {
 				if (!uni.getStorageSync("routes")) {
-					uni.request({
-						url: 'https://timetableapi.ptv.vic.gov.au/v3/routes?devid=3000969&signature=602DAAA6BFB77BC2DF5B40FA15F3953FD974F3DF',
-						method: 'GET',
-						data: {},
-						success: res => {
-							let trainRoutesMap = {};
-							uni.setStorageSync("routes", res.data.routes);
-							res.data.routes.filter(item => {
-								if (item.route_type == 0) {
-									trainRoutesMap[item.route_id] = item.route_name;
-								}
-							});
-							uni.setStorageSync("trainRoutesMap", trainRoutesMap);
+					let json = init.initRoutes();
+					let trainRoutesMap = {};
+					uni.setStorageSync("routes", json.routes);
+					json.routes.filter(item => {
+						if (item.route_type == 0) {
+							trainRoutesMap[item.route_id] = item.route_name;
 						}
 					});
+					uni.setStorageSync("trainRoutesMap", trainRoutesMap);
 				}
 			},
 
 			initRouteStop() {
 				if (!uni.getStorageSync("routeStopMap")) {
-					net.netUtil(con.ROUTE_STOP_MAP_URL, 'GET', {}, ret => {
-						if (ret) {
-							uni.setStorageSync("routeStopMap", ret);
+					uni.setStorageSync("routeStopMap", init.initRouteStopList());
+				}
+			},
+
+			loadCards() {
+				let rememberme = uni.getStorageSync("rememberme");
+				if (rememberme) {
+					let body = {
+						username: rememberme.username,
+						password: rememberme.password,
+					}
+					net.netUtil(con.MYKI_CARDS_URL, 'GET', body, res => {
+						if (res.statusCode === 200 && res.data) {
+							let hiddenCards = uni.getStorageSync("hiddenCards");
+							res.data.forEach(c => {
+								if (hiddenCards && hiddenCards.includes(c.cardNum)) {
+									c.show = false;
+								}
+							})
+
+							uni.setStorageSync("cards", res.data);
 						}
-					});
+					}, false);
 				}
 			}
-
-
 			// 				let err, res;
 			// 				[err, res] = await uni.request({
 			// 					url: con.DIRECTION_URL,

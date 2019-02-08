@@ -33,7 +33,7 @@
 							<view style="align-items:center">
 								<text style="font-size:1em;padding-left:10upx;font-weight:bold;">{{item.stopName}}</text>
 							</view>
-							<view style="padding-top: 8upx;font-size: 33upx;font-weight: 700;color:#8F8F94">
+							<view style="padding-top: 8upx;font-size: 33upx;font-weight: 700;color:#6a6d73">
 								{{item.departureLocalTime}} - {{item.gapText}} mins travel time
 							</view>
 						</span>
@@ -82,12 +82,12 @@
 				routeType: '0',
 				runId: e.runId
 			}
-			net.netUtil(con.STOP_URL, 'GET', body, ret => {
-				if (ret) {
+			net.netUtil(con.STOP_URL, 'GET', body, res => {
+				if (res.data) {
 					let stopId = uni.getStorageSync("selectedStop")['stopId'];
-					let selectedDepartureUTCTime = ret.filter(stop => stop.stopId == stopId)[0].departureUTCTime;
+					let selectedDepartureUTCTime = res.data.filter(stop => stop.stopId == stopId)[0].departureUTCTime;
 
-					this.stops = ret.filter(stop => {
+					this.stops = res.data.filter(stop => {
 						//if (stop.stopId == 0) return stop;
 						var m1 = moment(stop.departureUTCTime),
 							m2 = moment(selectedDepartureUTCTime),
@@ -171,12 +171,13 @@
 
 	.header-box {
 		display: flex;
-		padding: 15px 10px;
+		padding: 30upx 10px;
 		justify-content: space-around;
 		flex-direction: column;
 		border-bottom: #929292 1px solid;
 		background-color: #0072CE;
 		color: whitesmoke;
+		height:100upx;
 	}
 
 	.good {
@@ -195,7 +196,7 @@
 		flex-direction: column;
 		background-color: #fffbe8;
 		position: absolute;
-		top: 83px;
+		top: 162upx;
 		width: 100%;
 		z-index: 1;
 	}

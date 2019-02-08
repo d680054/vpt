@@ -15,8 +15,6 @@
 
 		onLoad: function() {
 			//this.app();
-			
-			
 			uni.showLoading({
 				title: "loading..."
 			});
@@ -25,15 +23,17 @@
 				let routes = uni.getStorageSync("routes");
 				let stopNameMap = uni.getStorageSync("stopNameMap");
 				let routeStopMap = uni.getStorageSync("routeStopMap");
+				console.info('check inteval');
 				if (directions && routes && stopNameMap && routeStopMap) {
 					clearInterval(interval);
 					uni.switchTab({
-						url:'./timetable/train/timetable',
+						url: './timetable/train/timetable',
 					})
+
 					uni.hideLoading();
 				}
 			}, 10);
-		}
+		},
 	}
 </script>
 

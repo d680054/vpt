@@ -5,17 +5,29 @@
 				<image src="../../static/images/myki_logo.jpeg" mode="aspectFit" class="logoimg"></image>
 			</view>
 			<view class="tip">
-				To see your account balance, log in to your myki online account
+				To check your myki balance, log in to your myki online account
 			</view>
 		</view>
 		<view class="content">
 			<view style="flex-direction:column;width:100%;">
 				<view class=" has-mgtb-10 ">
-					<input type="number" maxlength="11" v-model="login.phone" placeholder="myki username" class="is-input1 " @input="BindInput"
-					 data-val="phone" />
+					<input type="text" maxlength="20" v-model="login.username" placeholder="myki username" class="is-input1 " @input="BindInput"
+					 data-val="username" confirm-type="next" />
 				</view>
-				<view class="has-mgtb-20">
-					<input v-model="login.password" placeholder="myki password" class="is-input1" @input="BindInput" data-val="password" />
+				<view>
+					<input password type="text" maxlength="20" v-model="login.password" placeholder="myki password" class="is-input1"
+					 @input="BindInput" data-val="password" confirm-type="done" />
+				</view>
+
+				<view style="font-size:32upx;padding-left: 20upx;padding-top: 20upx;">
+					<checkbox value="this.rememberme" @tap="tapRememberMe" />
+					Remember me
+				</view>
+				<view style="font-size:32upx;padding-left: 20upx;padding-top: 10upx;">
+					<checkbox value="this.policy" @tap="tapPolicy" />
+					<navigator url="#" hover-class="">
+						I accept the <text class="is-blue"> Privacy Statement</text>
+					</navigator>
 				</view>
 
 				<view class="loginbtn has-mgtb-30">
@@ -23,14 +35,12 @@
 				</view>
 			</view>
 		</view>
-		<view>
-			<navigator url="#" hover-class="" style="font-size:32upx;padding-top: 20upx;">
-				<text>I accept the </text><text class="is-blue"> Privacy Statement</text>
-			</navigator>
-		</view>
+
 	</view>
-	<view v-else style="flex:1;position:fixed;bottom:0;width:100%;">
-		<page-head :title="title"></page-head>
+	<view v-else class="cardPanel" :style="cardPanel">
+		<view style="justify-content:flex-end;padding:25upx;" @tap="config">
+			<image src="../../static/images/config-blue.png" style="padding-left:5px; height:25px;width:25px;" />
+		</view>
 		<view class="mykiList">
 			<!-- <view class="example-title">左侧滑出</view>
 			<view>
@@ -47,13 +57,14 @@
 					</view>
 				</uni-drawer>
 			</view> -->
-			<view class="card" v-for="(item,index) in cards" :key="index">
+			<view class="card" :style="item.color" v-if="item.show" v-for="(item,index) in cards" :key="index" :data-current="index"
+			 :data-cardnum="item.cardNum" @tap="gotoCardDetail">
 				<view>
-					<image src="../../static/images/myki_logo.jpeg" style="border-radius:50px;height:35px;width:35px;" />
+					<image src="../../static/images/myki_logo_2.jpg" style="border-radius:50px;height:35px;width:35px;" />
 				</view>
 				<view style="flex-direction: column;">
 					<view style="font-weight: bold;">{{item.cardNum}}</view>
-					<view style="padding-top: 18upx;">{{item.holder}}</view>
+					<view style="padding-top: 18upx;text-transform: uppercase;">{{item.holder}}</view>
 				</view>
 				<view style="flex-direction: column;align-items:flex-end">
 					<view style="font-size:28upx">Available</view>
@@ -72,11 +83,14 @@
 			return {
 				cards: [],
 				loginPage: true,
-				username: '',
-				password: '',
+				rememberme: false,
+				policy: false,
+				readyToSubmit: true,
+				cardPanel: "position: fixed",
+				windowHeight: "",
 				login: {
 					loading: false,
-					phone: "",
+					username: "",
 					password: ""
 				},
 
@@ -84,52 +98,148 @@
 		},
 
 		onLoad: function() {
-			if (uni.getStorageSync("mykiLogin")) {
+			wx.getSystemInfo({
+				success: (res) => {
+					this.windowHeight = (res.windowHeight * (750 / res.windowWidth));
+					//console.info(this.windowHeight);
+				}
+			})
+			let mykiLogin = uni.getStorageSync("rememberme")
+			if (mykiLogin) {
 				this.loginPage = false;
-				this.cards = uni.getStorageSync("cards");
-				this.loadingCards();
+
 			} else {
 				this.loginPage = true;
 			}
-			uni.setNavigationBarColor({
-				frontColor: '#ffffff',
-				backgroundColor: '#c4da2d',
-			})
+			// 			uni.setNavigationBarColor({
+			// 				frontColor: '#ffffff',
+			// 				backgroundColor: '#c2d840',
+			// 			})
 		},
+
+		onShow: function() {
+			if (!this.loginPage) {
+				this.cards = uni.getStorageSync("cards").filter(c => c.show);
+				this.calWindowHeight();
+			}
+		},
+
+		onReady: function() {
+
+		},
+
 
 		onPullDownRefresh() {
 			this.loadingCards(uni.stopPullDownRefresh());
 		},
 
 		methods: {
-			loadingCards() {
+			loadingCards(u, p) {
 				let body = {
-					username: 'david1022',
-					password: '2lg5lcgv'
+					username: u,
+					password: p,
 				}
-				net.netUtil(con.MYKI_CARDS_URL, 'GET', body, ret => {
-					if (ret) {
-						this.cards = ret;
-						uni.setStorage({
-							key: "cards",
-							data: ret
+				net.netUtil(con.MYKI_CARDS_URL, 'GET', body, res => {
+					if (res.statusCode === 403) {
+						uni.showModal({
+							title: "Error",
+							content: "your username or password is wrong",
+							showCancel: false,
 						})
+					} else if (res.data) {
+						this.cards = res.data;
+						uni.setStorageSync("cards", this.cards);
+						this.loginPage = false;
+						if (this.rememberme) {
+							uni.setStorageSync("rememberme", body);
+						}
 					}
-				});
-			},
-			defaultHandlerLogin: function() {
-				this.login.loading = true;
-				setTimeout((e => {
 					this.login.loading = false;
-					this.loginPage = false;
-				}), 1500);
-				
+					this.readyToSubmit = true;
+
+				}, false);
 			},
+
+			defaultHandlerLogin: function() {
+				if (this.policy) {
+					if (this.login.username.trim() == "" || this.login.password.trim() == "") {
+						uni.showModal({
+							title: "Error",
+							content: "The username or password is blank",
+							showCancel: false,
+						})
+					} else {
+						if (this.readyToSubmit) {
+							this.login.loading = true;
+							this.readyToSubmit = false;
+							this.loadingCards(this.login.username, this.login.password);
+						}
+					}
+				} else {
+					uni.showModal({
+						title: "Error",
+						content: "You have to agree the Privacy Policy to continue",
+						showCancel: false,
+					})
+				}
+			},
+
 			BindInput: function(e) {
 				var dataval = e.currentTarget.dataset.val;
 				this.login[dataval] = e.detail.value;
 			},
+
+			tapRememberMe: function(e) {
+				this.rememberme = !this.rememberme;
+			},
+
+			tapPolicy: function(e) {
+				this.policy = !this.policy;
+			},
+
+			calWindowHeight: function(e) {
+				let cards = this.cards.filter(c => c.show == true);
+				if (cards && cards.length * 170 > this.windowHeight) {
+					this.cardPanel = "position: relative";
+				} else {
+					this.cardPanel = "position: fixed";
+				}
+			},
+
+			config: function(e) {
+				uni.showActionSheet({
+					itemList: ['Show Cards', 'Logout'],
+					success: (res) => {
+						if (res.tapIndex == 0) {
+
+						} else if (res.tapIndex == 1) {
+							uni.showModal({
+								content: 'are you sure to logout?',
+								cancelText: 'Cancel',
+								confirmText: 'OK',
+								success: (res) => {
+									if (res.confirm) {
+										this.loginPage = true;
+										uni.clearStorageSync("cards");
+										uni.clearStorageSync("rememberme");
+									}
+								},
+							})
+
+						}
+					}
+				})
+			},
+
+			gotoCardDetail: function(e) {
+				let cardNum = e.currentTarget.dataset.cardnum;
+				let current = e.currentTarget.dataset.current;
+				uni.navigateTo({
+					url: './mykiDetail/mykiDetail?cardNum=' + cardNum + '&current=' + current,
+				});
+			}
 		},
+
 		onBackPress() {
 			if (this.showRigth || this.showLeft) {
 				this.hide()
@@ -157,6 +267,13 @@
 		align-items: center;
 	}
 
+	.cardPanel {
+		flex: 1;
+		bottom: 0;
+		width: 100%;
+		flex-direction: column;
+	}
+
 	.content {
 		width: 85%;
 		margin: 0 auto;
@@ -179,8 +296,8 @@
 		margin-bottom: 20rpx;
 	}
 
-	.has-mgtb-20 {
-		margin-bottom: 30rpx;
+	.has-mgtb-30 {
+		margin-top: 30rpx;
 	}
 
 	.loginbtn button {
@@ -254,8 +371,9 @@
 		justify-content: space-around;
 		padding-top: 15px;
 		margin-bottom: -10px;
-		background: linear-gradient(orange 0%,
-			#F78248 30%);
+		border-top: 1px solid #e7e7e7;
+		/* 		background: linear-gradient(orange 0%,
+			#F78248 30%); */
 	}
 
 	.close {

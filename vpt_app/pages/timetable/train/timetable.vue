@@ -1,7 +1,7 @@
 <template>
 	<view class="content uni-column" style="flex: 1;">
 		<view class="header-box">
-			<view @tap="gotoLineSelect" id="asfas">
+			<view @tap="gotoLineSelect">
 				<image style="width:25px;height:25px" src="../../../static/images/track.png"></image>
 				<text>{{trainLines}}</text>
 			</view>
@@ -15,22 +15,34 @@
 		</view>
 		<view style="flex-direction: column;">
 			<scroll-view scroll-y :style="scrollHeight" class="uni-list main_container">
-				<view class="uni-list-cell container" hover-class="uni-list-cell-hover" v-for="(item,index) in timetables" :key="index"
-				 @tap="openRunDetail" :data-runid="item.runId" :data-terminal="item.terminal" :data-routeid="item.routeId"
-				 :data-departtime="item.departureLocalTime" data-status="status">
-					<view class="uni-list-cell-navigate uni-navigate-right cell-align" :style="item.greyCell">
-						<view style="align-items:center;padding: 4upx;">
-							<view class="disruption-circle" :style="serviceStatus[item.routeId]"></view>
-							<text class="terminal">{{item.terminal}}</text>
-							<text style="font-weight: bold;font-size:0.7em;" v-show="item.express"> - Express</text>
+				<view class="container" hover-class="uni-list-cell-hover" v-for="(item,index) in timetables" :key="index" @tap="openRunDetail"
+				 :data-runid="item.runId" :data-terminal="item.terminal" :data-routeid="item.routeId" :data-departtime="item.departureLocalTime"
+				 data-status="status">
+					<view class="uni-list-cell-navigate cell-align" :style="item.greyCell">
+						<view style="flex-direction: column;">
+							<view style="align-items:center;padding:4upx;width:500rpx">
+								<view class="disruption-circle" :style="serviceStatus[item.routeId]"></view>
+								<text class="terminal">{{item.terminal}}</text>
+								<text class="express" v-show="item.express"> - Express</text>
+							</view>
+							<view class="departingInfo">
+								{{item.departureLocalTime}}<span v-show="item.platform"> - Platform {{item.platform}}</span>
+							</view>
 						</view>
-						<view style="padding-top: 10upx;font-size: 33upx;font-weight:700;color:#8F8F94">
-							{{item.departureLocalTime}}<span v-show="item.platform"> - Platform {{item.platform}}</span>
-							<text v-if="item.gap > 0">&nbsp;&nbsp;In {{item.gapText}}mins</text>
-							<text v-else-if="item.gap < 0">&nbsp;&nbsp;Left {{item.gapText}}mins ago</text>
-							<text v-else>&nbsp;&nbsp;NOW</text>
-						</view>
+						<!-- <view class="timing">
+							<text v-if="item.gap > 0">&nbsp;In {{item.gapText}}mins</text>
+							<text v-else-if="item.gap < 0">&nbsp;Left {{item.gapText}}mins ago</text>
+							<text v-else>&nbsp;NOW</text>
+						</view> -->
 					</view>
+					<view class="timing" style="background: #6A6D73;" v-if="item.gap < 0">
+						<text>Left\n {{item.gapText}}mins</text>
+					</view>	
+					<view class="timing" v-else>
+						<text v-if="item.gap > 0">In\n {{item.gapText}}mins</text>
+						<text v-else>&nbsp;NOW</text>
+					</view>
+					
 				</view>
 			</scroll-view>
 		</view>
@@ -81,7 +93,6 @@
 
 		onLoad: function() {
 			event.on('DataChanged', this, function(data) {
-				console.info('registering the data changed');
 				let selectedStop = uni.getStorageSync("selectedStop");
 				this.stopName = selectedStop['stopName'];
 				this.stopId = selectedStop['stopId'];
@@ -89,7 +100,6 @@
 				this.forceLoadingTimetable();
 			})
 			this.fetchServiceStatus();
-			console.info("timetable on load");
 		},
 		onUnload: function() {
 			event.remove('DataChanged', this);
@@ -136,18 +146,17 @@
 					stopId: this.stopId,
 					routeIds: selectedRouteIds.join()
 				}
-				net.netUtil(con.DEPARTURE_URL, 'GET', body, ret => {
-					if (ret) {
-						console.info('loading time table');
-						this.fullTimetables = this.filterTheTimetable(ret);
+				net.netUtil(con.DEPARTURE_URL, 'GET', body, res => {
+					if (res.data) {
+						this.fullTimetables = this.filterTheTimetable(res.data);
 						this.timetables = this.fullTimetables;
 						uni.setStorageSync("fullTimetables", this.fullTimetables);
 						uni.setStorageSync("timetables", this.timetables);
 						this.initDirections(this.timetables);
 
-						if (callback) {
-							callback;
-						}
+						// 						if (callback) {
+						// 							callback;
+						// 						}
 					}
 				});
 			},
@@ -158,7 +167,7 @@
 				if (routeIds.length == 1) {
 					this.trainLines = this.trainRoutesMap[routeIds[0]];
 				} else if (routeIds.length > 1) {
-					let number = routeIds.length == 18 ? 17:routeIds.length;
+					let number = routeIds.length == 18 ? 17 : routeIds.length;
 					this.trainLines = number + " lines"
 				}
 			},
@@ -199,11 +208,11 @@
 						let du = moment.duration(moment(item.departureUTCTime) - moment(), 'ms');
 						item.gap = moment(item.departureUTCTime).diff(moment(), 'minutes');
 						if (item.gap < 0) {
-							item.greyCell = "background-color:#ededed";
+							item.greyCell = "background-color:#e7e7e7";
 						}
 						var h = "";
 						if (du.get('hours') > 0) {
-							h = du.get('hours') + "h"
+							h = du.get('hours') + "h "
 						}
 						item.gapText = h + Math.abs(du.get('minutes'));
 						return item;
@@ -218,13 +227,13 @@
 				let body = {
 					routeType: '0',
 				}
-				net.netUtil(con.DISRUPTION_URL, 'GET', body, ret => {
-					if (ret) {
+				net.netUtil(con.DISRUPTION_URL, 'GET', body, res => {
+					if (res.data) {
 						uni.setStorage({
 							key: "disruptions",
-							data: ret
+							data: res.data
 						})
-						ret.forEach(d => {
+						res.data.forEach(d => {
 							d.colour = "#ffd500" == d.colour ? "#66cc33" : d.colour
 							this.serviceStatus[d.routeId] = "background-color:" + d.colour;
 							this.status = "1"
@@ -337,12 +346,13 @@
 		/* left: 0;
 		top: 0; */
 		margin: 15upx 13upx;
-		border: 1px solid #ddd;
+		/* border: 1px solid #ddd; */
 		border-left: 4px solid #0072ce;
 		background-color: #fff;
-		border-radius: 5px;
-		border-bottom: 2px solid #e9e9e9;
-		border-right: 2px solid #e9e9e9;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+		/* border-bottom: 1px solid #c7c7c7; */
+		/* border-right: 2px solid #e9e9e9; */
 	}
 
 	.uni-media-list-body {
@@ -372,15 +382,52 @@
 	}
 
 	.cell-align {
-		flex-direction: column;
+		flex-direction: row;
 		align-items: flex-start;
+		height: 160rpx;
+		border-bottom: 1px solid #c7c7c7;
+		border-top: 1px solid #c7c7c7;
+		white-space: nowrap;
+		width: 100rpx;
 	}
 
 	.terminal {
-		font-size: 1.2em;
-		padding-left: 15upx;
+		font-size: 1.1em;
+		padding-left: 10upx;
 		font-weight: bold;
 		text-transform: uppercase;
+	}
+
+	.express {
+		font-weight: bold;
+		font-size: 0.7em;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		/* width:140upx; */
+	}
+
+	.departingInfo {
+		padding-top: 10upx;
+		padding-left: 3upx;
+		font-size: 33upx;
+		font-weight: 700;
+		color: #6a6d73;
+		/*#8F8F94*/
+	}
+
+	.timing {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		/* text-transform: uppercase; */
+		font-weight: 400;
+		font-size: 34rpx;
+		align-self: center;
+		width: 180upx;
+		height: 160upx;
+		background: #0072ce;
+		color: white;
 	}
 
 	.disruption-circle {

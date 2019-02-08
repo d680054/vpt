@@ -1,20 +1,23 @@
 {
     "pages" : [
         //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-        {
+		{
             "path" : "pages/timetable/train/timetable",
             "style" : {
                 "disableScroll" : true,
                 "navigationBarTitleText" : "Time Table",
                 //#ifdef MP-WEIXIN
-                "enablePullDownRefresh" : true,
+                "enablePullDownRefresh" : false,
                 //#endif
                 "app-plus" : {}
             }
         },
         {
             "path" : "pages/myki/myki",
-            "style" : {}
+            "style" : {
+                "navigationBarTitleText" : "myki",
+                "enablePullDownRefresh" : false
+            }
         },
         {
             "path" : "pages/timetable/train/lineSelect/lineSelect",
@@ -37,6 +40,10 @@
         {
             "path" : "pages/timetable/train/runDetail/stopDetail/stopDetail",
             "style" : {}
+        },
+        {
+            "path" : "pages/myki/mykiDetail/mykiDetail",
+            "style" : {}
         }
     ],
     "globalStyle" : {
@@ -48,7 +55,7 @@
     "tabBar" : {
         "color" : "#7A7E83",
         "selectedColor" : "#515151",
-        "borderStyle" : "dark",
+        "borderStyle" : "white",
         "backgroundColor" : "#ffffff",
         "list" : [
             {
@@ -67,7 +74,7 @@
     },
     "permission" : {
         "scope.userLocation" : {
-            "desc" : "你的位置信息将用于程序位置接口的效果展示"
+            "desc" : "根据当前位置自动获取附近车站信息"
         }
     }
 }
