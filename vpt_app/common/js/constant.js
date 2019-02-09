@@ -1,6 +1,6 @@
 //url相关
-const BASE_URL = "https://vpt.hjaustralia.com";
-//const BASE_URL = "https://localhost:8080" 
+//const BASE_URL = "https://vpt.hjaustralia.com";
+const BASE_URL = "https://localhost:8080" 
 
 //登录
 const DEPARTURE_URL = BASE_URL + "/api/ptv/departures/";

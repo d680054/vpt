@@ -20,9 +20,9 @@
 							</view>
 							<view style="padding-left:20px;align-items: center;font-size: 45upx;">{{item.nickname}}</view>
 						</view>
-						<view @tap="config" :data-cardnum="item.cardNum">
+						<!-- <view @tap="config" :data-cardnum="item.cardNum">
 							<image src="../../../static/images/config.png" style="padding-left:5px; height:18px;width: 18px;" />
-						</view>
+						</view> -->
 					</view>
 					<view class="line">
 						<view>{{item.type}}</view>
@@ -38,12 +38,15 @@
 						</view>
 					</view>
 				</view>
-				<!-- <view style="justify-content:space-between;align-items: center;width:90%;">
-					<view>Last updated</view>
-					<view>
-						<image src="../../../static/images/config.png" style="padding-left:5px; height:18px;width: 18px;" />
+				<view class="card-config">
+					<view style="align-items: center;">
+						<image src="../../../static/images/refresh.png" style="padding-right:5px; height:20px;width: 20px;" />Last
+						updated
 					</view>
-				</view>-->
+					<view @tap="config" :data-cardnum="item.cardNum">
+						<image src="../../../static/images/config.png" style="padding-left:5px; height:22px;width: 22px;" />
+					</view>
+				</view>
 				<scroll-view scroll-y class="scroll" :style="scrollHeight" v-if="item.transactions">
 					<view class="transaction" v-for="(transaction,index1) in item.transactions" :key="index1">
 						<view class="trans-date">{{transaction.date}}</view>
@@ -126,7 +129,7 @@
 			this.cards = uni.getStorageSync("cards");
 			this.cards.forEach(c => {
 				if (c.cardNum == this.currentCardNum) {
-					this.nickname = c.nickname == null? '': c.nickname;
+					this.nickname = c.nickname == null ? '' : c.nickname;
 				}
 			});
 		},
@@ -175,7 +178,7 @@
 					success: (res) => {
 						if (res.tapIndex == 0) {
 							this.$refs.unikModal.show();
-							this.focus=true;
+							this.focus = true;
 						} else if (res.tapIndex == 1) {
 							let displayedCards = this.cards.filter(c => c.show);
 							displayedCards.forEach((v, i) => {
@@ -195,10 +198,10 @@
 				this.currentCardNum = e.detail.currentItemId;
 				this.cards.forEach(c => {
 					if (c.cardNum == this.currentCardNum) {
-						this.nickname = c.nickname == null? '': c.nickname;
+						this.nickname = c.nickname == null ? '' : c.nickname;
 					}
 				});
-				
+
 			},
 
 			confirmModal: function(e) {
@@ -243,9 +246,9 @@
 	.card {
 		/* border: 1px solid #0072CE; */
 		width: 94%;
-		height: 200px;
+		height: 210px;
 		border-radius: 8px;
-		margin-top: 40rpx;
+		margin-top: 20rpx;
 		flex-direction: column;
 		justify-content: space-between;
 	}
@@ -264,6 +267,16 @@
 		justify-content: space-between;
 	}
 
+	.card-config {
+		justify-content: space-between;
+		align-items: center;
+		width: 90%;
+		color: #55565a;
+		font-size: 28rpx;
+		font-weight: 400;
+		padding: 10rpx 0;
+	}
+
 	.scroll {
 		padding-bottom: 30upx;
 		padding-left: 0px;
@@ -277,6 +290,7 @@
 		align-items: center;
 		width: 100%;
 		font-weight: 400;
+		margin-top: -20rpx;
 	}
 
 	.trans-date {
