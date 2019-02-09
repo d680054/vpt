@@ -35,7 +35,7 @@
 			this.initRouteStop();
 			this.initDirections();
 			uni.removeStorageSync("fullTimetables");
-			this.loadCards();
+			//this.loadCards();
 		},
 
 		onShow: function() {

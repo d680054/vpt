@@ -52,12 +52,9 @@
 	import net from '@/common/js/netUtil.js'
 	import con from '@/common/js/constant.js'
 	import moment from '@/common/js/moment.min.js'
-	import uniNoticeBar from "@/components/uni-notice-bar/uni-notice-bar.vue"
 
 	export default {
-		components: {
-			uniNoticeBar
-		},
+		
 		data() {
 			return {
 				stops: [],

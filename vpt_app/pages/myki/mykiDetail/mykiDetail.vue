@@ -1,8 +1,13 @@
 <template>
 	<view class="main" :style="windowHeight">
-
-		<swiper class="swiper" :current="currentIndex" indicator-dots="true" circular="true" duration="500">
-			<swiper-item class="item" v-if="item.show" v-for="(item,index) in cards" :key="index">
+		<view style="display:block;">
+			<unik-modal ref="unikModal" :modalTitle="modalTitle" @confirmModal="confirmModal" @cancelModal="cancelModal">
+				<input class="uni-input" v-model="nickname" :focus="focus" cursor-spacing=20 maxlength=20 placeholder="nickname" />
+			</unik-modal>
+		</view>
+		<!-- <swiper class="swiper" :current="currentIndex" indicator-dots="true" circular="true" duration="500" @change="onSlideChangeEnd"> -->
+		<swiper class="swiper" :current-item-id="currentCardNum" indicator-dots="true" circular="true" duration="500" @change="onSlideChangeEnd">
+			<swiper-item class="item" v-if="item.show" :item-id="item.cardNum" v-for="(item,index) in cards" :key="index">
 				<view class="card" :style="item.color">
 					<view class="line">
 						<view>MYKI MONEY</view>
@@ -13,7 +18,7 @@
 							<view>
 								<image src="../../../static/images/myki_logo_2.jpg" style="border-radius:50px;height:40px;width:40px;" />
 							</view>
-							<view style="padding-left:20px;">{{item.nickname}}</view>
+							<view style="padding-left:20px;align-items: center;font-size: 45upx;">{{item.nickname}}</view>
 						</view>
 						<view @tap="config" :data-cardnum="item.cardNum">
 							<image src="../../../static/images/config.png" style="padding-left:5px; height:18px;width: 18px;" />
@@ -77,7 +82,7 @@
 					<view>
 						No Transactions
 					</view>
-					<view style="font-size:28upx;">
+					<view style="font-size:28upx;font-weight:400;">
 						transactions may be delayed by up to 24 hours
 					</view>
 				</view>
@@ -91,25 +96,41 @@
 <script>
 	import net from '@/common/js/netUtil.js';
 	import con from '@/common/js/constant.js';
+	import unikModal from '@/components/uni-modal/uni-modal.vue';
+
 
 	export default {
+		components: {
+			unikModal
+		},
 		data() {
 			return {
 				cards: Object,
 				currentIndex: 0,
+				currentCardNum: 0,
 				windowHeight: "height:600px",
 				scrollHeight: "height:330px",
+				user: uni.getStorageSync("rememberme"),
+				modalTitle: 'Edit Nickname',
+				nickname: '',
+				focus: false,
 			};
 		},
 
 		onLoad: function(e) {
-			console.info(e.current);
 			this.currentIndex = e.current;
-			//this.card = cards.filter(c => c.cardNum == e.cardNum);
+			this.currentCardNum = e.cardNum;
 		},
+
 		onShow: function(e) {
 			this.cards = uni.getStorageSync("cards");
+			this.cards.forEach(c => {
+				if (c.cardNum == this.currentCardNum) {
+					this.nickname = c.nickname == null? '': c.nickname;
+				}
+			});
 		},
+
 		onReady: function() {
 			wx.getSystemInfo({
 				success: (res) => {
@@ -118,7 +139,34 @@
 				}
 			})
 		},
+
+		onPullDownRefresh() {
+			this.refreshTransaction(this.currentCardNum, uni.stopPullDownRefresh());
+		},
+
 		methods: {
+
+			refreshTransaction(cardNum, stopRefresh) {
+				let card = this.cards.filter(c => c.cardNum == cardNum)[0];
+				let body = {
+					username: this.user.username,
+					password: this.user.password,
+					cn: card.selfLink,
+				}
+				net.netUtil(con.MYKI_TRANSACTIONS_URL, 'GET', body, res => {
+					if (res.data && res.data.length > 0) {
+						this.cards.forEach(c => {
+							if (c.cardNum == cardNum) {
+								c.transactions = res.data;
+								c.mykiMoney = res.data[0].transactionDetailList[0].balance;
+							}
+						});
+						uni.setStorageSync("cards", this.cards);
+					}
+					stopRefresh;
+				});
+			},
+
 			config(e) {
 				let dataset = e.currentTarget.dataset;
 				let cardnum = dataset.cardnum;
@@ -126,25 +174,41 @@
 					itemList: ['Edit Card Name', 'Hide Card'],
 					success: (res) => {
 						if (res.tapIndex == 0) {
-
+							this.$refs.unikModal.show();
+							this.focus=true;
 						} else if (res.tapIndex == 1) {
-							let hiddenCards = uni.getStorageSync("hiddenCards");
-							hiddenCards = hiddenCards ? hiddenCards : []
-							hiddenCards.push(cardnum);
-							uni.setStorageSync("hiddenCards", hiddenCards);
-							this.cards.forEach(c => {
-								if (hiddenCards.includes(c.cardNum)) {
-									c.show = false;
+							let displayedCards = this.cards.filter(c => c.show);
+							displayedCards.forEach((v, i) => {
+								if (v.cardNum == cardnum) {
+									v.show = false;
+									if (++i >= displayedCards.length) i = 0;
+									this.currentCardNum = displayedCards[i].cardNum;
 								}
 							})
-							if (this.currentIndex >= (this.cards.length - hiddenCards.length)) {
-								this.currentIndex = 0;
-							}
 							uni.setStorageSync("cards", this.cards);
 						}
 					}
 				})
-			}
+			},
+
+			onSlideChangeEnd: function(e) {
+				this.currentCardNum = e.detail.currentItemId;
+				this.cards.forEach(c => {
+					if (c.cardNum == this.currentCardNum) {
+						this.nickname = c.nickname == null? '': c.nickname;
+					}
+				});
+				
+			},
+
+			confirmModal: function(e) {
+				this.cards.forEach(c => {
+					if (c.cardNum == this.currentCardNum) {
+						c.nickname = this.nickname;
+					}
+				});
+				uni.setStorageSync("cards", this.cards);
+			},
 		}
 	}
 </script>
@@ -153,6 +217,13 @@
 	.main {
 		width: 100%;
 		justify-content: center;
+	}
+
+	.uni-input {
+		background: #f7f7f7;
+		width: 100%;
+		padding: 10rpx;
+		border-radius: 1px;
 	}
 
 	.swiper {
@@ -190,7 +261,7 @@
 		padding: 0px 20px;
 		padding-bottom: 5px;
 		align-items: center;
-		justify-content:space-between;
+		justify-content: space-between;
 	}
 
 	.scroll {

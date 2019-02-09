@@ -43,7 +43,10 @@
         },
         {
             "path" : "pages/myki/mykiDetail/mykiDetail",
-            "style" : {}
+            "style" : {
+                "navigationBarTitleText" : "myki",
+                "enablePullDownRefresh" : true
+            }
         }
     ],
     "globalStyle" : {

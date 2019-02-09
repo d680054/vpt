@@ -63,8 +63,8 @@
 					<image src="../../static/images/myki_logo_2.jpg" style="border-radius:50px;height:35px;width:35px;" />
 				</view>
 				<view style="flex-direction: column;">
-					<view style="font-weight: bold;">{{item.cardNum}}</view>
-					<view style="padding-top: 18upx;text-transform: uppercase;">{{item.holder}}</view>
+					<view>{{item.cardNum}}</view>
+					<view style="padding-top: 18upx;font-weight: bold;">{{item.nickname!=null? item.nickname:item.holder}}</view>
 				</view>
 				<view style="flex-direction: column;align-items:flex-end">
 					<view style="font-size:28upx">Available</view>
@@ -214,14 +214,17 @@
 
 						} else if (res.tapIndex == 1) {
 							uni.showModal({
-								content: 'are you sure to logout?',
+								content: 'Are you sure to logout?',
 								cancelText: 'Cancel',
 								confirmText: 'OK',
 								success: (res) => {
 									if (res.confirm) {
+										this.login.username = "";
+										this.login.password ="";
+										this.policy = false;
+										this.rememberme = false;
 										this.loginPage = true;
-										uni.clearStorageSync("cards");
-										uni.clearStorageSync("rememberme");
+										uni.removeStorageSync("rememberme");
 									}
 								},
 							})

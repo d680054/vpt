@@ -1,6 +1,6 @@
 //url相关
-//const BASE_URL = "https://vpt.hjaustralia.com";
-const BASE_URL = "https://localhost:8080" 
+const BASE_URL = "https://vpt.hjaustralia.com";
+//const BASE_URL = "https://localhost:8080" 
 
 //登录
 const DEPARTURE_URL = BASE_URL + "/api/ptv/departures/";
@@ -14,6 +14,7 @@ const DISRUPTION_URL = BASE_URL + "/api/ptv/disruptions";
 
 const MYKI_CARDS_URL = BASE_URL + "/api/ptv/myki/getCards";
 const MYKI_DETAIL_URL = BASE_URL + "/api/ptv/myki/getCardDetail";
+const MYKI_TRANSACTIONS_URL = BASE_URL + "/api/ptv/myki/getTransactions";
 
 const HEADERS = {
   'content-type': 'application/json',
@@ -33,5 +34,6 @@ module.exports = {
 	DISRUPTION_URL: DISRUPTION_URL,
 	MYKI_CARDS_URL: MYKI_CARDS_URL,
 	MYKI_DETAIL_URL: MYKI_DETAIL_URL,
+	MYKI_TRANSACTIONS_URL: MYKI_TRANSACTIONS_URL,
 	HEADERS: HEADERS,
 }
