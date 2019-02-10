@@ -1,5 +1,24 @@
 <template>
 	<view class="content uni-column" style="flex: 1;">
+		<uni-nav-bar left-icon="bars" right-icon="refreshempty" @click-left="openDrawer" @click-right="refreshTimeTable"
+		 status-bar="true" color="#F8F8F8" background-color="#0072ce" shadow="false">
+			<view style="font-weight: 500;">Time Table</view>
+			<!-- <view slot="left">left</view>
+			<view slot="right">right</view> -->
+		</uni-nav-bar>
+		<uni-drawer :visible="showDrawer" mode="left" @close="closeDrawer('left')">
+			<view style="padding:40upx;font-weight:500;">Victoria Public Transport</view>
+			<uni-list>
+				<uni-list-item title="Train" show-arrow="false" thumb="../../../static/images/train.png"></uni-list-item>
+				<uni-list-item title="V/Line" show-arrow="false" thumb="../../../static/images/vline.png"></uni-list-item>
+				<uni-list-item title="Tram" show-arrow="false" thumb="../../../static/images/tram.png"></uni-list-item>
+				<uni-list-item title="Bus" show-arrow="false" thumb="../../../static/images/bus.png"></uni-list-item>
+				<uni-list-item title="SkyBus" show-arrow="false" thumb="../../../static/images/skybus.png"></uni-list-item>
+				<uni-list-item title="Setting"></uni-list-item>
+				<uni-list-item title="About"></uni-list-item>
+			</uni-list>
+		</uni-drawer>
+
 		<view class="header-box">
 			<view @tap="gotoLineSelect">
 				<image style="width:25px;height:25px" src="../../../static/images/track.png"></image>
@@ -37,12 +56,12 @@
 					</view>
 					<view class="timing" style="background: #6A6D73;" v-if="item.gap < 0">
 						<text>Left\n {{item.gapText}}mins</text>
-					</view>	
+					</view>
 					<view class="timing" v-else>
 						<text v-if="item.gap > 0">In\n {{item.gapText}}mins</text>
 						<text v-else>&nbsp;NOW</text>
 					</view>
-					
+
 				</view>
 			</scroll-view>
 		</view>
@@ -55,18 +74,26 @@
 	import util from '@/common/js/util.js'
 	import moment from '@/common/js/moment.min.js'
 	import uniDrawer from "@/components/uni-drawer/uni-drawer.vue"
+	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
+	import uniList from '@/components/uni-list/uni-list.vue'
+	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import event from "@/common/js/event.js"
 
-
 	export default {
-
 		components: {
-			uniDrawer
+			uniDrawer,
+			uniNavBar,
+			uniList,
+			uniListItem,
 		},
 
 		data() {
 			return {
 				showDrawer: false,
+				showRigth: false,
+				showLeft: true,
+				title: 'Drawer',
+
 				fullTimetables: [],
 				timetables: [],
 				trainLines: '',
@@ -112,7 +139,7 @@
 					this.scrollHeight = "height:" + (res.windowHeight - 100) + "px";
 					//#endif
 					//#ifdef MP-WEIXIN
-					this.scrollHeight = "height:" + (res.windowHeight - 50) + "px";
+					this.scrollHeight = "height:" + (res.windowHeight - 120) + "px";
 					//#endif
 				}
 			})
@@ -308,9 +335,14 @@
 				}
 			},
 
+			refreshTimeTable() {
+				this.forceLoadingTimetable();
+			},
+
 			openDrawer(e) {
 				this.showDrawer = true;
 			},
+
 			closeDrawer() {
 				console.info("close drawer:" + this.showDrawer);
 				this.showDrawer = false;

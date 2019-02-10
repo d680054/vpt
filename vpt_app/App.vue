@@ -35,6 +35,13 @@
 			this.initRouteStop();
 			this.initDirections();
 			uni.removeStorageSync("fullTimetables");
+			
+			wx.getSystemInfo({
+				success: (res) => {
+					this.windowHeight = (res.windowHeight * (750 / res.windowWidth));
+					uni.setStorageSync("windowHeight", this.windowHeight);
+				}
+			})
 			//this.loadCards();
 		},
 

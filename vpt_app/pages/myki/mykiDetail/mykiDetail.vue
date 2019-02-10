@@ -2,7 +2,7 @@
 	<view class="main" :style="windowHeight">
 		<view style="display:block;">
 			<unik-modal ref="unikModal" :modalTitle="modalTitle" @confirmModal="confirmModal" @cancelModal="cancelModal">
-				<input class="uni-input" v-model="nickname" :focus="focus" cursor-spacing=20 maxlength=20 placeholder="nickname" />
+				<input class="uni-input" v-model="nickname" cursor-spacing=80 maxlength=20 placeholder="nickname" />
 			</unik-modal>
 		</view>
 		<!-- <swiper class="swiper" :current="currentIndex" indicator-dots="true" circular="true" duration="500" @change="onSlideChangeEnd"> -->
@@ -16,7 +16,7 @@
 					<view class="card-icon">
 						<view>
 							<view>
-								<image src="../../../static/images/myki_logo_2.jpg" style="border-radius:50px;height:40px;width:40px;" />
+								<image src="../../../static/images/myki_logo_2.jpg" class="myki-logo" />
 							</view>
 							<view style="padding-left:20px;align-items: center;font-size: 45upx;">{{item.nickname}}</view>
 						</view>
@@ -39,9 +39,9 @@
 					</view>
 				</view>
 				<view class="card-config">
-					<view style="align-items: center;">
+					<view style="align-items: center;" @tap="refresh" :data-cardnum="item.cardNum">
 						<image src="../../../static/images/refresh.png" style="padding-right:5px; height:20px;width: 20px;" />Last
-						updated
+						updated: {{item.lastUpdate}}
 					</view>
 					<view @tap="config" :data-cardnum="item.cardNum">
 						<image src="../../../static/images/config.png" style="padding-left:5px; height:22px;width: 22px;" />
@@ -85,7 +85,10 @@
 					<view>
 						No Transactions
 					</view>
-					<view style="font-size:28upx;font-weight:400;">
+					<view v-if="item.warning" style="font-size:28upx;font-weight:400;">
+						{{item.warning}}
+					</view>
+					<view v-else style="font-size:28upx;font-weight:400;">
 						transactions may be delayed by up to 24 hours
 					</view>
 				</view>
@@ -99,6 +102,7 @@
 <script>
 	import net from '@/common/js/netUtil.js';
 	import con from '@/common/js/constant.js';
+	import moment from '@/common/js/moment.min.js'
 	import unikModal from '@/components/uni-modal/uni-modal.vue';
 
 
@@ -112,7 +116,7 @@
 				currentIndex: 0,
 				currentCardNum: 0,
 				windowHeight: "height:600px",
-				scrollHeight: "height:330px",
+				scrollHeight: "height:333px",
 				user: uni.getStorageSync("rememberme"),
 				modalTitle: 'Edit Nickname',
 				nickname: '',
@@ -138,7 +142,7 @@
 			wx.getSystemInfo({
 				success: (res) => {
 					this.windowHeight = "height:" + res.windowHeight + "px";
-					this.scrollHeight = "height:" + (res.windowHeight - 240) + "px";
+					this.scrollHeight = "height:" + (res.windowHeight - 270) + "px";
 				}
 			})
 		},
@@ -151,23 +155,43 @@
 
 			refreshTransaction(cardNum, stopRefresh) {
 				let card = this.cards.filter(c => c.cardNum == cardNum)[0];
-				let body = {
-					username: this.user.username,
-					password: this.user.password,
-					cn: card.selfLink,
-				}
-				net.netUtil(con.MYKI_TRANSACTIONS_URL, 'GET', body, res => {
-					if (res.data && res.data.length > 0) {
-						this.cards.forEach(c => {
-							if (c.cardNum == cardNum) {
-								c.transactions = res.data;
-								c.mykiMoney = res.data[0].transactionDetailList[0].balance;
-							}
-						});
-						uni.setStorageSync("cards", this.cards);
+				if (moment.utc(card.lastTransaction)
+					.add(6, 'months').isBefore(moment.utc())) {
+					this.cards.forEach(c => {
+						if (c.cardNum == cardNum) {
+							c.transactions = null;
+							c.warning = "It's more than six months since the last transaction. No transactions are available.";
+							c.lastUpdate = moment().format('D MMM, YYYY HH:mm:ss');
+						}
+					});
+					uni.setStorageSync("cards", this.cards);
+				} else {
+					let body = {
+						username: this.user.username,
+						password: this.user.password,
+						cn: card.selfLink,
 					}
-					stopRefresh;
-				});
+					net.netUtil(con.MYKI_TRANSACTIONS_URL, 'GET', body, res => {
+						if (res.data && res.data.length > 0) {
+							this.cards.forEach(c => {
+								if (c.cardNum == cardNum) {
+									c.transactions = res.data;
+									c.mykiMoney = res.data[0].transactionDetailList[0].balance;
+									c.lastUpdate = moment().format('D MMM, YYYY HH:mm:ss');
+								}
+							});
+							uni.setStorageSync("cards", this.cards);
+						}
+						if (stopRefresh) stopRefresh;
+					});
+				}
+
+			},
+
+			refresh(e) {
+				let dataset = e.currentTarget.dataset;
+				let cardnum = dataset.cardnum;
+				this.refreshTransaction(cardnum, null);
 			},
 
 			config(e) {
@@ -258,6 +282,12 @@
 		justify-content: space-between;
 		text-transform: uppercase;
 		font-size: 17px;
+	}
+
+	.myki-logo {
+		border-radius: 50px;
+		height: 40px;
+		width: 40px;
 	}
 
 	.card-icon {

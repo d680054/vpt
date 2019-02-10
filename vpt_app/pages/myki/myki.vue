@@ -42,21 +42,6 @@
 			<image src="../../static/images/config-blue.png" style="padding-left:5px; height:25px;width:25px;" />
 		</view>
 		<view class="mykiList">
-			<!-- <view class="example-title">左侧滑出</view>
-			<view>
-				<button type="default" @click="show('left')">显示Drawer</button>
-				<uni-drawer :visible="showLeft" mode="left" @close="closeDrawer('left')">
-					<view>asfdasdfasdfasdf</view>
-					<uni-list>
-						<uni-list-item title="Item1"></uni-list-item>
-						<uni-list-item title="Item2"></uni-list-item>
-						<uni-list-item title="Item3" show-badge="true" badge-text="12"></uni-list-item>
-					</uni-list>
-					<view class="close">
-						<button type="default" @click="hide">关闭Drawer</button>
-					</view>
-				</uni-drawer>
-			</view> -->
 			<view class="card" :style="item.color" v-if="item.show" v-for="(item,index) in cards" :key="index" :data-current="index"
 			 :data-cardnum="item.cardNum" @tap="gotoCardDetail">
 				<view>
@@ -64,7 +49,7 @@
 				</view>
 				<view style="flex-direction: column;">
 					<view>{{item.cardNum}}</view>
-					<view style="padding-top: 18upx;font-weight: bold;">{{item.nickname!=null? item.nickname:item.holder}}</view>
+					<view style="padding-top: 18upx;font-weight: bold;font-size:45upx;">{{item.nickname!=null? item.nickname:item.holder}}</view>
 				</view>
 				<view style="flex-direction: column;align-items:flex-end">
 					<view style="font-size:28upx">Available</view>
@@ -88,6 +73,7 @@
 				readyToSubmit: true,
 				cardPanel: "position: fixed",
 				windowHeight: "",
+				platform:"",
 				login: {
 					loading: false,
 					username: "",
@@ -98,158 +84,153 @@
 		},
 
 		onLoad: function() {
-			wx.getSystemInfo({
-				success: (res) => {
-					this.windowHeight = (res.windowHeight * (750 / res.windowWidth));
-					//console.info(this.windowHeight);
-				}
-			})
-			let mykiLogin = uni.getStorageSync("rememberme")
-			if (mykiLogin) {
-				this.loginPage = false;
-
-			} else {
-				this.loginPage = true;
-			}
-			// 			uni.setNavigationBarColor({
-			// 				frontColor: '#ffffff',
-			// 				backgroundColor: '#c2d840',
-			// 			})
-		},
-
-		onShow: function() {
-			if (!this.loginPage) {
-				this.cards = uni.getStorageSync("cards").filter(c => c.show);
-				this.calWindowHeight();
-			}
-		},
-
-		onReady: function() {
-
-		},
-
-
-		onPullDownRefresh() {
-			this.loadingCards(uni.stopPullDownRefresh());
-		},
-
-		methods: {
-			loadingCards(u, p) {
-				let body = {
-					username: u,
-					password: p,
-				}
-				net.netUtil(con.MYKI_CARDS_URL, 'GET', body, res => {
-					if (res.statusCode === 403) {
-						uni.showModal({
-							title: "Error",
-							content: "your username or password is wrong",
-							showCancel: false,
-						})
-					} else if (res.data) {
-						this.cards = res.data;
-						uni.setStorageSync("cards", this.cards);
-						this.loginPage = false;
-						if (this.rememberme) {
-							uni.setStorageSync("rememberme", body);
-						}
-					}
-					this.login.loading = false;
-					this.readyToSubmit = true;
-
-				}, false);
-			},
-
-			defaultHandlerLogin: function() {
-				if (this.policy) {
-					if (this.login.username.trim() == "" || this.login.password.trim() == "") {
-						uni.showModal({
-							title: "Error",
-							content: "The username or password is blank",
-							showCancel: false,
-						})
-					} else {
-						if (this.readyToSubmit) {
-							this.login.loading = true;
-							this.readyToSubmit = false;
-							this.loadingCards(this.login.username, this.login.password);
-						}
-					}
+				let mykiLogin = uni.getStorageSync("rememberme")
+				if (mykiLogin) {
+					this.loginPage = false;
 				} else {
-					uni.showModal({
-						title: "Error",
-						content: "You have to agree the Privacy Policy to continue",
-						showCancel: false,
-					})
+					this.loginPage = true;
+				}
+				
+				const res = uni.getSystemInfoSync();
+				this.windowHeight = (res.windowHeight * (750 / res.windowWidth));
+				this.platform = res.platform;
+			},
+
+			onShow: function() {
+				if (!this.loginPage) {
+					this.cards = uni.getStorageSync("cards").filter(c => c.show);
+					this.calWindowHeight();
 				}
 			},
-
-			BindInput: function(e) {
-				var dataval = e.currentTarget.dataset.val;
-				this.login[dataval] = e.detail.value;
+			
+			onPullDownRefresh() {
+				this.loadingCards(uni.stopPullDownRefresh());
 			},
 
-			tapRememberMe: function(e) {
-				this.rememberme = !this.rememberme;
-			},
-
-			tapPolicy: function(e) {
-				this.policy = !this.policy;
-			},
-
-			calWindowHeight: function(e) {
-				let cards = this.cards.filter(c => c.show == true);
-				if (cards && cards.length * 170 > this.windowHeight) {
-					this.cardPanel = "position: relative";
-				} else {
-					this.cardPanel = "position: fixed";
-				}
-			},
-
-			config: function(e) {
-				uni.showActionSheet({
-					itemList: ['Show Cards', 'Logout'],
-					success: (res) => {
-						if (res.tapIndex == 0) {
-
-						} else if (res.tapIndex == 1) {
+			methods: {
+				loadingCards(u, p) {
+					let body = {
+						username: u,
+						password: p,
+					}
+					net.netUtil(con.MYKI_CARDS_URL, 'GET', body, res => {
+						if (res.statusCode === 403) {
 							uni.showModal({
-								content: 'Are you sure to logout?',
-								cancelText: 'Cancel',
-								confirmText: 'OK',
-								success: (res) => {
-									if (res.confirm) {
-										this.login.username = "";
-										this.login.password ="";
-										this.policy = false;
-										this.rememberme = false;
-										this.loginPage = true;
-										uni.removeStorageSync("rememberme");
-									}
-								},
+								title: "Error",
+								content: "your username or password is wrong",
+								showCancel: false,
 							})
-
+						} else if (res.data) {
+							this.cards = res.data;
+							this.calWindowHeight();
+							uni.setStorageSync("cards", this.cards);
+							this.loginPage = false;
+							if (this.rememberme) {
+								uni.setStorageSync("rememberme", body);
+							}
 						}
+						this.login.loading = false;
+						this.readyToSubmit = true;
+
+					}, false);
+				},
+
+				defaultHandlerLogin: function() {
+					if (this.policy) {
+						if (this.login.username.trim() == "" || this.login.password.trim() == "") {
+							uni.showModal({
+								title: "Error",
+								content: "The username or password is blank",
+								showCancel: false,
+							})
+						} else {
+							if (this.readyToSubmit) {
+								this.login.loading = true;
+								this.readyToSubmit = false;
+								this.loadingCards(this.login.username, this.login.password);
+							}
+						}
+					} else {
+						uni.showModal({
+							title: "Error",
+							content: "You have to agree the Privacy Policy to continue",
+							showCancel: false,
+						})
 					}
-				})
-			},
+				},
 
-			gotoCardDetail: function(e) {
-				let cardNum = e.currentTarget.dataset.cardnum;
-				let current = e.currentTarget.dataset.current;
-				uni.navigateTo({
-					url: './mykiDetail/mykiDetail?cardNum=' + cardNum + '&current=' + current,
-				});
-			}
-		},
+				BindInput: function(e) {
+					var dataval = e.currentTarget.dataset.val;
+					this.login[dataval] = e.detail.value;
+				},
 
-		onBackPress() {
-			if (this.showRigth || this.showLeft) {
-				this.hide()
-				return true
+				tapRememberMe: function(e) {
+					this.rememberme = !this.rememberme;
+				},
+
+				tapPolicy: function(e) {
+					this.policy = !this.policy;
+				},
+
+				calWindowHeight: function(e) {
+					let cards = this.cards.filter(c => c.show == true);
+					if (cards && cards.length * 170 > this.windowHeight -100) {
+						this.cardPanel = "position: relative";
+					} else {
+						//#ifdef MP-WEIXIN
+						if(this.platform == "ios") {
+							this.cardPanel = "height:" + (this.windowHeight) + "rpx";
+						} else {
+							this.cardPanel = "position: fixed";
+						}
+						//#endif
+						
+						//#ifdef APP-PLUS
+						this.cardPanel = "height:" + (this.windowHeight - 120) + "rpx";
+						//#endif
+					}
+				},
+
+				config: function(e) {
+					uni.showActionSheet({
+						itemList: ['Show Hidden Cards', 'Logout'],
+						success: (res) => {
+							if (res.tapIndex == 0) {
+								uni.navigateTo({
+									url: './listHiddenMyki/listHiddenMyki',
+								});
+
+							} else if (res.tapIndex == 1) {
+								uni.showModal({
+									content: 'Are you sure to logout?',
+									cancelText: 'Cancel',
+									confirmText: 'OK',
+									success: (res) => {
+										if (res.confirm) {
+											this.login.username = "";
+											this.login.password = "";
+											this.policy = false;
+											this.rememberme = false;
+											this.loginPage = true;
+											uni.removeStorageSync("rememberme");
+										}
+									},
+								})
+
+							}
+						}
+					})
+				},
+
+				gotoCardDetail: function(e) {
+					let cardNum = e.currentTarget.dataset.cardnum;
+					let current = e.currentTarget.dataset.current;
+					uni.navigateTo({
+						url: './mykiDetail/mykiDetail?cardNum=' + cardNum + '&current=' + current,
+					});
+				}
 			}
 		}
-	}
 </script>
 
 <style>

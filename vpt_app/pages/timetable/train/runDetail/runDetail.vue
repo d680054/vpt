@@ -27,8 +27,8 @@
 		<view style="flex-direction: column;">
 			<scroll-view scroll-y :style="scrollHeight" class="uni-list">
 				<view class="uni-list-cell" hover-class="uni-list-cell-hover" v-for="(item,index) in stops" :key="index"
-				 :data-stopid="item.stopId" @tap="gotoStopDetail">
-					<view class="uni-list-cell-navigate uni-navigate-right" style="flex-direction: column;align-items: flex-start;">
+				 :data-stopid="item.stopId">
+					<view class="uni-list-cell-navigate" style="flex-direction: column;align-items: flex-start;">
 						<span v-if="item.stopId != 0">
 							<view style="align-items:center">
 								<text style="font-size:1em;padding-left:10upx;font-weight:bold;">{{item.stopName}}</text>

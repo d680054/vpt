@@ -1,22 +1,17 @@
 {
     "pages" : [
         //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
+        {
             "path" : "pages/timetable/train/timetable",
             "style" : {
                 "disableScroll" : true,
-                "navigationBarTitleText" : "Time Table",
+                "navigationStyle" : "custom",
                 //#ifdef MP-WEIXIN
                 "enablePullDownRefresh" : false,
                 //#endif
-                "app-plus" : {}
-            }
-        },
-        {
-            "path" : "pages/myki/myki",
-            "style" : {
-                "navigationBarTitleText" : "myki",
-                "enablePullDownRefresh" : false
+                "app-plus" : {
+                    "titleNView" : false
+                }
             }
         },
         {
@@ -41,12 +36,27 @@
             "path" : "pages/timetable/train/runDetail/stopDetail/stopDetail",
             "style" : {}
         },
+		{
+		    "path" : "pages/myki/myki",
+		    "style" : {
+		        "navigationBarTitleText" : "myki",
+		        "enablePullDownRefresh" : false
+		    }
+		},
         {
             "path" : "pages/myki/mykiDetail/mykiDetail",
             "style" : {
-                "navigationBarTitleText" : "myki",
-                "enablePullDownRefresh" : true
+                //#ifdef MP-WEIXIN
+                "enablePullDownRefresh" : true,
+                //#endif
+                "navigationBarTitleText" : "myki"
             }
+        },
+        {
+            "path" : "pages/myki/listHiddenMyki/listHiddenMyki",
+            "style" : {
+				"navigationBarTitleText" : "myki"
+			}
         }
     ],
     "globalStyle" : {
