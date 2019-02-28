@@ -82,11 +82,11 @@
 			net.netUtil(con.STOP_URL, 'GET', body, res => {
 				if (res.data) {
 					let stopId = uni.getStorageSync("selectedStop")['stopId'];
-					let selectedDepartureUTCTime = res.data.filter(stop => stop.stopId == stopId)[0].departureUTCTime;
+					let selectedDepartureUTCTime = res.data.filter(stop => stop.stopId == stopId)[0].scheduledDepartureUTC;
 
 					this.stops = res.data.filter(stop => {
 						//if (stop.stopId == 0) return stop;
-						var m1 = moment(stop.departureUTCTime),
+						var m1 = moment(stop.scheduledDepartureUTC),
 							m2 = moment(selectedDepartureUTCTime),
 							du = moment.duration(m1 - m2, 'ms').get('minutes');
 						if (du > 0) {

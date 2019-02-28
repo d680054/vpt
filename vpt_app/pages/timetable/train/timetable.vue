@@ -7,15 +7,15 @@
 			<view slot="right">right</view> -->
 		</uni-nav-bar>
 		<uni-drawer :visible="showDrawer" mode="left" @close="closeDrawer('left')">
-			<view style="padding:40upx;font-weight:500;">Victoria Public Transport</view>
+			<view style="padding:80upx 45upx 45upx;font-weight:500;">Victoria Public Transport</view>
 			<uni-list>
-				<uni-list-item title="Train" show-arrow="false" thumb="../../../static/images/train.png"></uni-list-item>
-				<uni-list-item title="V/Line" show-arrow="false" thumb="../../../static/images/vline.png"></uni-list-item>
-				<uni-list-item title="Tram" show-arrow="false" thumb="../../../static/images/tram.png"></uni-list-item>
-				<uni-list-item title="Bus" show-arrow="false" thumb="../../../static/images/bus.png"></uni-list-item>
-				<uni-list-item title="SkyBus" show-arrow="false" thumb="../../../static/images/skybus.png"></uni-list-item>
-				<uni-list-item title="Setting"></uni-list-item>
-				<uni-list-item title="About"></uni-list-item>
+				<uni-list-item title="Train" @click="closeDrawer" show-arrow="false" thumb="../../../static/images/train.png"></uni-list-item>
+				<uni-list-item title="V/Line" @click="comingsoon" show-arrow="false" thumb="../../../static/images/train-inactive.png"></uni-list-item>
+				<uni-list-item title="Tram" @click="comingsoon" show-arrow="false" thumb="../../../static/images/tram-inactive.png"></uni-list-item>
+				<uni-list-item title="Bus" @click="comingsoon" show-arrow="false" thumb="../../../static/images/bus-inactive.png"></uni-list-item>
+				<uni-list-item title="SkyBus" @click="comingsoon" show-arrow="false" thumb="../../../static/images/bus-inactive.png"></uni-list-item>
+				<uni-list-item title="Setting" @click="gotoSetting"></uni-list-item>
+				<uni-list-item title="About" @click="gotoAbout"></uni-list-item>
 			</uni-list>
 		</uni-drawer>
 
@@ -40,7 +40,8 @@
 					<view class="uni-list-cell-navigate cell-align" :style="item.greyCell">
 						<view style="flex-direction: column;">
 							<view style="align-items:center;padding:4upx;width:500rpx">
-								<view class="disruption-circle" :style="serviceStatus[item.routeId]"></view>
+								<view v-if="item.minorDelay" class="disruption-circle" style="background-color:#1ba035;"/>
+								<view v-else class="disruption-circle" :style="serviceStatus[item.routeId]"></view>
 								<text class="terminal">{{item.terminal}}</text>
 								<text class="express" v-show="item.express"> - Express</text>
 							</view>
@@ -104,6 +105,7 @@
 				scrollHeight: "1000upx",
 				directionArr: [],
 				directionIds: [],
+				pastTime: 10,
 				index: 0,
 				serviceStatus: ["background-color:#66cc33;", "background-color:#66cc33;", "background-color:#66cc33;",
 					"background-color:#66cc33;", "background-color:#66cc33;", "background-color:#66cc33;",
@@ -128,6 +130,7 @@
 			})
 			this.fetchServiceStatus();
 		},
+
 		onUnload: function() {
 			event.remove('DataChanged', this);
 		},
@@ -146,6 +149,10 @@
 		},
 
 		onShow: function() {
+			this.pastTime = uni.getStorageSync("pastTime");
+			if(!this.pastTime && this.pastTime!=0) {
+				this.pastTime = 10;
+			}
 			this.initDefaultStop();
 			this.loadTimetable();
 			this.renderLines();
@@ -153,6 +160,13 @@
 
 		onPullDownRefresh() {
 			this.forceLoadingTimetable(uni.stopPullDownRefresh());
+		},
+
+		onShareAppMessage(res) {
+			return {
+				title: 'Victoria Public Transport',
+				path: '/pages/timetable/train/timetable'
+			}
 		},
 
 		methods: {
@@ -231,9 +245,9 @@
 			 */
 			filterTheTimetable(timetables) {
 				return timetables.filter(item => {
-					if (moment(item.departureUTCTime).isAfter(moment.utc().subtract(10, 'minutes'))) {
-						let du = moment.duration(moment(item.departureUTCTime) - moment(), 'ms');
-						item.gap = moment(item.departureUTCTime).diff(moment(), 'minutes');
+					if (moment(item.estimatedDepartureUTC).isAfter(moment.utc().subtract(this.pastTime, 'minutes'))) {
+						let du = moment.duration(moment(item.estimatedDepartureUTC) - moment(), 'ms');
+						item.gap = moment(item.estimatedDepartureUTC).diff(moment(), 'minutes');
 						if (item.gap < 0) {
 							item.greyCell = "background-color:#e7e7e7";
 						}
@@ -242,6 +256,9 @@
 							h = du.get('hours') + "h "
 						}
 						item.gapText = h + Math.abs(du.get('minutes'));
+						if(moment(item.estimatedDepartureUTC).isAfter(moment(item.scheduledDepartureUTC).add(2,'minutes'))) {
+							item.minorDelay = true;
+						}
 						return item;
 					}
 				})
@@ -344,7 +361,6 @@
 			},
 
 			closeDrawer() {
-				console.info("close drawer:" + this.showDrawer);
 				this.showDrawer = false;
 			},
 
@@ -357,6 +373,27 @@
 			gotoStopSelect() {
 				uni.navigateTo({
 					url: './stopSelect/stopSelect'
+				})
+			},
+
+			gotoSetting() {
+				uni.navigateTo({
+					url: '/pages/system/setting/setting'
+				})
+			},
+
+			gotoAbout() {
+				uni.navigateTo({
+					url: '/pages/system/about/about'
+				})
+			},
+
+			comingsoon() {
+				console.info('click');
+				uni.showToast({
+					title: "coming soon...",
+					icon: "none",
+					duration: 1500,
 				})
 			}
 

@@ -36,13 +36,13 @@
             "path" : "pages/timetable/train/runDetail/stopDetail/stopDetail",
             "style" : {}
         },
-		{
-		    "path" : "pages/myki/myki",
-		    "style" : {
-		        "navigationBarTitleText" : "myki",
-		        "enablePullDownRefresh" : false
-		    }
-		},
+        {
+            "path" : "pages/myki/myki",
+            "style" : {
+                "navigationBarTitleText" : "myki",
+                "enablePullDownRefresh" : false
+            }
+        },
         {
             "path" : "pages/myki/mykiDetail/mykiDetail",
             "style" : {
@@ -55,7 +55,19 @@
         {
             "path" : "pages/myki/listHiddenMyki/listHiddenMyki",
             "style" : {
-				"navigationBarTitleText" : "myki"
+                "navigationBarTitleText" : "myki"
+            }
+        },
+        {
+            "path" : "pages/system/about/about",
+            "style" : {
+				"navigationBarTitleText" : "About"
+			}
+        },
+        {
+            "path" : "pages/system/setting/setting",
+            "style" : {
+				"navigationBarTitleText" : "Setting"
 			}
         }
     ],
