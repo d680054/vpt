@@ -26,7 +26,7 @@
 				<view style="font-size:32upx;padding-left: 20upx;padding-top: 10upx;">
 					<checkbox value="this.policy" @tap="tapPolicy" />
 					<navigator url="#" hover-class="">
-						I accept the <text class="is-blue"> Privacy Statement</text>
+						I accept the <text class="is-blue">\t Privacy Policy</text>
 					</navigator>
 				</view>
 
@@ -38,6 +38,11 @@
 
 	</view>
 	<view v-else class="cardPanel" :style="cardPanel">
+		<view v-if="showRefresh" style="flex-direction:column; align-items: center;margin-bottom: 380upx;">
+			<image src="../../static/images/opps.png" style="height:120px;width:150px"/>
+			<text>Opps!Something wrong with server</text>
+			<view style="align-items: center;"><text space="nbsp">click \t</text> <image src="../../static/images/refresh.png" style="height:20px;width:20px" @tap="refresh"/> <text space="nbsp">\t to try again</text></view>
+		</view>	
 		<view style="justify-content:flex-end;padding:25upx;" @tap="config">
 			<image src="../../static/images/config-blue.png" style="padding-left:5px; height:25px;width:25px;" />
 		</view>
@@ -74,6 +79,7 @@
 				cardPanel: "position: fixed",
 				windowHeight: "",
 				platform:"",
+				showRefresh: false,
 				login: {
 					loading: false,
 					username: "",
@@ -87,6 +93,10 @@
 				let mykiLogin = uni.getStorageSync("rememberme")
 				if (mykiLogin) {
 					this.loginPage = false;
+					this.cards = uni.getStorageSync("cards");
+					if(!this.cards || this.cards.length == 0) {
+						this.showRefresh = true;
+					}
 				} else {
 					this.loginPage = true;
 				}
@@ -103,12 +113,19 @@
 				}
 			},
 			
-			onPullDownRefresh() {
-				this.loadingCards(uni.stopPullDownRefresh());
+			onShareAppMessage(res) {
+				return {
+					title: 'Victoria Public Transport',
+					path: '/pages/timetable/train/timetable'
+				}
 			},
+			
+// 			onPullDownRefresh() {
+// 				this.loadingCards(uni.stopPullDownRefresh());
+// 			},
 
 			methods: {
-				loadingCards(u, p) {
+				loadingCards(u, p, showIcon) {
 					let body = {
 						username: u,
 						password: p,
@@ -125,14 +142,18 @@
 							this.calWindowHeight();
 							uni.setStorageSync("cards", this.cards);
 							this.loginPage = false;
+							this.showRefresh= false;
 							if (this.rememberme) {
 								uni.setStorageSync("rememberme", body);
+							}
+							if(this.cards.length == 0) {
+								this.showRefresh=true;
 							}
 						}
 						this.login.loading = false;
 						this.readyToSubmit = true;
 
-					}, false);
+					}, showIcon);
 				},
 
 				defaultHandlerLogin: function() {
@@ -147,7 +168,7 @@
 							if (this.readyToSubmit) {
 								this.login.loading = true;
 								this.readyToSubmit = false;
-								this.loadingCards(this.login.username, this.login.password);
+								this.loadingCards(this.login.username, this.login.password, false);
 							}
 						}
 					} else {
@@ -220,6 +241,14 @@
 							}
 						}
 					})
+				},
+				
+				refresh:function(e) {
+					let mykiLogin = uni.getStorageSync("rememberme");
+					let username = this.login.username? this.login.username: mykiLogin.username;
+					let password = this.login.password? this.login.password: mykiLogin.password;
+					
+					this.loadingCards(username, password, true);
 				},
 
 				gotoCardDetail: function(e) {
