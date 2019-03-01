@@ -25,7 +25,7 @@
 				</view>
 				<view style="font-size:32upx;padding-left: 20upx;padding-top: 10upx;">
 					<checkbox value="this.policy" @tap="tapPolicy" />
-					<navigator url="#" hover-class="">
+					<navigator url="/pages/system/about/about" hover-class="">
 						I accept the <text class="is-blue">\t Privacy Policy</text>
 					</navigator>
 				</view>

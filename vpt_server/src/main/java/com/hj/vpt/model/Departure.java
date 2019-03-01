@@ -57,7 +57,7 @@ public class Departure {
      * @return
      */
     public String getEstimatedDepartureUTC() {
-        Instant timestamp = Instant.parse(StringUtils.isEmpty(this.estimatedDepartureUTC) ? this.scheduledDepartureUTC : this.estimatedDepartureUTC).plusSeconds(30);
+        Instant timestamp = Instant.parse(StringUtils.isEmpty(this.estimatedDepartureUTC) ? this.scheduledDepartureUTC : this.estimatedDepartureUTC);
         return timestamp.toString();
     }
 }
