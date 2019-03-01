@@ -61,14 +61,18 @@
         {
             "path" : "pages/system/about/about",
             "style" : {
-				"navigationBarTitleText" : "About"
-			}
+                "navigationBarTitleText" : "About"
+            }
         },
         {
             "path" : "pages/system/setting/setting",
             "style" : {
-				"navigationBarTitleText" : "Setting"
-			}
+                "navigationBarTitleText" : "Setting"
+            }
+        },
+        {
+            "path" : "pages/system/about/logs/logs",
+            "style" : {}
         }
     ],
     "globalStyle" : {
