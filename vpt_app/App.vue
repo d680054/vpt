@@ -7,7 +7,6 @@
 
 	export default {
 		onLaunch: function() {
-
 			util.getLocation(nearme => {
 				if (nearme && nearme.length > 0) {
 					let selectedStop = uni.getStorageSync("selectedStop");
@@ -34,6 +33,7 @@
 			this.initStopNameMap();
 			this.initRouteStop();
 			this.initDirections();
+			this.initPastTime();
 			uni.removeStorageSync("fullTimetables");
 			
 			wx.getSystemInfo({
@@ -83,6 +83,12 @@
 					uni.setStorageSync("routeStopMap", init.initRouteStopList());
 				}
 			},
+			
+			initPastTime() {
+				if(!uni.getStorageSync("pastTime")) {
+					uni.setStorageSync("pastTime", 10);
+				}
+			},
 
 			loadCards() {
 				let rememberme = uni.getStorageSync("rememberme");
@@ -105,14 +111,7 @@
 					}, false);
 				}
 			}
-			// 				let err, res;
-			// 				[err, res] = await uni.request({
-			// 					url: con.DIRECTION_URL,
-			// 					data: {}
-			// 				});
-			// 				console.log("数据：", err, res.data);
 		}
-
 
 	}
 </script>
