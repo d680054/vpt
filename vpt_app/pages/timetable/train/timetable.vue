@@ -28,7 +28,7 @@
 				<image style="width:28px;height:28px" src="../../../static/images/stop.png"></image>
 				<text>{{stopName}}</text>
 			</view>
-			<picker @change="pickDirection" :range="directionArr">
+			<picker @change="pickDirection" :range="directionArr" :value="directionIndex">
 				<image style="display:flex;width:25px;height:25px" src="../../../static/images/filter.png"></image>
 			</picker>
 		</view>
@@ -40,7 +40,7 @@
 					<view class="uni-list-cell-navigate cell-align" :style="item.greyCell">
 						<view style="flex-direction: column;">
 							<view style="align-items:center;padding:4upx;width:500rpx">
-								<view v-if="item.minorDelay" class="disruption-circle" style="background-color:#1ba035;"/>
+								<view v-if="item.minorDelay" class="disruption-circle" style="background-color:#1ba035;" />
 								<view v-else class="disruption-circle" :style="serviceStatus[item.routeId]"></view>
 								<text class="terminal">{{item.terminal}}</text>
 								<text class="express" v-show="item.express"> - Express</text>
@@ -59,7 +59,8 @@
 						<text>Left\n {{item.gapText}}mins</text>
 					</view>
 					<view class="timing" v-else>
-						<text v-if="item.gap > 0">In\n {{item.gapText}}mins</text>
+						<text v-if="item.minorDelay">In {{item.gapText}}mins\n {{item.minorDelay}}m delay</text>
+						<text v-else-if="item.gap > 0">In\n {{item.gapText}}mins</text>
 						<text v-else>&nbsp;NOW</text>
 					</view>
 
@@ -150,7 +151,7 @@
 
 		onShow: function() {
 			this.pastTime = uni.getStorageSync("pastTime");
-			if(!this.pastTime && this.pastTime!=0) {
+			if (!this.pastTime && this.pastTime != 0) {
 				this.pastTime = 10;
 			}
 			this.initDefaultStop();
@@ -190,14 +191,15 @@
 				net.netUtil(con.DEPARTURE_URL, 'GET', body, res => {
 					if (res.data) {
 						this.fullTimetables = this.filterTheTimetable(res.data);
-						this.timetables = this.fullTimetables;
 						uni.setStorageSync("fullTimetables", this.fullTimetables);
+						this.initDirections(this.fullTimetables);
+						this.timetables = this.fullTimetables;
+						let selectedDirect = uni.getStorageSync("selectedDirect");
+						if (selectedDirect) {
+							console.info('default filter');
+							this.timetables = this.timetables.filter(t => t.directionId == selectedDirect);
+						}
 						uni.setStorageSync("timetables", this.timetables);
-						this.initDirections(this.timetables);
-
-						// 						if (callback) {
-						// 							callback;
-						// 						}
 					}
 				});
 			},
@@ -256,8 +258,8 @@
 							h = du.get('hours') + "h "
 						}
 						item.gapText = h + Math.abs(du.get('minutes'));
-						if(moment(item.estimatedDepartureUTC).isAfter(moment(item.scheduledDepartureUTC).add(2,'minutes'))) {
-							item.minorDelay = true;
+						if (moment(item.estimatedDepartureUTC).isAfter(moment(item.scheduledDepartureUTC).add(1, 'minutes'))) {
+							item.minorDelay = moment(item.estimatedDepartureUTC).diff(moment(item.scheduledDepartureUTC), 'minutes');
 						}
 						return item;
 					}
@@ -309,8 +311,8 @@
 				this.directionIds = [];
 				this.directionArr.push("All Directions");
 				this.directionIds.push("888");
-				this.timetables.forEach(run => {
-					if (this.directionIds.indexOf(run.directionId) == -1) {
+				timetables.forEach(run => {
+					if (this.directionIds.length < 20 && this.directionIds.indexOf(run.directionId) == -1) {
 						this.directionIds.push(run.directionId);
 					}
 				})
@@ -323,6 +325,17 @@
 						}
 					})
 				}
+				let selectedDirect = uni.getStorageSync("selectedDirect");
+				if(this.directionIds.indexOf(selectedDirect) == -1) {
+					uni.setStorageSync("selectedDirect", null);
+					this.directionIndex = 0
+				} else {
+					console.info('init index');
+					this.directionIndex = this.directionIds.findIndex(d=>{
+						return d ==  selectedDirect;
+					});
+					
+				}
 			},
 
 			/**
@@ -330,27 +343,32 @@
 			 */
 			pickDirection(e) {
 				let index = e.target.value;
-				if (this.directionIds[index] == 888) {
+				let selectedDirect = this.directionIds[index];
+				uni.setStorageSync("selectedDirect", parseInt(selectedDirect));
+				if (selectedDirect == 888) {
 					this.timetables = this.fullTimetables;
 				} else {
-					this.timetables = this.fullTimetables.filter(t => t.directionId == this.directionIds[index]);
+					this.timetables = this.fullTimetables.filter(t => t.directionId == selectedDirect);
 				}
 			},
 
-			changeDirection() {
-				let directions = uni.getStorageSync("directions");
-				if (directions) {
-					let totalSize = directions.length;
-					if (this.directionIndex == totalSize) {
-						this.directionIndex = 0;
-						this.timetables = this.fullTimetables;
-					} else {
-						this.timetables = this.fullTimetables.filter(t => t.directionId == directions[this.directionIndex]);
-						this.directionIndex++;
-					}
-					uni.setStorageSync("timetables", this.timetables);
-				}
-			},
+// 			changeDirection() {
+// 				let directions = uni.getStorageSync("directions");
+// 				if (directions) {
+// 					let totalSize = directions.length;
+// 					if (this.directionIndex == totalSize) {
+// 						this.directionIndex = 0;
+// 						this.timetables = this.fullTimetables;
+// 					} else {
+// 						let selectedDirect = [this.directionIndex];
+// 						console.info(selectedDirect);
+// 						uni.setStorageSync("selectedDirect", selectedDirect);
+// 						this.timetables = this.fullTimetables.filter(t => t.directionId == selectedDirect);
+// 						this.directionIndex++;
+// 					}
+// 					uni.setStorageSync("timetables", this.timetables);
+// 				}
+// 			},
 
 			refreshTimeTable() {
 				this.forceLoadingTimetable();
