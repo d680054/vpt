@@ -14,8 +14,8 @@
 				<uni-list-item title="Tram" @click="comingsoon" show-arrow="false" thumb="../../../static/images/tram-inactive.png"></uni-list-item>
 				<uni-list-item title="Bus" @click="comingsoon" show-arrow="false" thumb="../../../static/images/bus-inactive.png"></uni-list-item>
 				<uni-list-item title="SkyBus" @click="comingsoon" show-arrow="false" thumb="../../../static/images/bus-inactive.png"></uni-list-item>
-				<uni-list-item title="Setting" @click="gotoSetting"></uni-list-item>
-				<uni-list-item title="About" @click="gotoAbout"></uni-list-item>
+				<uni-list-item title="Setting" @click="gotoSetting" show-extra-icon="true" :extra-icon="{color: '#0072ce',type: 'gear-filled'}"></uni-list-item>
+				<uni-list-item title="About" @click="gotoAbout" show-extra-icon="true" :extra-icon="{color: '#0072ce',type: 'info'}"></uni-list-item>
 			</uni-list>
 		</uni-drawer>
 
@@ -59,8 +59,8 @@
 						<text>Left\n {{item.gapText}}mins</text>
 					</view>
 					<view class="timing" v-else>
-						<text v-if="item.minorDelay">In {{item.gapText}}mins\n {{item.minorDelay}}m delay</text>
-						<text v-else-if="item.gap > 0">In\n {{item.gapText}}mins</text>
+						<!-- <text v-if="item.minorDelay">In {{item.gapText}}mins\n {{item.minorDelay}}m delay</text> -->
+						<text v-if="item.gap > 0">In\n {{item.gapText}}mins</text>
 						<text v-else>&nbsp;NOW</text>
 					</view>
 
@@ -117,7 +117,8 @@
 					"background-color:#66cc33;",
 				],
 				status: "background-color:#66cc33;",
-
+				beforeTime: moment('04:00:00', 'hh:mm:ss'),
+				afterTime: moment('11:59:00', 'hh:mm:ss'),
 			};
 		},
 
@@ -195,8 +196,13 @@
 						this.initDirections(this.fullTimetables);
 						this.timetables = this.fullTimetables;
 						let selectedDirect = uni.getStorageSync("selectedDirect");
+						if (this.isCityCommuterEnabled()) {
+							selectedDirect = 1; //commuter mode
+							this.directionIndex = this.directionIds.findIndex(d => {
+								return d == selectedDirect;
+							});
+						}
 						if (selectedDirect) {
-							console.info('default filter');
 							this.timetables = this.timetables.filter(t => t.directionId == selectedDirect);
 						}
 						uni.setStorageSync("timetables", this.timetables);
@@ -258,9 +264,9 @@
 							h = du.get('hours') + "h "
 						}
 						item.gapText = h + Math.abs(du.get('minutes'));
-						if (moment(item.estimatedDepartureUTC).isAfter(moment(item.scheduledDepartureUTC).add(1, 'minutes'))) {
-							item.minorDelay = moment(item.estimatedDepartureUTC).diff(moment(item.scheduledDepartureUTC), 'minutes');
-						}
+						// 						if (moment(item.estimatedDepartureUTC).isAfter(moment(item.scheduledDepartureUTC).add(1, 'minutes'))) {
+						// 							item.minorDelay = moment(item.estimatedDepartureUTC).diff(moment(item.scheduledDepartureUTC), 'minutes');
+						// 						}
 						return item;
 					}
 				})
@@ -326,15 +332,14 @@
 					})
 				}
 				let selectedDirect = uni.getStorageSync("selectedDirect");
-				if(this.directionIds.indexOf(selectedDirect) == -1) {
+				if (this.directionIds.indexOf(selectedDirect) == -1) {
 					uni.setStorageSync("selectedDirect", null);
 					this.directionIndex = 0
 				} else {
-					console.info('init index');
-					this.directionIndex = this.directionIds.findIndex(d=>{
-						return d ==  selectedDirect;
+					this.directionIndex = this.directionIds.findIndex(d => {
+						return d == selectedDirect;
 					});
-					
+
 				}
 			},
 
@@ -352,23 +357,30 @@
 				}
 			},
 
-// 			changeDirection() {
-// 				let directions = uni.getStorageSync("directions");
-// 				if (directions) {
-// 					let totalSize = directions.length;
-// 					if (this.directionIndex == totalSize) {
-// 						this.directionIndex = 0;
-// 						this.timetables = this.fullTimetables;
-// 					} else {
-// 						let selectedDirect = [this.directionIndex];
-// 						console.info(selectedDirect);
-// 						uni.setStorageSync("selectedDirect", selectedDirect);
-// 						this.timetables = this.fullTimetables.filter(t => t.directionId == selectedDirect);
-// 						this.directionIndex++;
-// 					}
-// 					uni.setStorageSync("timetables", this.timetables);
-// 				}
-// 			},
+			// 			changeDirection() {
+			// 				let directions = uni.getStorageSync("directions");
+			// 				if (directions) {
+			// 					let totalSize = directions.length;
+			// 					if (this.directionIndex == totalSize) {
+			// 						this.directionIndex = 0;
+			// 						this.timetables = this.fullTimetables;
+			// 					} else {
+			// 						let selectedDirect = [this.directionIndex];
+			// 						console.info(selectedDirect);
+			// 						uni.setStorageSync("selectedDirect", selectedDirect);
+			// 						this.timetables = this.fullTimetables.filter(t => t.directionId == selectedDirect);
+			// 						this.directionIndex++;
+			// 					}
+			// 					uni.setStorageSync("timetables", this.timetables);
+			// 				}
+			// 			},
+
+			isCityCommuterEnabled() {
+				return uni.getStorageSync("cityCommuter") &&
+					moment().isoWeekday() < 6	 &&                //should be weekday only
+					this.directionIds.indexOf(1) != -1 &&       //the current stop should not city loop
+					moment().isBetween(this.beforeTime, this.afterTime)  //shoudl be in the morning
+			},
 
 			refreshTimeTable() {
 				this.forceLoadingTimetable();
