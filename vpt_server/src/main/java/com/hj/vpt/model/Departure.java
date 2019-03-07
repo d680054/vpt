@@ -38,6 +38,8 @@ public class Departure {
     @JsonAlias({"estimated_departure_utc", "estimatedDepartureUTC"})
     private String estimatedDepartureUTC; //用于实际发车时间间隔
 
+    private boolean skip = false;
+
     public String getDepartureLocalTime() {
         String departureTime = "";
         if (stopId != 0) {
