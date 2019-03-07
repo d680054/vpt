@@ -28,18 +28,23 @@
 			<scroll-view scroll-y :style="scrollHeight" class="uni-list">
 				<view class="uni-list-cell" hover-class="uni-list-cell-hover" v-for="(item,index) in stops" :key="index"
 				 :data-stopid="item.stopId">
-					<view class="uni-list-cell-navigate" style="flex-direction: column;align-items: flex-start;">
-						<span v-if="item.stopId != 0">
+					<view class="uni-list-cell-navigate color-bar" :style="item.barColor">
+						<span v-if="!item.skip">
 							<view style="align-items:center">
-								<text style="font-size:1em;padding-left:10upx;font-weight:bold;">{{item.stopName}}</text>
+								<text class="stop-name">{{item.stopName}}</text>
 							</view>
 							<view style="padding-top: 8upx;font-size: 33upx;font-weight: 700;color:#6a6d73">
 								{{item.departureLocalTime}} - {{item.gapText}} mins travel time
 							</view>
 						</span>
-						<view sytle='height:70px' v-else>
+						<view sytle='height:70px;' v-else>
 							<text style="font-size:1em;padding:20upx;font-weight:bold;">-------</text>
 						</view>
+						<!-- <view>
+						 <image src="../../../../static/images/cctv.png" style="height:20px;width:20px;"></image>
+						 <image src="../../../../static/images/wc.png" style="height:20px;width:20px;"></image>
+						 <image src="../../../../static/images/taxi.png" style="height:20px;width:20px;"></image>
+						</view>	 -->
 					</view>
 				</view>
 			</scroll-view>
@@ -52,9 +57,12 @@
 	import net from '@/common/js/netUtil.js'
 	import con from '@/common/js/constant.js'
 	import moment from '@/common/js/moment.min.js'
+	import uniIcon from '@/components/uni-icon/uni-icon.vue'
 
 	export default {
-		
+		components: {
+			uniIcon
+		},
 		data() {
 			return {
 				stops: [],
@@ -75,6 +83,7 @@
 			this.terminal = e.terminal;
 			this.line = e.line;
 			this.departTime = e.departTime;
+			let stopInfoMap = uni.getStorageSync("stopInfoMap");
 			let body = {
 				routeType: '0',
 				runId: e.runId
@@ -85,12 +94,17 @@
 					let selectedDepartureUTCTime = res.data.filter(stop => stop.stopId == stopId)[0].scheduledDepartureUTC;
 
 					this.stops = res.data.filter(stop => {
-						//if (stop.stopId == 0) return stop;
 						var m1 = moment(stop.scheduledDepartureUTC),
 							m2 = moment(selectedDepartureUTCTime),
 							du = moment.duration(m1 - m2, 'ms').get('minutes');
 						if (du > 0) {
 							stop.gapText = du;
+							if(stop.stopId&&stopInfoMap[stop.stopId].zone == 1) {
+								stop.barColor = "border-left:10px solid #ffca06";
+							} else 
+							{
+								stop.barColor = "border-left:10px solid #21c3eb";
+							}
 							return stop;
 						}
 					});
@@ -204,6 +218,18 @@
 		font-size: 30upx;
 		line-height: 40upx;
 		border-bottom: 1upx solid white;
+	}
+	
+	.color-bar {
+		flex-direction:row;
+		padding-left:10px;
+		margin:1px 0;
+	}
+	
+	.stop-name {
+		font-size:1.1em;
+		padding-left:10upx;
+		font-weight:bold;
 	}
 
 	.wave {

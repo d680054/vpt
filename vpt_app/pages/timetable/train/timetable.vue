@@ -264,9 +264,9 @@
 							h = du.get('hours') + "h "
 						}
 						item.gapText = h + Math.abs(du.get('minutes'));
-						// 						if (moment(item.estimatedDepartureUTC).isAfter(moment(item.scheduledDepartureUTC).add(1, 'minutes'))) {
-						// 							item.minorDelay = moment(item.estimatedDepartureUTC).diff(moment(item.scheduledDepartureUTC), 'minutes');
-						// 						}
+						if (moment(item.estimatedDepartureUTC).isAfter(moment(item.scheduledDepartureUTC).add(30, 'seconds'))) {
+							item.minorDelay = true;//moment(item.estimatedDepartureUTC).diff(moment(item.scheduledDepartureUTC), 'minutes');
+						}
 						return item;
 					}
 				})
@@ -377,9 +377,9 @@
 
 			isCityCommuterEnabled() {
 				return uni.getStorageSync("cityCommuter") &&
-					moment().isoWeekday() < 6	 &&                //should be weekday only
-					this.directionIds.indexOf(1) != -1 &&       //the current stop should not city loop
-					moment().isBetween(this.beforeTime, this.afterTime)  //shoudl be in the morning
+					moment().isoWeekday() < 6 && //should be weekday only
+					this.directionIds.indexOf(1) != -1 && //the current stop should not city loop
+					moment().isBetween(this.beforeTime, this.afterTime) //shoudl be in the morning
 			},
 
 			refreshTimeTable() {
