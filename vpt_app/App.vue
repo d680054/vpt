@@ -34,6 +34,7 @@
 			this.initRouteStop();
 			this.initDirections();
 			this.initPastTime();
+			this.initStopInfoMap();
 			uni.removeStorageSync("fullTimetables");
 			
 			wx.getSystemInfo({
@@ -45,12 +46,6 @@
 			//this.loadCards();
 		},
 
-		onShow: function() {
-			//console.log('App Show')
-		},
-		onHide: function() {
-			//console.log('App Hide')
-		},
 		methods: {
 
 			initDirections() {
@@ -58,6 +53,7 @@
 					uni.setStorageSync("directions", init.initDirections());
 				}
 			},
+			
 			initStopNameMap() {
 				if (!uni.getStorageSync('stopNameMap')) {
 					uni.setStorageSync('stopNameMap', init.initStopNameList());
@@ -81,6 +77,12 @@
 			initRouteStop() {
 				if (!uni.getStorageSync("routeStopMap")) {
 					uni.setStorageSync("routeStopMap", init.initRouteStopList());
+				}
+			},
+			
+			initStopInfoMap() {
+				if (!uni.getStorageSync("stopInfoMap")) {
+					uni.setStorageSync("stopInfoMap", init.initShopInfoList());
 				}
 			},
 			

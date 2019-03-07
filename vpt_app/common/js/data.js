@@ -1071,9 +1071,1782 @@ function initDirections() {
 };
 }
 
+function initShopInfoList() {
+	return {
+   "1220":{
+      "stationType":"Unstaffed Station",
+      "stopId":1220,
+      "stopName":"Aircraft ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1216":{
+      "stationType":"Host Station",
+      "stopId":1216,
+      "stopName":"Yarraville ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1215":{
+      "stationType":"Unstaffed Station",
+      "stopId":1215,
+      "stopName":"Yarraman ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1214":{
+      "stationType":"Host Station",
+      "stopId":1214,
+      "stopName":"Windsor ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1213":{
+      "stationType":"Unstaffed Station",
+      "stopId":1213,
+      "stopName":"Willison ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1212":{
+      "stationType":"Unstaffed Station",
+      "stopId":1212,
+      "stopName":"Williamstown Beach ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1211":{
+      "stationType":"Premium Station",
+      "stopId":1211,
+      "stopName":"Williamstown ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1210":{
+      "stationType":"Unstaffed Station",
+      "stopId":1210,
+      "stopName":"Westona ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1219":{
+      "stationType":"Unstaffed Station",
+      "stopId":1219,
+      "stopName":"Roxburgh Park ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1218":{
+      "stationType":"Premium Station",
+      "stopId":1218,
+      "stopName":"Sunshine ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1110":{
+      "stationType":"Unstaffed Station",
+      "stopId":1110,
+      "stopName":"Kooyong ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1228":{
+      "stationType":"Premium Station",
+      "stopId":1228,
+      "stopName":"Mernda ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1107":{
+      "stationType":"Unstaffed Station",
+      "stopId":1107,
+      "stopName":"Keilor Plains ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1227":{
+      "stationType":"Host Station",
+      "stopId":1227,
+      "stopName":"Hawkstowe ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1106":{
+      "stationType":"Unstaffed Station",
+      "stopId":1106,
+      "stopName":"Kananook ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1226":{
+      "stationType":"Host Station",
+      "stopId":1226,
+      "stopName":"Middle Gorge ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1105":{
+      "stationType":"Unstaffed Station",
+      "stopId":1105,
+      "stopName":"Jordanville ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1104":{
+      "stationType":"Host Station",
+      "stopId":1104,
+      "stopName":"Jolimont-MCG ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1225":{
+      "stationType":"Premium Station",
+      "stopId":1225,
+      "stopName":"Williams Landing ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1224":{
+      "stationType":"Premium Station",
+      "stopId":1224,
+      "stopName":"South Morang ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1103":{
+      "stationType":"Unstaffed Station",
+      "stopId":1103,
+      "stopName":"Jewell ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1102":{
+      "stationType":"Unstaffed Station",
+      "stopId":1102,
+      "stopName":"Jacana ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1223":{
+      "stationType":"Unstaffed Station",
+      "stopId":1223,
+      "stopName":"Cardinia Road ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1222":{
+      "stationType":"Unstaffed Station",
+      "stopId":1222,
+      "stopName":"Lynbrook ",
+      "taxiRank":true,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1101":{
+      "stationType":"Premium Station",
+      "stopId":1101,
+      "stopName":"Ivanhoe ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1221":{
+      "stationType":"Unstaffed Station",
+      "stopId":1221,
+      "stopName":"Coolaroo ",
+      "taxiRank":true,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1100":{
+      "stationType":"Premium Station",
+      "stopId":1100,
+      "stopName":"Hurstbridge ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1109":{
+      "stationType":"Unstaffed Station",
+      "stopId":1109,
+      "stopName":"Keon Park ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1108":{
+      "stationType":"Host Station",
+      "stopId":1108,
+      "stopName":"Kensington ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1120":{
+      "stationType":"Premium Station",
+      "stopId":1120,
+      "stopName":"Melbourne Central ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1118":{
+      "stationType":"Host Station",
+      "stopId":1118,
+      "stopName":"Malvern ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1117":{
+      "stationType":"Premium Station",
+      "stopId":1117,
+      "stopName":"Macleod ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1116":{
+      "stationType":"Unstaffed Station",
+      "stopId":1116,
+      "stopName":"Macaulay ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1115":{
+      "stationType":"Premium Station",
+      "stopId":1115,
+      "stopName":"Lilydale ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1114":{
+      "stationType":"Unstaffed Station",
+      "stopId":1114,
+      "stopName":"Leawarra ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1113":{
+      "stationType":"Premium Station",
+      "stopId":1113,
+      "stopName":"Laverton ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1112":{
+      "stationType":"Unstaffed Station",
+      "stopId":1112,
+      "stopName":"Lalor ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1111":{
+      "stationType":"Unstaffed Station",
+      "stopId":1111,
+      "stopName":"Laburnum ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1119":{
+      "stationType":"Host Station",
+      "stopId":1119,
+      "stopName":"McKinnon ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1011":{
+      "stationType":"Unstaffed Station",
+      "stopId":1011,
+      "stopName":"Aspendale ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1132":{
+      "stationType":"Premium Station",
+      "stopId":1132,
+      "stopName":"Moorabbin ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1131":{
+      "stationType":"Host Station",
+      "stopId":1131,
+      "stopName":"Moonee Ponds ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1010":{
+      "stationType":"Premium Station",
+      "stopId":1010,
+      "stopName":"Ashburton ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1130":{
+      "stationType":"Unstaffed Station",
+      "stopId":1130,
+      "stopName":"Montmorency ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1129":{
+      "stationType":"Unstaffed Station",
+      "stopId":1129,
+      "stopName":"Mont Albert ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1008":{
+      "stationType":"Host Station",
+      "stopId":1008,
+      "stopName":"Armadale ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1128":{
+      "stationType":"Premium Station",
+      "stopId":1128,
+      "stopName":"Mitcham ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1127":{
+      "stationType":"Unstaffed Station",
+      "stopId":1127,
+      "stopName":"Middle Footscray ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1006":{
+      "stationType":"Unstaffed Station",
+      "stopId":1006,
+      "stopName":"Anstey ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1126":{
+      "stationType":"Host Station",
+      "stopId":1126,
+      "stopName":"Middle Brighton ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1005":{
+      "stationType":"Unstaffed Station",
+      "stopId":1005,
+      "stopName":"Altona ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1125":{
+      "stationType":"Unstaffed Station",
+      "stopId":1125,
+      "stopName":"Merri ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1004":{
+      "stationType":"Unstaffed Station",
+      "stopId":1004,
+      "stopName":"Alphington ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1003":{
+      "stationType":"Host Station",
+      "stopId":1003,
+      "stopName":"Albion ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1124":{
+      "stationType":"Host Station",
+      "stopId":1124,
+      "stopName":"Merlynston ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1002":{
+      "stationType":"Unstaffed Station",
+      "stopId":1002,
+      "stopName":"Alamein ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1123":{
+      "stationType":"Unstaffed Station",
+      "stopId":1123,
+      "stopName":"Merinda Park ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1122":{
+      "stationType":"Premium Station",
+      "stopId":1122,
+      "stopName":"Mentone ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1001":{
+      "stationType":"Unstaffed Station",
+      "stopId":1001,
+      "stopName":"Southland ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1009":{
+      "stationType":"Unstaffed Station",
+      "stopId":1009,
+      "stopName":"Ascot Vale ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1143":{
+      "stationType":"Host Station",
+      "stopId":1143,
+      "stopName":"North Brighton ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1022":{
+      "stationType":"Unstaffed Station",
+      "stopId":1022,
+      "stopName":"Bittern ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1142":{
+      "stationType":"Premium Station",
+      "stopId":1142,
+      "stopName":"Noble Park ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1021":{
+      "stationType":"Premium Station",
+      "stopId":1021,
+      "stopName":"Berwick ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1020":{
+      "stationType":"Premium Station",
+      "stopId":1020,
+      "stopName":"Bentleigh ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1141":{
+      "stationType":"Premium Station",
+      "stopId":1141,
+      "stopName":"Newport ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1140":{
+      "stationType":"Unstaffed Station",
+      "stopId":1140,
+      "stopName":"Newmarket ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1019":{
+      "stationType":"Premium Station",
+      "stopId":1019,
+      "stopName":"Bell ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1018":{
+      "stationType":"Premium Station",
+      "stopId":1018,
+      "stopName":"Belgrave ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1139":{
+      "stationType":"Premium Station",
+      "stopId":1139,
+      "stopName":"Narre Warren ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1138":{
+      "stationType":"Host Station",
+      "stopId":1138,
+      "stopName":"Murrumbeena ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1017":{
+      "stationType":"Unstaffed Station",
+      "stopId":1017,
+      "stopName":"Beaconsfield ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1016":{
+      "stationType":"Premium Station",
+      "stopId":1016,
+      "stopName":"Bayswater ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1137":{
+      "stationType":"Premium Station",
+      "stopId":1137,
+      "stopName":"Mount Waverley ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1015":{
+      "stationType":"Unstaffed Station",
+      "stopId":1015,
+      "stopName":"Baxter ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1136":{
+      "stationType":"Unstaffed Station",
+      "stopId":1136,
+      "stopName":"Morradoo ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1014":{
+      "stationType":"Unstaffed Station",
+      "stopId":1014,
+      "stopName":"Batman ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1135":{
+      "stationType":"Unstaffed Station",
+      "stopId":1135,
+      "stopName":"Moreland ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1134":{
+      "stationType":"Premium Station",
+      "stopId":1134,
+      "stopName":"Mordialloc ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1013":{
+      "stationType":"Premium Station",
+      "stopId":1013,
+      "stopName":"Balaclava ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1012":{
+      "stationType":"Host Station",
+      "stopId":1012,
+      "stopName":"Auburn ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1133":{
+      "stationType":"Premium Station",
+      "stopId":1133,
+      "stopName":"Mooroolbark ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1033":{
+      "stationType":"Host Station",
+      "stopId":1033,
+      "stopName":"Canterbury ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1154":{
+      "stationType":"Unstaffed Station",
+      "stopId":1154,
+      "stopName":"Parkdale ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1032":{
+      "stationType":"Premium Station",
+      "stopId":1032,
+      "stopName":"Camberwell ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1153":{
+      "stationType":"Premium Station",
+      "stopId":1153,
+      "stopName":"Pakenham ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1031":{
+      "stationType":"Host Station",
+      "stopId":1031,
+      "stopName":"Burwood ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1152":{
+      "stationType":"Host Station",
+      "stopId":1152,
+      "stopName":"Ormond ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1030":{
+      "stationType":"Premium Station",
+      "stopId":1030,
+      "stopName":"Burnley ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1151":{
+      "stationType":"Unstaffed Station",
+      "stopId":1151,
+      "stopName":"Officer ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1150":{
+      "stationType":"Premium Station",
+      "stopId":1150,
+      "stopName":"Oakleigh ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1029":{
+      "stationType":"Unstaffed Station",
+      "stopId":1029,
+      "stopName":"Brunswick ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1149":{
+      "stationType":"Unstaffed Station",
+      "stopId":1149,
+      "stopName":"Oak Park ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1028":{
+      "stationType":"Premium Station",
+      "stopId":1028,
+      "stopName":"Broadmeadows ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1148":{
+      "stationType":"Premium Station",
+      "stopId":1148,
+      "stopName":"Nunawading ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1027":{
+      "stationType":"Premium Station",
+      "stopId":1027,
+      "stopName":"Brighton Beach ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1147":{
+      "stationType":"Unstaffed Station",
+      "stopId":1147,
+      "stopName":"Northcote ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1026":{
+      "stationType":"Premium Station",
+      "stopId":1026,
+      "stopName":"Box Hill ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1025":{
+      "stationType":"Premium Station",
+      "stopId":1025,
+      "stopName":"Boronia ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1146":{
+      "stationType":"Unstaffed Station",
+      "stopId":1146,
+      "stopName":"North Williamstown ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1145":{
+      "stationType":"Unstaffed Station",
+      "stopId":1145,
+      "stopName":"North Richmond ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1024":{
+      "stationType":"Unstaffed Station",
+      "stopId":1024,
+      "stopName":"Bonbeach ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1023":{
+      "stationType":"Premium Station",
+      "stopId":1023,
+      "stopName":"Blackburn ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1144":{
+      "stationType":"Premium Station",
+      "stopId":1144,
+      "stopName":"North Melbourne ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1044":{
+      "stationType":"Premium Station",
+      "stopId":1044,
+      "stopName":"Craigieburn ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1165":{
+      "stationType":"Host Station",
+      "stopId":1165,
+      "stopName":"Ripponlea ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1043":{
+      "stationType":"Unstaffed Station",
+      "stopId":1043,
+      "stopName":"Collingwood ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1164":{
+      "stationType":"Unstaffed Station",
+      "stopId":1164,
+      "stopName":"Ringwood East ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1163":{
+      "stationType":"Premium Station",
+      "stopId":1163,
+      "stopName":"Ringwood ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1042":{
+      "stationType":"Premium Station",
+      "stopId":1042,
+      "stopName":"Coburg ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1162":{
+      "stationType":"Premium Station",
+      "stopId":1162,
+      "stopName":"Richmond ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1041":{
+      "stationType":"Premium Station",
+      "stopId":1041,
+      "stopName":"Clifton Hill ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1040":{
+      "stationType":"Premium Station",
+      "stopId":1040,
+      "stopName":"Clayton ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1161":{
+      "stationType":"Premium Station",
+      "stopId":1161,
+      "stopName":"Reservoir ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1160":{
+      "stationType":"Host Station",
+      "stopId":1160,
+      "stopName":"Regent ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1039":{
+      "stationType":"Premium Station",
+      "stopId":1039,
+      "stopName":"Cheltenham ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1159":{
+      "stationType":"Premium Station",
+      "stopId":1159,
+      "stopName":"Preston ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1038":{
+      "stationType":"Unstaffed Station",
+      "stopId":1038,
+      "stopName":"Chelsea ",
+      "taxiRank":true,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1037":{
+      "stationType":"Unstaffed Station",
+      "stopId":1037,
+      "stopName":"Chatham ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1158":{
+      "stationType":"Host Station",
+      "stopId":1158,
+      "stopName":"Prahran ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1036":{
+      "stationType":"Premium Station",
+      "stopId":1036,
+      "stopName":"Caulfield ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1157":{
+      "stationType":"Unstaffed Station",
+      "stopId":1157,
+      "stopName":"Patterson ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1156":{
+      "stationType":"Unstaffed Station",
+      "stopId":1156,
+      "stopName":"Pascoe Vale ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1035":{
+      "stationType":"Premium Station",
+      "stopId":1035,
+      "stopName":"Carrum ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1155":{
+      "stationType":"Premium Station",
+      "stopId":1155,
+      "stopName":"Parliament ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1034":{
+      "stationType":"Host Station",
+      "stopId":1034,
+      "stopName":"Carnegie ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1055":{
+      "stopId":1055,
+      "stopName":"Diggers Rest ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1176":{
+      "stationType":"Unstaffed Station",
+      "stopId":1176,
+      "stopName":"Seddon ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1054":{
+      "stationType":"Unstaffed Station",
+      "stopId":1054,
+      "stopName":"Diamond Creek ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1175":{
+      "stationType":"Unstaffed Station",
+      "stopId":1175,
+      "stopName":"Seaholme ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1174":{
+      "stationType":"Unstaffed Station",
+      "stopId":1174,
+      "stopName":"Seaford ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1053":{
+      "stationType":"Unstaffed Station",
+      "stopId":1053,
+      "stopName":"Dennis ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1173":{
+      "stationType":"Premium Station",
+      "stopId":1173,
+      "stopName":"Sandringham ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1172":{
+      "stationType":"Host Station",
+      "stopId":1172,
+      "stopName":"Sandown Park ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1051":{
+      "stationType":"Premium Station",
+      "stopId":1051,
+      "stopName":"Darling ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1171":{
+      "stationType":"Unstaffed Station",
+      "stopId":1171,
+      "stopName":"Ruthven ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1050":{
+      "stationType":"Unstaffed Station",
+      "stopId":1050,
+      "stopName":"Darebin ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1170":{
+      "stationType":"Unstaffed Station",
+      "stopId":1170,
+      "stopName":"Rushall ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1049":{
+      "stationType":"Premium Station",
+      "stopId":1049,
+      "stopName":"Dandenong ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1048":{
+      "stationType":"Premium Station",
+      "stopId":1048,
+      "stopName":"Croydon ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1169":{
+      "stationType":"Unstaffed Station",
+      "stopId":1169,
+      "stopName":"Royal Park ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1047":{
+      "stationType":"Unstaffed Station",
+      "stopId":1047,
+      "stopName":"Croxton ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1168":{
+      "stationType":"Unstaffed Station",
+      "stopId":1168,
+      "stopName":"Rosanna ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1046":{
+      "stationType":"Unstaffed Station",
+      "stopId":1046,
+      "stopName":"Crib Point ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1045":{
+      "stationType":"Premium Station",
+      "stopId":1045,
+      "stopName":"Cranbourne ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1166":{
+      "stationType":"Unstaffed Station",
+      "stopId":1166,
+      "stopName":"Riversdale ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1187":{
+      "stationType":"Premium Station",
+      "stopId":1187,
+      "stopName":"Sunbury ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1066":{
+      "stationType":"Unstaffed Station",
+      "stopId":1066,
+      "stopName":"Fawkner ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1186":{
+      "stationType":"Unstaffed Station",
+      "stopId":1186,
+      "stopName":"Strathmore ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1065":{
+      "stationType":"Host Station",
+      "stopId":1065,
+      "stopName":"Fairfield ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1064":{
+      "stationType":"Premium Station",
+      "stopId":1064,
+      "stopName":"Essendon ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1185":{
+      "stationType":"Unstaffed Station",
+      "stopId":1185,
+      "stopName":"Stony Point ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1063":{
+      "stationType":"Premium Station",
+      "stopId":1063,
+      "stopName":"Epping ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1184":{
+      "stationType":"Premium Station",
+      "stopId":1184,
+      "stopName":"St Albans ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1183":{
+      "stationType":"Premium Station",
+      "stopId":1183,
+      "stopName":"Springvale ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1062":{
+      "stationType":"Premium Station",
+      "stopId":1062,
+      "stopName":"Eltham ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1061":{
+      "stationType":"Premium Station",
+      "stopId":1061,
+      "stopName":"Elsternwick ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1182":{
+      "stationType":"Host Station",
+      "stopId":1182,
+      "stopName":"Spotswood ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1181":{
+      "stationType":"Premium Station",
+      "stopId":1181,
+      "stopName":"Southern Cross ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1060":{
+      "stationType":"Unstaffed Station",
+      "stopId":1060,
+      "stopName":"Edithvale ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1180":{
+      "stationType":"Premium Station",
+      "stopId":1180,
+      "stopName":"South Yarra ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1059":{
+      "stationType":"Unstaffed Station",
+      "stopId":1059,
+      "stopName":"East Richmond ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1058":{
+      "stationType":"Premium Station",
+      "stopId":1058,
+      "stopName":"East Malvern ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1179":{
+      "stationType":"Unstaffed Station",
+      "stopId":1179,
+      "stopName":"South Kensington ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1057":{
+      "stationType":"Unstaffed Station",
+      "stopId":1057,
+      "stopName":"East Camberwell ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1178":{
+      "stationType":"Unstaffed Station",
+      "stopId":1178,
+      "stopName":"Somerville ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1056":{
+      "stationType":"Unstaffed Station",
+      "stopId":1056,
+      "stopName":"Eaglemont ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1190":{
+      "stationType":"Host Station",
+      "stopId":1190,
+      "stopName":"Syndal ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1077":{
+      "stationType":"Unstaffed Station",
+      "stopId":1077,
+      "stopName":"Glen Iris ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1198":{
+      "stationType":"Premium Station",
+      "stopId":1198,
+      "stopName":"Upfield ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1197":{
+      "stationType":"Unstaffed Station",
+      "stopId":1197,
+      "stopName":"Tyabb ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1076":{
+      "stationType":"Unstaffed Station",
+      "stopId":1076,
+      "stopName":"Ginifer ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1075":{
+      "stationType":"Host Station",
+      "stopId":1075,
+      "stopName":"Gardiner ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1196":{
+      "stationType":"Host Station",
+      "stopId":1196,
+      "stopName":"Tottenham ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1195":{
+      "stationType":"Host Station",
+      "stopId":1195,
+      "stopName":"Tooronga ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1074":{
+      "stationType":"Unstaffed Station",
+      "stopId":1074,
+      "stopName":"Gardenvale ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1194":{
+      "stationType":"Host Station",
+      "stopId":1194,
+      "stopName":"Toorak ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1073":{
+      "stationType":"Premium Station",
+      "stopId":1073,
+      "stopName":"Frankston ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1193":{
+      "stationType":"Unstaffed Station",
+      "stopId":1193,
+      "stopName":"Thornbury ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1072":{
+      "stationType":"Premium Station",
+      "stopId":1072,
+      "stopName":"Footscray ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1071":{
+      "stationType":"Premium Station",
+      "stopId":1071,
+      "stopName":"Flinders Street ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1192":{
+      "stationType":"Premium Station",
+      "stopId":1192,
+      "stopName":"Thomastown ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1191":{
+      "stationType":"Unstaffed Station",
+      "stopId":1191,
+      "stopName":"Tecoma ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1070":{
+      "stationType":"Unstaffed Station",
+      "stopId":1070,
+      "stopName":"Flemington Racecourse ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1069":{
+      "stationType":"Unstaffed Station",
+      "stopId":1069,
+      "stopName":"Flemington Bridge ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1189":{
+      "stationType":"Premium Station",
+      "stopId":1189,
+      "stopName":"Surrey Hills ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1068":{
+      "stationType":"Premium Station",
+      "stopId":1068,
+      "stopName":"Flagstaff ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1067":{
+      "stationType":"Premium Station",
+      "stopId":1067,
+      "stopName":"Ferntree Gully ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1080":{
+      "stationType":"Premium Station",
+      "stopId":1080,
+      "stopName":"Glenferrie ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1088":{
+      "stationType":"Unstaffed Station",
+      "stopId":1088,
+      "stopName":"Hastings ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1087":{
+      "stationType":"Unstaffed Station",
+      "stopId":1087,
+      "stopName":"Hartwell ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1086":{
+      "stationType":"Unstaffed Station",
+      "stopId":1086,
+      "stopName":"Hampton ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1085":{
+      "stationType":"Unstaffed Station",
+      "stopId":1085,
+      "stopName":"Hallam ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1084":{
+      "stationType":"Premium Station",
+      "stopId":1084,
+      "stopName":"Greensborough ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1083":{
+      "stationType":"Premium Station",
+      "stopId":1083,
+      "stopName":"Gowrie ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1082":{
+      "stationType":"Premium Station",
+      "stopId":1082,
+      "stopName":"Glenroy ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1081":{
+      "stationType":"Host Station",
+      "stopId":1081,
+      "stopName":"Glenhuntly ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1079":{
+      "stationType":"Unstaffed Station",
+      "stopId":1079,
+      "stopName":"Glenbervie ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1199":{
+      "stationType":"Premium Station",
+      "stopId":1199,
+      "stopName":"Upper Ferntree Gully ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1078":{
+      "stationType":"Premium Station",
+      "stopId":1078,
+      "stopName":"Glen Waverley ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1091":{
+      "stationType":"Host Station",
+      "stopId":1091,
+      "stopName":"Heatherdale ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1090":{
+      "stationType":"Host Station",
+      "stopId":1090,
+      "stopName":"Hawthorn ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1099":{
+      "stationType":"Host Station",
+      "stopId":1099,
+      "stopName":"Huntingdale ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1098":{
+      "stationType":"Host Station",
+      "stopId":1098,
+      "stopName":"Hughesdale ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1097":{
+      "stationType":"Host Station",
+      "stopId":1097,
+      "stopName":"Hoppers Crossing ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1096":{
+      "stationType":"Host Station",
+      "stopId":1096,
+      "stopName":"Holmesglen ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1095":{
+      "stationType":"Unstaffed Station",
+      "stopId":1095,
+      "stopName":"Highett ",
+      "taxiRank":true,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1094":{
+      "stationType":"Unstaffed Station",
+      "stopId":1094,
+      "stopName":"Heyington ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1093":{
+      "stationType":"Premium Station",
+      "stopId":1093,
+      "stopName":"Heidelberg ",
+      "taxiRank":true,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1092":{
+      "stationType":"Unstaffed Station",
+      "stopId":1092,
+      "stopName":"Heathmont ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1089":{
+      "stationType":"Host Station",
+      "stopId":1089,
+      "stopName":"Hawksburn ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"1"
+   },
+   "1206":{
+      "stationType":"Unstaffed Station",
+      "stopId":1206,
+      "stopName":"West Footscray ",
+      "taxiRank":true,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1205":{
+      "stationType":"Premium Station",
+      "stopId":1205,
+      "stopName":"Werribee ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1204":{
+      "stationType":"Unstaffed Station",
+      "stopId":1204,
+      "stopName":"Wattle Glen ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1203":{
+      "stationType":"Premium Station",
+      "stopId":1203,
+      "stopName":"Watsonia ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1202":{
+      "stationType":"Premium Station",
+      "stopId":1202,
+      "stopName":"Watergardens ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1201":{
+      "stationType":"Unstaffed Station",
+      "stopId":1201,
+      "stopName":"Victoria Park ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1200":{
+      "stationType":"Unstaffed Station",
+      "stopId":1200,
+      "stopName":"Upwey ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"2"
+   },
+   "1209":{
+      "stationType":"Unstaffed Station",
+      "stopId":1209,
+      "stopName":"Westgarth ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   },
+   "1208":{
+      "stationType":"Premium Station",
+      "stopId":1208,
+      "stopName":"Westall ",
+      "taxiRank":false,
+      "toilet":true,
+      "zone":"2"
+   },
+   "1207":{
+      "stationType":"Unstaffed Station",
+      "stopId":1207,
+      "stopName":"West Richmond ",
+      "taxiRank":false,
+      "toilet":false,
+      "zone":"1"
+   }
+	}
+}
+
 module.exports = {
 	initRoutes: initRoutes,
 	initStopNameList: initStopNameList,
 	initRouteStopList: initRouteStopList,
 	initDirections: initDirections,
+	initShopInfoList: initShopInfoList
 }
