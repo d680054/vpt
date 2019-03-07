@@ -1,7 +1,5 @@
 package com.hj.vpt.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.google.common.collect.HashBiMap;
 import com.hj.vpt.model.DirectionWrapper;
 import com.hj.vpt.model.Run;
@@ -9,7 +7,6 @@ import com.hj.vpt.model.RunWrapper;
 import com.hj.vpt.model.StopWrapper;
 import com.hj.vpt.utils.URLHelper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,8 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -103,9 +98,6 @@ public class InitServiceImpl implements InitService{
 //        File file = new File("./terminals.json");
 //        String json = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
 //        TERMINAL_MAP = JSON.parseObject(json, new TypeReference<Map<Integer, Run>>(){});
-
-//        String json = JSON.toJSONString(TERMINAL_MAP);
-//        FileUtils.writeStringToFile(file, json, Charset.forName("UTF-8"));
 
         log.info("After initialization the {} terminals", TERMINAL_MAP.size());
     }
