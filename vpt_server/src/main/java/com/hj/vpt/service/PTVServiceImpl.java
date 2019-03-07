@@ -144,11 +144,11 @@ public class PTVServiceImpl implements PTVService {
 
                     Collections.sort(departureStops, Comparator.comparing(o -> Instant.parse(o.getScheduledDepartureUTC())));
                     // if last stop is null, remove it
-                    if (departureStops.get(departureStops.size() - 1).getStopId() == 0) {
+                    if (departureStops.get(departureStops.size() - 1).isSkip()) {
                         Collections.reverse(departureStops);
                         int i = 0;
                         for (; i < departureStops.size(); i++) {
-                            if (departureStops.get(i).getStopId() > 0) {
+                            if (!departureStops.get(i).isSkip()) {
                                 departureStops = departureStops.subList(i, departureStops.size());
                                 Collections.reverse(departureStops);
                                 break;
@@ -182,6 +182,8 @@ public class PTVServiceImpl implements PTVService {
         DepartureStop d = new DepartureStop();
         DepartureStop p = departureStops.get(departureStops.size() - 1);
         d.setDirectionId(p.getDirectionId());
+        d.setStopId(p.getStopId());
+        d.setSkip(true);
         String departureTime = p.getScheduledDepartureUTC();
         if (p.getDirectionId() != 1) {//outbound city, align with the standards stops
             d.setScheduledDepartureUTC(Instant.parse(departureTime).plusSeconds(10).toString());
