@@ -40,11 +40,14 @@
 						<view sytle='height:70px;' v-else>
 							<text style="font-size:1em;padding:20upx;font-weight:bold;">-------</text>
 						</view>
-						<!-- <view>
-						 <image src="../../../../static/images/cctv.png" style="height:20px;width:20px;"></image>
-						 <image src="../../../../static/images/wc.png" style="height:20px;width:20px;"></image>
-						 <image src="../../../../static/images/taxi.png" style="height:20px;width:20px;"></image>
-						</view>	 -->
+						<view style="align-items: center;" v-if="!item.skip">
+						 <image v-if="item.toilet" src="../../../../static/images/wc.png" style="height:22px;width:22px;"></image>
+						 <image v-if="item.taxiRank" src="../../../../static/images/taxi.png" style="height:20px;width:20px;"></image>
+						 <view v-if="item.parking!=0" style="flex-direction: column;align-items:center;padding-bottom:5px;">
+						 	<image src="../../../../static/images/parking.png" style="height:21px;width:21px;"></image>	
+						 	<text style="line-height: 1px;font-size:9px;">{{item.parking}}</text>
+						 </view>
+						</view>	
 					</view>
 				</view>
 			</scroll-view>
@@ -58,6 +61,7 @@
 	import con from '@/common/js/constant.js'
 	import moment from '@/common/js/moment.min.js'
 	import uniIcon from '@/components/uni-icon/uni-icon.vue'
+	import init from '@/common/js/data.js'
 
 	export default {
 		components: {
@@ -66,7 +70,6 @@
 		data() {
 			return {
 				stops: [],
-				trainRoutesMap: uni.getStorageSync("trainRoutesMap"),
 				line: '',
 				terminal: '',
 				departTime: '',
@@ -83,7 +86,7 @@
 			this.terminal = e.terminal;
 			this.line = e.line;
 			this.departTime = e.departTime;
-			let stopInfoMap = uni.getStorageSync("stopInfoMap");
+			let stopInfoMap = init.initShopInfoList();
 			let body = {
 				routeType: '0',
 				runId: e.runId
@@ -105,6 +108,9 @@
 							{
 								stop.barColor = "border-left:10px solid #21c3eb";
 							}
+							stop.toilet = stopInfoMap[stop.stopId].toilet;
+							stop.taxiRank = stopInfoMap[stop.stopId].taxiRank;
+							stop.parking = stopInfoMap[stop.stopId].parking;
 							return stop;
 						}
 					});

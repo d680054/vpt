@@ -1074,6 +1074,7 @@ function initDirections() {
 function initShopInfoList() {
 	return {
    "1220":{
+      "parking":"201",
       "stationType":"Unstaffed Station",
       "stopId":1220,
       "stopName":"Aircraft ",
@@ -1082,6 +1083,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1216":{
+      "parking":"56",
       "stationType":"Host Station",
       "stopId":1216,
       "stopName":"Yarraville ",
@@ -1090,6 +1092,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1215":{
+      "parking":"255",
       "stationType":"Unstaffed Station",
       "stopId":1215,
       "stopName":"Yarraman ",
@@ -1098,6 +1101,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1214":{
+      "parking":"0",
       "stationType":"Host Station",
       "stopId":1214,
       "stopName":"Windsor ",
@@ -1106,6 +1110,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1213":{
+      "parking":"22",
       "stationType":"Unstaffed Station",
       "stopId":1213,
       "stopName":"Willison ",
@@ -1114,6 +1119,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1212":{
+      "parking":"74",
       "stationType":"Unstaffed Station",
       "stopId":1212,
       "stopName":"Williamstown Beach ",
@@ -1122,6 +1128,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1211":{
+      "parking":"13",
       "stationType":"Premium Station",
       "stopId":1211,
       "stopName":"Williamstown ",
@@ -1130,6 +1137,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1210":{
+      "parking":"78",
       "stationType":"Unstaffed Station",
       "stopId":1210,
       "stopName":"Westona ",
@@ -1138,6 +1146,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1219":{
+      "parking":"275",
       "stationType":"Unstaffed Station",
       "stopId":1219,
       "stopName":"Roxburgh Park ",
@@ -1146,6 +1155,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1218":{
+      "parking":"505",
       "stationType":"Premium Station",
       "stopId":1218,
       "stopName":"Sunshine ",
@@ -1154,6 +1164,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1110":{
+      "parking":"70",
       "stationType":"Unstaffed Station",
       "stopId":1110,
       "stopName":"Kooyong ",
@@ -1162,6 +1173,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1228":{
+      "parking":"1007",
       "stationType":"Premium Station",
       "stopId":1228,
       "stopName":"Mernda ",
@@ -1170,6 +1182,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1107":{
+      "parking":"636",
       "stationType":"Unstaffed Station",
       "stopId":1107,
       "stopName":"Keilor Plains ",
@@ -1178,6 +1191,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1227":{
+      "parking":"397",
       "stationType":"Host Station",
       "stopId":1227,
       "stopName":"Hawkstowe ",
@@ -1186,6 +1200,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1106":{
+      "parking":"136",
       "stationType":"Unstaffed Station",
       "stopId":1106,
       "stopName":"Kananook ",
@@ -1194,6 +1209,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1226":{
+      "parking":"550",
       "stationType":"Host Station",
       "stopId":1226,
       "stopName":"Middle Gorge ",
@@ -1202,6 +1218,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1105":{
+      "parking":"155",
       "stationType":"Unstaffed Station",
       "stopId":1105,
       "stopName":"Jordanville ",
@@ -1210,6 +1227,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1104":{
+      "parking":"0",
       "stationType":"Host Station",
       "stopId":1104,
       "stopName":"Jolimont-MCG ",
@@ -1218,6 +1236,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1225":{
+      "parking":"666",
       "stationType":"Premium Station",
       "stopId":1225,
       "stopName":"Williams Landing ",
@@ -1226,6 +1245,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1224":{
+      "parking":"909",
       "stationType":"Premium Station",
       "stopId":1224,
       "stopName":"South Morang ",
@@ -1234,6 +1254,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1103":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1103,
       "stopName":"Jewell ",
@@ -1242,6 +1263,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1102":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1102,
       "stopName":"Jacana ",
@@ -1250,6 +1272,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1223":{
+      "parking":"328",
       "stationType":"Unstaffed Station",
       "stopId":1223,
       "stopName":"Cardinia Road ",
@@ -1258,6 +1281,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1222":{
+      "parking":"229",
       "stationType":"Unstaffed Station",
       "stopId":1222,
       "stopName":"Lynbrook ",
@@ -1266,6 +1290,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1101":{
+      "parking":"297",
       "stationType":"Premium Station",
       "stopId":1101,
       "stopName":"Ivanhoe ",
@@ -1274,6 +1299,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1221":{
+      "parking":"486",
       "stationType":"Unstaffed Station",
       "stopId":1221,
       "stopName":"Coolaroo ",
@@ -1282,6 +1308,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1100":{
+      "parking":"75",
       "stationType":"Premium Station",
       "stopId":1100,
       "stopName":"Hurstbridge ",
@@ -1290,6 +1317,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1109":{
+      "parking":"154",
       "stationType":"Unstaffed Station",
       "stopId":1109,
       "stopName":"Keon Park ",
@@ -1298,6 +1326,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1108":{
+      "parking":"0",
       "stationType":"Host Station",
       "stopId":1108,
       "stopName":"Kensington ",
@@ -1306,6 +1335,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1120":{
+      "parking":"0",
       "stationType":"Premium Station",
       "stopId":1120,
       "stopName":"Melbourne Central ",
@@ -1314,6 +1344,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1118":{
+      "parking":"0",
       "stationType":"Host Station",
       "stopId":1118,
       "stopName":"Malvern ",
@@ -1322,6 +1353,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1117":{
+      "parking":"102",
       "stationType":"Premium Station",
       "stopId":1117,
       "stopName":"Macleod ",
@@ -1330,6 +1362,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1116":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1116,
       "stopName":"Macaulay ",
@@ -1338,6 +1371,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1115":{
+      "parking":"531",
       "stationType":"Premium Station",
       "stopId":1115,
       "stopName":"Lilydale ",
@@ -1346,6 +1380,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1114":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1114,
       "stopName":"Leawarra ",
@@ -1354,6 +1389,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1113":{
+      "parking":"947",
       "stationType":"Premium Station",
       "stopId":1113,
       "stopName":"Laverton ",
@@ -1362,6 +1398,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1112":{
+      "parking":"417",
       "stationType":"Unstaffed Station",
       "stopId":1112,
       "stopName":"Lalor ",
@@ -1370,6 +1407,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1111":{
+      "parking":"40",
       "stationType":"Unstaffed Station",
       "stopId":1111,
       "stopName":"Laburnum ",
@@ -1378,6 +1416,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1119":{
+      "parking":"51",
       "stationType":"Host Station",
       "stopId":1119,
       "stopName":"McKinnon ",
@@ -1386,6 +1425,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1011":{
+      "parking":"78",
       "stationType":"Unstaffed Station",
       "stopId":1011,
       "stopName":"Aspendale ",
@@ -1394,6 +1434,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1132":{
+      "parking":"30",
       "stationType":"Premium Station",
       "stopId":1132,
       "stopName":"Moorabbin ",
@@ -1402,6 +1443,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1131":{
+      "parking":"107",
       "stationType":"Host Station",
       "stopId":1131,
       "stopName":"Moonee Ponds ",
@@ -1410,6 +1452,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1010":{
+      "parking":"252",
       "stationType":"Premium Station",
       "stopId":1010,
       "stopName":"Ashburton ",
@@ -1418,6 +1461,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1130":{
+      "parking":"93",
       "stationType":"Unstaffed Station",
       "stopId":1130,
       "stopName":"Montmorency ",
@@ -1426,6 +1470,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1129":{
+      "parking":"26",
       "stationType":"Unstaffed Station",
       "stopId":1129,
       "stopName":"Mont Albert ",
@@ -1434,6 +1479,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1008":{
+      "parking":"0",
       "stationType":"Host Station",
       "stopId":1008,
       "stopName":"Armadale ",
@@ -1442,6 +1488,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1128":{
+      "parking":"801",
       "stationType":"Premium Station",
       "stopId":1128,
       "stopName":"Mitcham ",
@@ -1450,6 +1497,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1127":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1127,
       "stopName":"Middle Footscray ",
@@ -1458,6 +1506,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1006":{
+      "parking":"33",
       "stationType":"Unstaffed Station",
       "stopId":1006,
       "stopName":"Anstey ",
@@ -1466,6 +1515,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1126":{
+      "parking":"120",
       "stationType":"Host Station",
       "stopId":1126,
       "stopName":"Middle Brighton ",
@@ -1474,6 +1524,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1005":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1005,
       "stopName":"Altona ",
@@ -1482,6 +1533,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1125":{
+      "parking":"6",
       "stationType":"Unstaffed Station",
       "stopId":1125,
       "stopName":"Merri ",
@@ -1490,6 +1542,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1004":{
+      "parking":"119",
       "stationType":"Unstaffed Station",
       "stopId":1004,
       "stopName":"Alphington ",
@@ -1498,6 +1551,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1003":{
+      "parking":"673",
       "stationType":"Host Station",
       "stopId":1003,
       "stopName":"Albion ",
@@ -1506,6 +1560,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1124":{
+      "parking":"218",
       "stationType":"Host Station",
       "stopId":1124,
       "stopName":"Merlynston ",
@@ -1514,6 +1569,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1002":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1002,
       "stopName":"Alamein ",
@@ -1522,6 +1578,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1123":{
+      "parking":"204",
       "stationType":"Unstaffed Station",
       "stopId":1123,
       "stopName":"Merinda Park ",
@@ -1530,6 +1587,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1122":{
+      "parking":"272",
       "stationType":"Premium Station",
       "stopId":1122,
       "stopName":"Mentone ",
@@ -1538,6 +1596,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1001":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1001,
       "stopName":"Southland ",
@@ -1546,6 +1605,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1009":{
+      "parking":"17",
       "stationType":"Unstaffed Station",
       "stopId":1009,
       "stopName":"Ascot Vale ",
@@ -1554,6 +1614,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1143":{
+      "parking":"105",
       "stationType":"Host Station",
       "stopId":1143,
       "stopName":"North Brighton ",
@@ -1562,6 +1623,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1022":{
+      "parking":"50",
       "stationType":"Unstaffed Station",
       "stopId":1022,
       "stopName":"Bittern ",
@@ -1570,6 +1632,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1142":{
+      "parking":"426",
       "stationType":"Premium Station",
       "stopId":1142,
       "stopName":"Noble Park ",
@@ -1578,6 +1641,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1021":{
+      "parking":"937",
       "stationType":"Premium Station",
       "stopId":1021,
       "stopName":"Berwick ",
@@ -1586,6 +1650,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1020":{
+      "parking":"205",
       "stationType":"Premium Station",
       "stopId":1020,
       "stopName":"Bentleigh ",
@@ -1594,6 +1659,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1141":{
+      "parking":"310",
       "stationType":"Premium Station",
       "stopId":1141,
       "stopName":"Newport ",
@@ -1602,6 +1668,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1140":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1140,
       "stopName":"Newmarket ",
@@ -1610,6 +1677,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1019":{
+      "parking":"75",
       "stationType":"Premium Station",
       "stopId":1019,
       "stopName":"Bell ",
@@ -1618,6 +1686,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1018":{
+      "parking":"170",
       "stationType":"Premium Station",
       "stopId":1018,
       "stopName":"Belgrave ",
@@ -1626,6 +1695,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1139":{
+      "parking":"717",
       "stationType":"Premium Station",
       "stopId":1139,
       "stopName":"Narre Warren ",
@@ -1634,6 +1704,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1138":{
+      "parking":"157",
       "stationType":"Host Station",
       "stopId":1138,
       "stopName":"Murrumbeena ",
@@ -1642,6 +1713,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1017":{
+      "parking":"284",
       "stationType":"Unstaffed Station",
       "stopId":1017,
       "stopName":"Beaconsfield ",
@@ -1650,6 +1722,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1016":{
+      "parking":"393",
       "stationType":"Premium Station",
       "stopId":1016,
       "stopName":"Bayswater ",
@@ -1658,6 +1731,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1137":{
+      "parking":"214",
       "stationType":"Premium Station",
       "stopId":1137,
       "stopName":"Mount Waverley ",
@@ -1666,6 +1740,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1015":{
+      "parking":"15",
       "stationType":"Unstaffed Station",
       "stopId":1015,
       "stopName":"Baxter ",
@@ -1674,6 +1749,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1136":{
+      "parking":"10",
       "stationType":"Unstaffed Station",
       "stopId":1136,
       "stopName":"Morradoo ",
@@ -1682,6 +1758,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1014":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1014,
       "stopName":"Batman ",
@@ -1690,6 +1767,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1135":{
+      "parking":"196",
       "stationType":"Unstaffed Station",
       "stopId":1135,
       "stopName":"Moreland ",
@@ -1698,6 +1776,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1134":{
+      "parking":"220",
       "stationType":"Premium Station",
       "stopId":1134,
       "stopName":"Mordialloc ",
@@ -1706,6 +1785,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1013":{
+      "parking":"0",
       "stationType":"Premium Station",
       "stopId":1013,
       "stopName":"Balaclava ",
@@ -1714,6 +1794,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1012":{
+      "parking":"0",
       "stationType":"Host Station",
       "stopId":1012,
       "stopName":"Auburn ",
@@ -1722,6 +1803,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1133":{
+      "parking":"475",
       "stationType":"Premium Station",
       "stopId":1133,
       "stopName":"Mooroolbark ",
@@ -1730,6 +1812,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1033":{
+      "parking":"125",
       "stationType":"Host Station",
       "stopId":1033,
       "stopName":"Canterbury ",
@@ -1738,6 +1821,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1154":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1154,
       "stopName":"Parkdale ",
@@ -1746,6 +1830,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1032":{
+      "parking":"75",
       "stationType":"Premium Station",
       "stopId":1032,
       "stopName":"Camberwell ",
@@ -1754,6 +1839,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1153":{
+      "parking":"364",
       "stationType":"Premium Station",
       "stopId":1153,
       "stopName":"Pakenham ",
@@ -1762,6 +1848,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1031":{
+      "parking":"184",
       "stationType":"Host Station",
       "stopId":1031,
       "stopName":"Burwood ",
@@ -1770,6 +1857,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1152":{
+      "parking":"117",
       "stationType":"Host Station",
       "stopId":1152,
       "stopName":"Ormond ",
@@ -1778,6 +1866,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1030":{
+      "parking":"4",
       "stationType":"Premium Station",
       "stopId":1030,
       "stopName":"Burnley ",
@@ -1786,6 +1875,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1151":{
+      "parking":"100",
       "stationType":"Unstaffed Station",
       "stopId":1151,
       "stopName":"Officer ",
@@ -1794,6 +1884,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1150":{
+      "parking":"339",
       "stationType":"Premium Station",
       "stopId":1150,
       "stopName":"Oakleigh ",
@@ -1802,6 +1893,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1029":{
+      "parking":"7",
       "stationType":"Unstaffed Station",
       "stopId":1029,
       "stopName":"Brunswick ",
@@ -1810,6 +1902,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1149":{
+      "parking":"36",
       "stationType":"Unstaffed Station",
       "stopId":1149,
       "stopName":"Oak Park ",
@@ -1818,6 +1911,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1028":{
+      "parking":"210",
       "stationType":"Premium Station",
       "stopId":1028,
       "stopName":"Broadmeadows ",
@@ -1826,6 +1920,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1148":{
+      "parking":"204",
       "stationType":"Premium Station",
       "stopId":1148,
       "stopName":"Nunawading ",
@@ -1834,6 +1929,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1027":{
+      "parking":"170",
       "stationType":"Premium Station",
       "stopId":1027,
       "stopName":"Brighton Beach ",
@@ -1842,6 +1938,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1147":{
+      "parking":"5",
       "stationType":"Unstaffed Station",
       "stopId":1147,
       "stopName":"Northcote ",
@@ -1850,6 +1947,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1026":{
+      "parking":"",
       "stationType":"Premium Station",
       "stopId":1026,
       "stopName":"Box Hill ",
@@ -1858,6 +1956,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1025":{
+      "parking":"394",
       "stationType":"Premium Station",
       "stopId":1025,
       "stopName":"Boronia ",
@@ -1866,6 +1965,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1146":{
+      "parking":"39",
       "stationType":"Unstaffed Station",
       "stopId":1146,
       "stopName":"North Williamstown ",
@@ -1874,6 +1974,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1145":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1145,
       "stopName":"North Richmond ",
@@ -1882,6 +1983,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1024":{
+      "parking":"35",
       "stationType":"Unstaffed Station",
       "stopId":1024,
       "stopName":"Bonbeach ",
@@ -1890,6 +1992,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1023":{
+      "parking":"107",
       "stationType":"Premium Station",
       "stopId":1023,
       "stopName":"Blackburn ",
@@ -1898,6 +2001,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1144":{
+      "parking":"0",
       "stationType":"Premium Station",
       "stopId":1144,
       "stopName":"North Melbourne ",
@@ -1906,6 +2010,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1044":{
+      "parking":"518",
       "stationType":"Premium Station",
       "stopId":1044,
       "stopName":"Craigieburn ",
@@ -1914,6 +2019,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1165":{
+      "parking":"0",
       "stationType":"Host Station",
       "stopId":1165,
       "stopName":"Ripponlea ",
@@ -1922,6 +2028,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1043":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1043,
       "stopName":"Collingwood ",
@@ -1930,6 +2037,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1164":{
+      "parking":"460",
       "stationType":"Unstaffed Station",
       "stopId":1164,
       "stopName":"Ringwood East ",
@@ -1938,6 +2046,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1163":{
+      "parking":"303",
       "stationType":"Premium Station",
       "stopId":1163,
       "stopName":"Ringwood ",
@@ -1946,6 +2055,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1042":{
+      "parking":"350",
       "stationType":"Premium Station",
       "stopId":1042,
       "stopName":"Coburg ",
@@ -1954,6 +2064,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1162":{
+      "parking":"0",
       "stationType":"Premium Station",
       "stopId":1162,
       "stopName":"Richmond ",
@@ -1962,6 +2073,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1041":{
+      "parking":"90",
       "stationType":"Premium Station",
       "stopId":1041,
       "stopName":"Clifton Hill ",
@@ -1970,6 +2082,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1040":{
+      "parking":"381",
       "stationType":"Premium Station",
       "stopId":1040,
       "stopName":"Clayton ",
@@ -1978,6 +2091,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1161":{
+      "parking":"495",
       "stationType":"Premium Station",
       "stopId":1161,
       "stopName":"Reservoir ",
@@ -1986,6 +2100,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1160":{
+      "parking":"215",
       "stationType":"Host Station",
       "stopId":1160,
       "stopName":"Regent ",
@@ -1994,6 +2109,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1039":{
+      "parking":"356",
       "stationType":"Premium Station",
       "stopId":1039,
       "stopName":"Cheltenham ",
@@ -2002,6 +2118,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1159":{
+      "parking":"261",
       "stationType":"Premium Station",
       "stopId":1159,
       "stopName":"Preston ",
@@ -2010,6 +2127,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1038":{
+      "parking":"198",
       "stationType":"Unstaffed Station",
       "stopId":1038,
       "stopName":"Chelsea ",
@@ -2018,6 +2136,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1037":{
+      "parking":"8",
       "stationType":"Unstaffed Station",
       "stopId":1037,
       "stopName":"Chatham ",
@@ -2026,6 +2145,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1158":{
+      "parking":"0",
       "stationType":"Host Station",
       "stopId":1158,
       "stopName":"Prahran ",
@@ -2034,6 +2154,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1036":{
+      "parking":"147",
       "stationType":"Premium Station",
       "stopId":1036,
       "stopName":"Caulfield ",
@@ -2042,6 +2163,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1157":{
+      "parking":"48",
       "stationType":"Unstaffed Station",
       "stopId":1157,
       "stopName":"Patterson ",
@@ -2050,6 +2172,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1156":{
+      "parking":"122",
       "stationType":"Unstaffed Station",
       "stopId":1156,
       "stopName":"Pascoe Vale ",
@@ -2058,6 +2181,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1035":{
+      "parking":"220",
       "stationType":"Premium Station",
       "stopId":1035,
       "stopName":"Carrum ",
@@ -2066,6 +2190,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1155":{
+      "parking":"0",
       "stationType":"Premium Station",
       "stopId":1155,
       "stopName":"Parliament ",
@@ -2074,6 +2199,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1034":{
+      "parking":"83",
       "stationType":"Host Station",
       "stopId":1034,
       "stopName":"Carnegie ",
@@ -2082,6 +2208,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1055":{
+      "parking":"548",
       "stopId":1055,
       "stopName":"Diggers Rest ",
       "taxiRank":false,
@@ -2089,6 +2216,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1176":{
+      "parking":"3",
       "stationType":"Unstaffed Station",
       "stopId":1176,
       "stopName":"Seddon ",
@@ -2097,6 +2225,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1054":{
+      "parking":"30",
       "stationType":"Unstaffed Station",
       "stopId":1054,
       "stopName":"Diamond Creek ",
@@ -2105,6 +2234,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1175":{
+      "parking":"7",
       "stationType":"Unstaffed Station",
       "stopId":1175,
       "stopName":"Seaholme ",
@@ -2113,6 +2243,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1174":{
+      "parking":"477",
       "stationType":"Unstaffed Station",
       "stopId":1174,
       "stopName":"Seaford ",
@@ -2121,6 +2252,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1053":{
+      "parking":"36",
       "stationType":"Unstaffed Station",
       "stopId":1053,
       "stopName":"Dennis ",
@@ -2129,6 +2261,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1173":{
+      "parking":"122",
       "stationType":"Premium Station",
       "stopId":1173,
       "stopName":"Sandringham ",
@@ -2137,6 +2270,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1172":{
+      "parking":"560",
       "stationType":"Host Station",
       "stopId":1172,
       "stopName":"Sandown Park ",
@@ -2145,6 +2279,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1051":{
+      "parking":"309",
       "stationType":"Premium Station",
       "stopId":1051,
       "stopName":"Darling ",
@@ -2153,6 +2288,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1171":{
+      "parking":"125",
       "stationType":"Unstaffed Station",
       "stopId":1171,
       "stopName":"Ruthven ",
@@ -2161,6 +2297,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1050":{
+      "parking":"26",
       "stationType":"Unstaffed Station",
       "stopId":1050,
       "stopName":"Darebin ",
@@ -2169,6 +2306,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1170":{
+      "parking":"5",
       "stationType":"Unstaffed Station",
       "stopId":1170,
       "stopName":"Rushall ",
@@ -2177,6 +2315,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1049":{
+      "parking":"448",
       "stationType":"Premium Station",
       "stopId":1049,
       "stopName":"Dandenong ",
@@ -2185,6 +2324,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1048":{
+      "parking":"290",
       "stationType":"Premium Station",
       "stopId":1048,
       "stopName":"Croydon ",
@@ -2193,6 +2333,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1169":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1169,
       "stopName":"Royal Park ",
@@ -2201,6 +2342,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1047":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1047,
       "stopName":"Croxton ",
@@ -2209,6 +2351,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1168":{
+      "parking":"241",
       "stationType":"Unstaffed Station",
       "stopId":1168,
       "stopName":"Rosanna ",
@@ -2217,6 +2360,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1046":{
+      "parking":"20",
       "stationType":"Unstaffed Station",
       "stopId":1046,
       "stopName":"Crib Point ",
@@ -2225,6 +2369,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1045":{
+      "parking":"683",
       "stationType":"Premium Station",
       "stopId":1045,
       "stopName":"Cranbourne ",
@@ -2233,6 +2378,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1166":{
+      "parking":"139",
       "stationType":"Unstaffed Station",
       "stopId":1166,
       "stopName":"Riversdale ",
@@ -2241,6 +2387,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1187":{
+      "parking":"565",
       "stationType":"Premium Station",
       "stopId":1187,
       "stopName":"Sunbury ",
@@ -2249,6 +2396,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1066":{
+      "parking":"76",
       "stationType":"Unstaffed Station",
       "stopId":1066,
       "stopName":"Fawkner ",
@@ -2257,6 +2405,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1186":{
+      "parking":"99",
       "stationType":"Unstaffed Station",
       "stopId":1186,
       "stopName":"Strathmore ",
@@ -2265,6 +2414,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1065":{
+      "parking":"106",
       "stationType":"Host Station",
       "stopId":1065,
       "stopName":"Fairfield ",
@@ -2273,6 +2423,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1064":{
+      "parking":"499",
       "stationType":"Premium Station",
       "stopId":1064,
       "stopName":"Essendon ",
@@ -2281,6 +2432,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1185":{
+      "parking":"8",
       "stationType":"Unstaffed Station",
       "stopId":1185,
       "stopName":"Stony Point ",
@@ -2289,6 +2441,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1063":{
+      "parking":"263",
       "stationType":"Premium Station",
       "stopId":1063,
       "stopName":"Epping ",
@@ -2297,6 +2450,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1184":{
+      "parking":"235",
       "stationType":"Premium Station",
       "stopId":1184,
       "stopName":"St Albans ",
@@ -2305,6 +2459,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1183":{
+      "parking":"217",
       "stationType":"Premium Station",
       "stopId":1183,
       "stopName":"Springvale ",
@@ -2313,6 +2468,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1062":{
+      "parking":"397",
       "stationType":"Premium Station",
       "stopId":1062,
       "stopName":"Eltham ",
@@ -2321,6 +2477,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1061":{
+      "parking":"156",
       "stationType":"Premium Station",
       "stopId":1061,
       "stopName":"Elsternwick ",
@@ -2329,6 +2486,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1182":{
+      "parking":"25",
       "stationType":"Host Station",
       "stopId":1182,
       "stopName":"Spotswood ",
@@ -2337,6 +2495,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1181":{
+      "parking":"0",
       "stationType":"Premium Station",
       "stopId":1181,
       "stopName":"Southern Cross ",
@@ -2345,6 +2504,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1060":{
+      "parking":"34",
       "stationType":"Unstaffed Station",
       "stopId":1060,
       "stopName":"Edithvale ",
@@ -2353,6 +2513,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1180":{
+      "parking":"0",
       "stationType":"Premium Station",
       "stopId":1180,
       "stopName":"South Yarra ",
@@ -2361,6 +2522,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1059":{
+      "parking":"147",
       "stationType":"Unstaffed Station",
       "stopId":1059,
       "stopName":"East Richmond ",
@@ -2369,6 +2531,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1058":{
+      "parking":"676",
       "stationType":"Premium Station",
       "stopId":1058,
       "stopName":"East Malvern ",
@@ -2377,6 +2540,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1179":{
+      "parking":"6",
       "stationType":"Unstaffed Station",
       "stopId":1179,
       "stopName":"South Kensington ",
@@ -2385,6 +2549,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1057":{
+      "parking":"60",
       "stationType":"Unstaffed Station",
       "stopId":1057,
       "stopName":"East Camberwell ",
@@ -2393,6 +2558,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1178":{
+      "parking":"70",
       "stationType":"Unstaffed Station",
       "stopId":1178,
       "stopName":"Somerville ",
@@ -2401,6 +2567,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1056":{
+      "parking":"42",
       "stationType":"Unstaffed Station",
       "stopId":1056,
       "stopName":"Eaglemont ",
@@ -2409,6 +2576,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1190":{
+      "parking":"585",
       "stationType":"Host Station",
       "stopId":1190,
       "stopName":"Syndal ",
@@ -2417,6 +2585,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1077":{
+      "parking":"70",
       "stationType":"Unstaffed Station",
       "stopId":1077,
       "stopName":"Glen Iris ",
@@ -2425,6 +2594,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1198":{
+      "parking":"211",
       "stationType":"Premium Station",
       "stopId":1198,
       "stopName":"Upfield ",
@@ -2433,6 +2603,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1197":{
+      "parking":"20",
       "stationType":"Unstaffed Station",
       "stopId":1197,
       "stopName":"Tyabb ",
@@ -2441,6 +2612,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1076":{
+      "parking":"340",
       "stationType":"Unstaffed Station",
       "stopId":1076,
       "stopName":"Ginifer ",
@@ -2449,6 +2621,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1075":{
+      "parking":"229",
       "stationType":"Host Station",
       "stopId":1075,
       "stopName":"Gardiner ",
@@ -2457,6 +2630,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1196":{
+      "parking":"237",
       "stationType":"Host Station",
       "stopId":1196,
       "stopName":"Tottenham ",
@@ -2465,6 +2639,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1195":{
+      "parking":"189",
       "stationType":"Host Station",
       "stopId":1195,
       "stopName":"Tooronga ",
@@ -2473,6 +2648,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1074":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1074,
       "stopName":"Gardenvale ",
@@ -2481,6 +2657,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1194":{
+      "parking":"0",
       "stationType":"Host Station",
       "stopId":1194,
       "stopName":"Toorak ",
@@ -2489,6 +2666,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1073":{
+      "parking":"413",
       "stationType":"Premium Station",
       "stopId":1073,
       "stopName":"Frankston ",
@@ -2497,6 +2675,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1193":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1193,
       "stopName":"Thornbury ",
@@ -2505,6 +2684,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1072":{
+      "parking":"161",
       "stationType":"Premium Station",
       "stopId":1072,
       "stopName":"Footscray ",
@@ -2513,6 +2693,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1071":{
+      "parking":"0",
       "stationType":"Premium Station",
       "stopId":1071,
       "stopName":"Flinders Street ",
@@ -2521,6 +2702,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1192":{
+      "parking":"310",
       "stationType":"Premium Station",
       "stopId":1192,
       "stopName":"Thomastown ",
@@ -2529,6 +2711,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1191":{
+      "parking":"17",
       "stationType":"Unstaffed Station",
       "stopId":1191,
       "stopName":"Tecoma ",
@@ -2537,6 +2720,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1070":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1070,
       "stopName":"Flemington Racecourse ",
@@ -2545,6 +2729,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1069":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1069,
       "stopName":"Flemington Bridge ",
@@ -2553,6 +2738,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1189":{
+      "parking":"357",
       "stationType":"Premium Station",
       "stopId":1189,
       "stopName":"Surrey Hills ",
@@ -2561,6 +2747,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1068":{
+      "parking":"0",
       "stationType":"Premium Station",
       "stopId":1068,
       "stopName":"Flagstaff ",
@@ -2569,6 +2756,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1067":{
+      "parking":"185",
       "stationType":"Premium Station",
       "stopId":1067,
       "stopName":"Ferntree Gully ",
@@ -2577,6 +2765,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1080":{
+      "parking":"0",
       "stationType":"Premium Station",
       "stopId":1080,
       "stopName":"Glenferrie ",
@@ -2585,6 +2774,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1088":{
+      "parking":"20",
       "stationType":"Unstaffed Station",
       "stopId":1088,
       "stopName":"Hastings ",
@@ -2593,6 +2783,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1087":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1087,
       "stopName":"Hartwell ",
@@ -2601,6 +2792,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1086":{
+      "parking":"167",
       "stationType":"Unstaffed Station",
       "stopId":1086,
       "stopName":"Hampton ",
@@ -2609,6 +2801,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1085":{
+      "parking":"590",
       "stationType":"Unstaffed Station",
       "stopId":1085,
       "stopName":"Hallam ",
@@ -2617,6 +2810,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1084":{
+      "parking":"212",
       "stationType":"Premium Station",
       "stopId":1084,
       "stopName":"Greensborough ",
@@ -2625,6 +2819,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1083":{
+      "parking":"118",
       "stationType":"Premium Station",
       "stopId":1083,
       "stopName":"Gowrie ",
@@ -2633,6 +2828,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1082":{
+      "parking":"618",
       "stationType":"Premium Station",
       "stopId":1082,
       "stopName":"Glenroy ",
@@ -2641,6 +2837,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1081":{
+      "parking":"175",
       "stationType":"Host Station",
       "stopId":1081,
       "stopName":"Glenhuntly ",
@@ -2649,6 +2846,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1079":{
+      "parking":"63",
       "stationType":"Unstaffed Station",
       "stopId":1079,
       "stopName":"Glenbervie ",
@@ -2657,6 +2855,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1199":{
+      "parking":"308",
       "stationType":"Premium Station",
       "stopId":1199,
       "stopName":"Upper Ferntree Gully ",
@@ -2665,6 +2864,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1078":{
+      "parking":"332",
       "stationType":"Premium Station",
       "stopId":1078,
       "stopName":"Glen Waverley ",
@@ -2673,6 +2873,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1091":{
+      "parking":"518",
       "stationType":"Host Station",
       "stopId":1091,
       "stopName":"Heatherdale ",
@@ -2681,6 +2882,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1090":{
+      "parking":"11",
       "stationType":"Host Station",
       "stopId":1090,
       "stopName":"Hawthorn ",
@@ -2689,6 +2891,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1099":{
+      "parking":"388",
       "stationType":"Host Station",
       "stopId":1099,
       "stopName":"Huntingdale ",
@@ -2697,6 +2900,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1098":{
+      "parking":"70",
       "stationType":"Host Station",
       "stopId":1098,
       "stopName":"Hughesdale ",
@@ -2705,6 +2909,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1097":{
+      "parking":"566",
       "stationType":"Host Station",
       "stopId":1097,
       "stopName":"Hoppers Crossing ",
@@ -2713,6 +2918,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1096":{
+      "parking":"195",
       "stationType":"Host Station",
       "stopId":1096,
       "stopName":"Holmesglen ",
@@ -2721,6 +2927,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1095":{
+      "parking":"116",
       "stationType":"Unstaffed Station",
       "stopId":1095,
       "stopName":"Highett ",
@@ -2729,6 +2936,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1094":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1094,
       "stopName":"Heyington ",
@@ -2737,6 +2945,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1093":{
+      "parking":"300",
       "stationType":"Premium Station",
       "stopId":1093,
       "stopName":"Heidelberg ",
@@ -2745,6 +2954,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1092":{
+      "parking":"112",
       "stationType":"Unstaffed Station",
       "stopId":1092,
       "stopName":"Heathmont ",
@@ -2753,6 +2963,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1089":{
+      "parking":"0",
       "stationType":"Host Station",
       "stopId":1089,
       "stopName":"Hawksburn ",
@@ -2761,6 +2972,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1206":{
+      "parking":"410",
       "stationType":"Unstaffed Station",
       "stopId":1206,
       "stopName":"West Footscray ",
@@ -2769,6 +2981,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1205":{
+      "parking":"582",
       "stationType":"Premium Station",
       "stopId":1205,
       "stopName":"Werribee ",
@@ -2777,6 +2990,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1204":{
+      "parking":"53",
       "stationType":"Unstaffed Station",
       "stopId":1204,
       "stopName":"Wattle Glen ",
@@ -2785,6 +2999,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1203":{
+      "parking":"534",
       "stationType":"Premium Station",
       "stopId":1203,
       "stopName":"Watsonia ",
@@ -2793,6 +3008,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1202":{
+      "parking":"712",
       "stationType":"Premium Station",
       "stopId":1202,
       "stopName":"Watergardens ",
@@ -2801,6 +3017,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1201":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1201,
       "stopName":"Victoria Park ",
@@ -2809,6 +3026,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1200":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1200,
       "stopName":"Upwey ",
@@ -2817,6 +3035,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1209":{
+      "parking":"22",
       "stationType":"Unstaffed Station",
       "stopId":1209,
       "stopName":"Westgarth ",
@@ -2825,6 +3044,7 @@ function initShopInfoList() {
       "zone":"1"
    },
    "1208":{
+      "parking":"274",
       "stationType":"Premium Station",
       "stopId":1208,
       "stopName":"Westall ",
@@ -2833,6 +3053,7 @@ function initShopInfoList() {
       "zone":"2"
    },
    "1207":{
+      "parking":"0",
       "stationType":"Unstaffed Station",
       "stopId":1207,
       "stopName":"West Richmond ",
@@ -2840,8 +3061,8 @@ function initShopInfoList() {
       "toilet":false,
       "zone":"1"
    }
-	}
 }
+	}
 
 module.exports = {
 	initRoutes: initRoutes,

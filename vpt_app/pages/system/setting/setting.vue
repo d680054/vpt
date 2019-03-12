@@ -8,11 +8,11 @@
 				</picker>
 					<uni-list-item title="City commuter" note="Auto-filter the citybound trains in the morning(weekdays only)" show-arrow="false" show-switch="true" :switch-checked="cityCommuter" @switchChange="switchCommuter" thumb="../../../static/images/city.png"></uni-list-item>
 			</uni-list>
-			<view class="section"><text>Location</text></view>
+			<!-- <view class="section"><text>Location</text></view>
 			<uni-list>
 				<uni-list-item title="Time buffer" note="The amount of time to cover past trains" show-arrow="false" thumb="../../../static/images/timer.png">
 				</uni-list-item>
-			</uni-list>
+			</uni-list> -->
 		</view>
 	</view>
 </template>
