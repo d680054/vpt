@@ -55,12 +55,11 @@
 							<text v-else>&nbsp;NOW</text>
 						</view> -->
 					</view>
-					<view class="timing" style="background: #6A6D73;" v-if="item.gap < 0">
+					<view class="timing" style="background: #6A6D73;" v-if="item.gap < -10">
 						<text>Left\n {{item.gapText}}mins</text>
 					</view>
 					<view class="timing" v-else>
-						<!-- <text v-if="item.minorDelay">In {{item.gapText}}mins\n {{item.minorDelay}}m delay</text> -->
-						<text v-if="item.gap > 0">In\n {{item.gapText}}mins</text>
+						<text v-if="item.gap > 10">In\n {{item.gapText}}mins</text>
 						<text v-else>&nbsp;NOW</text>
 					</view>
 
@@ -116,6 +115,7 @@
 					"background-color:#66cc33;", "background-color:#66cc33;", "background-color:#66cc33;",
 					"background-color:#66cc33;",
 				],
+				cityLoop: ['Flinders Street', 'Southern Cross', 'Melbourne Central', 'Flagstaff', 'Parliament'],
 				status: "background-color:#66cc33;",
 				beforeTime: moment('04:00:00', 'hh:mm:ss'),
 				afterTime: moment('11:59:00', 'hh:mm:ss'),
@@ -252,20 +252,27 @@
 			 * 格式化时间
 			 */
 			filterTheTimetable(timetables) {
+				let nowUTC = moment();
 				return timetables.filter(item => {
-					if (moment(item.estimatedDepartureUTC).isAfter(moment.utc().subtract(this.pastTime, 'minutes'))) {
-						let du = moment.duration(moment(item.estimatedDepartureUTC) - moment(), 'ms');
-						item.gap = moment(item.estimatedDepartureUTC).diff(moment(), 'minutes');
-						if (item.gap < 0) {
+					let estUTC = moment(item.estimatedDepartureUTC);
+					if (estUTC.isAfter(moment().subtract(this.pastTime, 'minutes'))) {
+						let du = moment.duration(estUTC - nowUTC, 'ms');
+						item.gap = estUTC.diff(nowUTC, 'seconds');
+						//console.info("the est - now utc(sec): " + item.gap);
+						if (item.gap < -10) {
 							item.greyCell = "background-color:#e7e7e7";
 						}
 						var h = "";
 						if (du.get('hours') > 0) {
 							h = du.get('hours') + "h "
 						}
-						item.gapText = h + Math.abs(du.get('minutes'));
-						if (moment(item.estimatedDepartureUTC).isAfter(moment(item.scheduledDepartureUTC).add(30, 'seconds'))) {
-							item.minorDelay = true;//moment(item.estimatedDepartureUTC).diff(moment(item.scheduledDepartureUTC), 'minutes');
+						let minutes = Math.abs(du.get('minutes'));
+						if(minutes == 0 && Math.abs(du.get('seconds')) > 10) minutes =1;
+						item.gapText = h + minutes;
+						
+						//calculate the delay
+						if (estUTC.isAfter(moment(item.scheduledDepartureUTC).add(60, 'seconds'))) {
+							item.minorDelay = true;
 						}
 						return item;
 					}
@@ -357,28 +364,12 @@
 				}
 			},
 
-			// 			changeDirection() {
-			// 				let directions = uni.getStorageSync("directions");
-			// 				if (directions) {
-			// 					let totalSize = directions.length;
-			// 					if (this.directionIndex == totalSize) {
-			// 						this.directionIndex = 0;
-			// 						this.timetables = this.fullTimetables;
-			// 					} else {
-			// 						let selectedDirect = [this.directionIndex];
-			// 						console.info(selectedDirect);
-			// 						uni.setStorageSync("selectedDirect", selectedDirect);
-			// 						this.timetables = this.fullTimetables.filter(t => t.directionId == selectedDirect);
-			// 						this.directionIndex++;
-			// 					}
-			// 					uni.setStorageSync("timetables", this.timetables);
-			// 				}
-			// 			},
-
 			isCityCommuterEnabled() {
+				console.info(this.cityLoop.indexOf(uni.getStorageSync("selectedStop")['stopName']));
 				return uni.getStorageSync("cityCommuter") &&
 					moment().isoWeekday() < 6 && //should be weekday only
-					this.directionIds.indexOf(1) != -1 && //the current stop should not city loop
+					//this.directionIds.indexOf(1) != -1 && //the current stop should not city loop
+					this.cityLoop.indexOf(uni.getStorageSync("selectedStop")['stopName']) == -1 && //the current stop should not city loop
 					moment().isBetween(this.beforeTime, this.afterTime) //shoudl be in the morning
 			},
 
