@@ -7,7 +7,9 @@
 			<view slot="right">right</view> -->
 		</uni-nav-bar>
 		<uni-drawer :visible="showDrawer" mode="left" @close="closeDrawer('left')">
-			<view style="padding:80upx 45upx 45upx;font-weight:500;">Victoria Public Transport</view>
+			<view style="padding:80upx 45upx 45upx;font-weight:500;">Victoria Public Transport
+			<image src="../../../static/logo.png" style="border-radius:5px;align-self:center;height:100rpx;width:150rpx;" />
+			</view>
 			<uni-list>
 				<uni-list-item title="Train" @click="closeDrawer" show-arrow="false" thumb="../../../static/images/train.png"></uni-list-item>
 				<uni-list-item title="V/Line" @click="comingsoon" show-arrow="false" thumb="../../../static/images/train-inactive.png"></uni-list-item>
@@ -49,11 +51,6 @@
 								{{item.departureLocalTime}}<span v-show="item.platform"> - Platform {{item.platform}}</span>
 							</view>
 						</view>
-						<!-- <view class="timing">
-							<text v-if="item.gap > 0">&nbsp;In {{item.gapText}}mins</text>
-							<text v-else-if="item.gap < 0">&nbsp;Left {{item.gapText}}mins ago</text>
-							<text v-else>&nbsp;NOW</text>
-						</view> -->
 					</view>
 					<view class="timing" style="background: #6A6D73;" v-if="item.gap < -10">
 						<text>Left\n {{item.gapText}}mins</text>
@@ -62,7 +59,9 @@
 						<text v-if="item.gap > 10">In\n {{item.gapText}}mins</text>
 						<text v-else>&nbsp;NOW</text>
 					</view>
-
+				</view>
+				<view v-if="partialLoad && timetables.length>0" style="justify-content:center;background:#f7f7f7;padding-bottom:5px;" @tap="loadMore">
+					Load More
 				</view>
 			</scroll-view>
 		</view>
@@ -119,6 +118,7 @@
 				status: "background-color:#66cc33;",
 				beforeTime: moment('04:00:00', 'hh:mm:ss'),
 				afterTime: moment('11:59:00', 'hh:mm:ss'),
+				partialLoad: true,
 			};
 		},
 
@@ -160,10 +160,6 @@
 			this.renderLines();
 		},
 
-		onPullDownRefresh() {
-			this.forceLoadingTimetable(uni.stopPullDownRefresh());
-		},
-
 		onShareAppMessage(res) {
 			return {
 				title: 'Victoria Public Transport',
@@ -187,10 +183,15 @@
 				let body = {
 					routeType: '0',
 					stopId: this.stopId,
-					routeIds: selectedRouteIds.join()
+					routeIds: selectedRouteIds.join(),
+					partialLoad: this.partialLoad,
 				}
 				net.netUtil(con.DEPARTURE_URL, 'GET', body, res => {
 					if (res.data) {
+						this.partialLoad = false;
+						if(res.data.length == 50) {this.partialLoad = true}
+						console.info('the partial:' + this.partialLoad);
+						
 						this.fullTimetables = this.filterTheTimetable(res.data);
 						uni.setStorageSync("fullTimetables", this.fullTimetables);
 						this.initDirections(this.fullTimetables);
@@ -258,7 +259,6 @@
 					if (estUTC.isAfter(moment().subtract(this.pastTime, 'minutes'))) {
 						let du = moment.duration(estUTC - nowUTC, 'ms');
 						item.gap = estUTC.diff(nowUTC, 'seconds');
-						//console.info("the est - now utc(sec): " + item.gap);
 						if (item.gap < -10) {
 							item.greyCell = "background-color:#e7e7e7";
 						}
@@ -267,7 +267,7 @@
 							h = du.get('hours') + "h "
 						}
 						let minutes = Math.abs(du.get('minutes'));
-						if(minutes == 0 && Math.abs(du.get('seconds')) > 10) minutes =1;
+						if(minutes == 0 && Math.abs(du.get('seconds')) > 10) minutes = 1;
 						item.gapText = h + minutes;
 						
 						//calculate the delay
@@ -368,12 +368,16 @@
 				console.info(this.cityLoop.indexOf(uni.getStorageSync("selectedStop")['stopName']));
 				return uni.getStorageSync("cityCommuter") &&
 					moment().isoWeekday() < 6 && //should be weekday only
-					//this.directionIds.indexOf(1) != -1 && //the current stop should not city loop
 					this.cityLoop.indexOf(uni.getStorageSync("selectedStop")['stopName']) == -1 && //the current stop should not city loop
 					moment().isBetween(this.beforeTime, this.afterTime) //shoudl be in the morning
 			},
 
 			refreshTimeTable() {
+				this.forceLoadingTimetable();
+			},
+			
+			loadMore() {
+				this.partialLoad = false;
 				this.forceLoadingTimetable();
 			},
 

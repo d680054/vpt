@@ -136,6 +136,7 @@
 								title: "Error",
 								content: "your username or password is wrong",
 								showCancel: false,
+								confirmText: 'OK'
 							})
 						} else if (res.data) {
 							this.cards = res.data;
@@ -176,6 +177,7 @@
 							title: "Error",
 							content: "You have to agree the Privacy Policy to continue",
 							showCancel: false,
+							confirmText: "OK",
 						})
 					}
 				},
