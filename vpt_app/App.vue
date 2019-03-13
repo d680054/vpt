@@ -34,7 +34,7 @@
 			this.initRouteStop();
 			this.initDirections();
 			this.initPastTime();
-			this.initStopInfoMap();
+			//this.initStopInfoMap();
 			uni.removeStorageSync("fullTimetables");
 			
 			wx.getSystemInfo({

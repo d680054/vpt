@@ -40,8 +40,8 @@ public class PTVController {
     @RequestMapping(value = "/departures", method = RequestMethod.GET, produces = "application/json")
     public List<DepartureTerminal> fetchDepartures(@RequestParam("routeType") String routeType,
                                                    @RequestParam("stopId") String stopId,
-                                                   @RequestParam("routeIds") List<Integer> routeIds) throws Exception {
-        long a = System.currentTimeMillis();
+                                                   @RequestParam("routeIds") List<Integer> routeIds,
+                                                   @RequestParam(value = "partialLoad", required = false, defaultValue = "true") boolean partialLoad) throws Exception {
         List<DepartureTerminal> list = ptvService.fetchDepartures(stopId, routeType);
         List<DepartureTerminal> departures = new ArrayList<>();
         for (DepartureTerminal terminal : list) {
@@ -50,9 +50,6 @@ public class PTVController {
                 departures.add(terminal);
             }
         }
-        long b = System.currentTimeMillis();
-        log.info("first loading: " + (b - a));
-
 
         if (routeIds.size() < 9 && true) {
             List<DepartureTerminal> estDepartures =
@@ -61,17 +58,17 @@ public class PTVController {
             estDepartures.forEach(estDeparture -> {
                 if (StringUtils.isNotEmpty(estDeparture.getEstimatedDepartureUTC())) {
                     departures.stream().filter(d -> d.getRunId().equals(estDeparture.getRunId())).findFirst()
-                            .ifPresent(d -> {
-                                d.setEstimatedDepartureUTC(estDeparture.getEstimatedDepartureUTC());
-                            });
+                            .ifPresent(d -> d.setEstimatedDepartureUTC(estDeparture.getEstimatedDepartureUTC()));
                 }
             });
         }
 
-        log.info("second loading: " + (System.currentTimeMillis() - b));
-
-        return departures;
-        //return list.stream().filter(departureTerminal -> routeIds.contains(departureTerminal.getRouteId())).collect(Collectors.toList());
+        if (partialLoad) {
+            int index = departures.size() >= 50 ? 50 : departures.size();
+            return departures.subList(0, index);
+        } else {
+            return departures;
+        }
     }
 
     @RequestMapping(value = "/disruptions", method = RequestMethod.GET, produces = "application/json")
@@ -98,26 +95,5 @@ public class PTVController {
 
         return stopRoutes;
     }
-
-//    @RequestMapping(value = "/initStopReverse", method = RequestMethod.GET, produces = "application/json")
-//    public Map<String, Integer> initData() throws Exception {
-//        //init stopNameMap;<'flinders', 1077>
-//        return initService.getStopReverseMap();
-//    }
-//
-//    @RequestMapping(value = "/initRouteStop", method = RequestMethod.GET, produces = "application/json")
-//    public Map<Integer, List<Integer>> getRouteStopMap() {
-//        return initService.getRouteStopMap();
-//    }
-//
-//    @RequestMapping(value = "/initDirections", method = RequestMethod.GET, produces = "application/json")
-//    public Map<Integer, String> initDirection() throws Exception {
-//        return initService.getDirectionMap();
-//    }
-//
-//    @RequestMapping(value = "/initRoutes", method = RequestMethod.GET, produces = "application/json")
-//    public String initRoutes() {
-//        return initService.initRoutes();
-//    }
 
 }
