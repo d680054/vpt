@@ -1,5 +1,5 @@
 {
-    "name" : "ptv",
+    "name" : "VPT",
     "appid" : "__UNI__C25472E",
     "description" : "",
     "versionName" : "1.0.0",
@@ -14,15 +14,18 @@
             "android" : {
                 /* android打包配置 */
                 "permissions" : [
-                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>"
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>"
                 ]
             },
             "ios" : {},
             /* ios打包配置 */
-            "sdkConfigs" : {},
+            "sdkConfigs" : {
+                "payment" : {}
+            },
             "icons" : {
                 "ios" : {
-                    "appstore" : "/Users/David/Desktop/9696BF9A-061B-45F7-B137-F1A601BDF5EF.png",
+                    "appstore" : "/Users/David/Developer/workspace/HJ/vpt/vpt.png",
                     "ipad" : {
                         "app" : "unpackage/res/icons/76x76.png",
                         "app@2x" : "unpackage/res/icons/152x152.png",
@@ -56,9 +59,9 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "/Users/David/Desktop/9696BF9A-061B-45F7-B137-F1A601BDF5EF.png",
-                    "xhdpi" : "/Users/David/Desktop/9696BF9A-061B-45F7-B137-F1A601BDF5EF.png",
-                    "xxhdpi" : "/Users/David/Desktop/9696BF9A-061B-45F7-B137-F1A601BDF5EF.png"
+                    "hdpi" : "/Users/David/Developer/workspace/HJ/vpt/vpt.png",
+                    "xhdpi" : "/Users/David/Developer/workspace/HJ/vpt/vpt.png",
+                    "xxhdpi" : "/Users/David/Developer/workspace/HJ/vpt/vpt.png"
                 }
             }
         },
