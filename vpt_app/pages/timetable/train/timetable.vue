@@ -1,18 +1,18 @@
 <template>
 	<view class="content uni-column" style="flex: 1;">
 		<uni-nav-bar left-icon="bars" right-icon="refreshempty" @click-left="openDrawer" @click-right="refreshTimeTable"
-		 status-bar="true" color="#F8F8F8" background-color="#0072ce" shadow="false">
+		 status-bar="true" color="#F8F8F8" :background-color='themeColor' shadow="false">
 			<view style="font-weight: 500;">Time Table</view>
 			<!-- <view slot="left">left</view>
 			<view slot="right">right</view> -->
 		</uni-nav-bar>
 		<uni-drawer :visible="showDrawer" mode="left" @close="closeDrawer('left')">
 			<view style="padding:80upx 45upx 45upx;font-weight:500;">Victoria Public Transport
-			<image src="../../../static/logo.png" style="border-radius:5px;align-self:center;height:100rpx;width:150rpx;" />
+				<image src="../../../static/logo.png" style="border-radius:5px;align-self:center;height:100rpx;width:150rpx;" />
 			</view>
 			<uni-list>
-				<uni-list-item title="Train" @click="closeDrawer" show-arrow="false" thumb="../../../static/images/train.png"></uni-list-item>
-				<uni-list-item title="V/Line" @click="comingsoon" show-arrow="false" thumb="../../../static/images/train-inactive.png"></uni-list-item>
+				<uni-list-item title="Train" @click="switchToTrain" show-arrow="false" thumb="../../../static/images/train.png"></uni-list-item>
+				<uni-list-item title="V/Line" @click="switchToVline" show-arrow="false" thumb="../../../static/images/vline.png"></uni-list-item>
 				<uni-list-item title="Tram" @click="comingsoon" show-arrow="false" thumb="../../../static/images/tram-inactive.png"></uni-list-item>
 				<uni-list-item title="Bus" @click="comingsoon" show-arrow="false" thumb="../../../static/images/bus-inactive.png"></uni-list-item>
 				<uni-list-item title="SkyBus" @click="comingsoon" show-arrow="false" thumb="../../../static/images/bus-inactive.png"></uni-list-item>
@@ -21,29 +21,31 @@
 			</uni-list>
 		</uni-drawer>
 
-		<view class="header-box">
+		<view class="header-box" :style="{'background-color':themeColor}">
 			<view @tap="gotoLineSelect">
 				<image style="width:25px;height:25px" src="../../../static/images/track.png"></image>
 				<text>{{trainLines}}</text>
 			</view>
-			<view @tap="gotoStopSelect">
-				<image style="width:28px;height:28px" src="../../../static/images/stop.png"></image>
-				<text>{{stopName}}</text>
+			<view style="align-items:center" @tap="gotoStopSelect">
+				<image style="width:28px;height:28px;padding: 5upx;" src="../../../static/images/stop.png"></image>
+				<text style="white-space:normal;">{{stopName}}</text>
 			</view>
+			<view>
 			<picker @change="pickDirection" :range="directionArr" :value="directionIndex">
 				<image style="display:flex;width:25px;height:25px" src="../../../static/images/filter.png"></image>
 			</picker>
+			</view>
 		</view>
 		<view style="flex-direction: column;">
-			<scroll-view scroll-y :style="scrollHeight" class="uni-list main_container">
-				<view class="container" hover-class="uni-list-cell-hover" v-for="(item,index) in timetables" :key="index" @tap="openRunDetail"
-				 :data-runid="item.runId" :data-terminal="item.terminal" :data-routeid="item.routeId" :data-departtime="item.departureLocalTime"
-				 data-status="status">
+			<scroll-view v-if="timetables.length > 0" scroll-y :style="scrollHeight" class="uni-list main_container">
+				<view class="container" :style="{'border-left-color':themeColor}" hover-class="uni-list-cell-hover" v-for="(item,index) in timetables"
+				 :key="index" @tap="openRunDetail" :data-runid="item.runId" :data-terminal="item.terminal" :data-routeid="item.routeId"
+				 :data-departtime="item.departureLocalTime" data-status="status">
 					<view class="uni-list-cell-navigate cell-align" :style="item.greyCell">
 						<view style="flex-direction: column;">
 							<view style="align-items:center;padding:4upx;width:500rpx">
 								<view v-if="item.minorDelay" class="disruption-circle" style="background-color:#1ba035;" />
-								<view v-else class="disruption-circle" :style="serviceStatus[item.routeId]"></view>
+								<view v-else class="disruption-circle" :style="{'background-color':serviceStatus[item.routeId]?serviceStatus[item.routeId]:'#66cc33'}"></view>
 								<text class="terminal">{{item.terminal}}</text>
 								<text class="express" v-show="item.express"> - Express</text>
 							</view>
@@ -55,15 +57,23 @@
 					<view class="timing" style="background: #6A6D73;" v-if="item.gap < -10">
 						<text>Left\n {{item.gapText}}mins</text>
 					</view>
-					<view class="timing" v-else>
+					<view class="timing" :style="{'background-color':themeColor}" v-else>
 						<text v-if="item.gap > 10">In\n {{item.gapText}}mins</text>
 						<text v-else>&nbsp;NOW</text>
 					</view>
 				</view>
-				<view v-if="partialLoad && timetables.length>0" style="justify-content:center;background:#f7f7f7;padding-bottom:5px;" @tap="loadMore">
+				<view v-if="partialLoad && timetables.length>0" style="justify-content:center;background:#f7f7f7;padding-bottom:5px;"
+				 @tap="loadMore">
 					Load More
 				</view>
 			</scroll-view>
+			<view v-else style="flex-direction:column">
+				<view class="uni-list-cell" v-for="(item,index) in disruptions" :key="index">
+					<view class="uni-list-cell-navigate disruption-info">
+						{{item}}
+					</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -93,32 +103,27 @@
 				showRigth: false,
 				showLeft: true,
 				title: 'Drawer',
-
 				fullTimetables: [],
 				timetables: [],
 				trainLines: '',
 				stopName: '',
 				stopId: '',
-				trainRoutesMap: [],
+				routeType: uni.getStorageSync("seletecRouteType"),
+				trainRoutesMap: {},
 				directionIndex: 0,
 				scrollHeight: "1000upx",
 				directionArr: [],
 				directionIds: [],
 				pastTime: 10,
 				index: 0,
-				serviceStatus: ["background-color:#66cc33;", "background-color:#66cc33;", "background-color:#66cc33;",
-					"background-color:#66cc33;", "background-color:#66cc33;", "background-color:#66cc33;",
-					"background-color:#66cc33;", "background-color:#66cc33;", "background-color:#66cc33;", "background-color:good;",
-					"background-color:#66cc33;", "background-color:#66cc33;", "background-color:#66cc33;",
-					"background-color:#66cc33;", "background-color:#66cc33;", "background-color:#66cc33;",
-					"background-color:#66cc33;", "background-color:#66cc33;", "background-color:#66cc33;",
-					"background-color:#66cc33;",
-				],
+				serviceStatus: [],
 				cityLoop: ['Flinders Street', 'Southern Cross', 'Melbourne Central', 'Flagstaff', 'Parliament'],
 				status: "background-color:#66cc33;",
 				beforeTime: moment('04:00:00', 'hh:mm:ss'),
 				afterTime: moment('11:59:00', 'hh:mm:ss'),
 				partialLoad: true,
+				themeColor: uni.getStorageSync("themeColor"),
+				disruptions: [],
 			};
 		},
 
@@ -130,7 +135,6 @@
 				this.renderLines();
 				this.forceLoadingTimetable();
 			})
-			this.fetchServiceStatus();
 		},
 
 		onUnload: function() {
@@ -155,9 +159,7 @@
 			if (!this.pastTime && this.pastTime != 0) {
 				this.pastTime = 10;
 			}
-			this.initDefaultStop();
-			this.loadTimetable();
-			this.renderLines();
+			this.refresh();
 		},
 
 		onShareAppMessage(res) {
@@ -168,6 +170,15 @@
 		},
 
 		methods: {
+
+			refresh() {
+				this.renderLines();
+				this.initDefaultStop();
+				this.loadTimetable();
+				this.displayLines();
+				this.fetchServiceStatus();
+			},
+
 			loadTimetable() {
 				this.fullTimetables = uni.getStorageSync("fullTimetables");
 				if (!this.fullTimetables) {
@@ -181,17 +192,18 @@
 					selectedRouteIds.splice(selectedRouteIds.indexOf('all'), 1);
 				}
 				let body = {
-					routeType: '0',
+					routeType: this.routeType,
 					stopId: this.stopId,
 					routeIds: selectedRouteIds.join(),
 					partialLoad: this.partialLoad,
 				}
 				net.netUtil(con.DEPARTURE_URL, 'GET', body, res => {
-					if (res.data) {
+					if (res.data && res.data.length > 0) {
 						this.partialLoad = false;
-						if(res.data.length == 50) {this.partialLoad = true}
-						console.info('the partial:' + this.partialLoad);
-						
+						if (res.data.length == 50) {
+							this.partialLoad = true
+						}
+
 						this.fullTimetables = this.filterTheTimetable(res.data);
 						uni.setStorageSync("fullTimetables", this.fullTimetables);
 						this.initDirections(this.fullTimetables);
@@ -207,15 +219,37 @@
 							this.timetables = this.timetables.filter(t => t.directionId == selectedDirect);
 						}
 						uni.setStorageSync("timetables", this.timetables);
+					} else {
+						this.timetables = [];
+						this.fetchDisruptions();
 					}
 				});
 			},
 
+			/**
+			 * init the lines
+			 */
 			renderLines() {
+				if (this.trainRoutesMap) {
+					uni.getStorageSync("routes").forEach(item => {
+						if (item.route_type == this.routeType) {
+							this.trainRoutesMap[item.route_id] = item.route_name;
+						}
+					});
+					uni.setStorageSync("trainRoutesMap", this.trainRoutesMap);
+				} else {
+					this.trainRoutesMap = uni.getStorageSync("trainRoutesMap");
+				}
+			},
+
+			/**
+			 * Display the 	line name
+			 */
+			displayLines() {
 				let routeIds = uni.getStorageSync("selectedRouteIds");
-				this.trainRoutesMap = uni.getStorageSync("trainRoutesMap");
 				if (routeIds.length == 1) {
-					this.trainLines = this.trainRoutesMap[routeIds[0]];
+					let lineName = this.trainRoutesMap[routeIds[0]];
+					this.trainLines = lineName.indexOf("-") == -1 ? lineName : lineName.substr(0, lineName.indexOf("-"));
 				} else if (routeIds.length > 1) {
 					let number = routeIds.length == 18 ? 17 : routeIds.length;
 					this.trainLines = number + " lines"
@@ -236,15 +270,26 @@
 					if (nearme && Object.keys(nearme).length > 0) {
 						this.stopName = nearme[0];
 						this.stopId = uni.getStorageSync('stopNameMap')[this.stopName];
+						let lines = uni.getStorageSync("routeStopMap")[this.stopId];
+						uni.setStorageSync("selectedRouteIds", lines);
 					} else {
-						this.stopName = "Flinders Street";
-						this.stopId = "1071";
+						if (this.routeType == 0) {
+							uni.setStorageSync("selectedRouteIds", ["all", 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17]);
+							this.stopName = "Flinders Street";
+							this.stopId = "1071";
+						} else if (this.routeType == 3) {
+							uni.setStorageSync("selectedRouteIds", ["all", 1512, 1706, 1710, 1717, 1718, 1719, 1720, 1721, 1722, 1723, 1724,
+								1725, 1726, 1727, 1728, 1731, 1732, 1733, 1734, 1735, 1737, 1738, 1740, 1744, 1745, 1749, 1751, 1755, 1756,
+								1758, 1759, 1760, 1761, 1762, 1767, 1768, 1773, 1774, 1775, 1776, 1782, 1783, 1784, 1823, 1824, 1837, 1838,
+								1848, 1849, 1853, 1908, 1912, 1914, 1915, 4871, 5838, 7601
+							]);
+							this.stopName = "Southern Cross";
+							this.stopId = "1181";
+						}
 						uni.setStorageSync("selectedStop", {
-							'stopName': "Flinders Street",
-							'stopId': "1071",
+							'stopName': this.stopName,
+							'stopId': this.stopId,
 						});
-						let routeStopMap = uni.getStorageSync("routeStopMap");
-						uni.setStorageSync("selectedRouteIds", routeStopMap[this.stopId]);
 					}
 				}
 			},
@@ -267,9 +312,9 @@
 							h = du.get('hours') + "h "
 						}
 						let minutes = Math.abs(du.get('minutes'));
-						if(minutes == 0 && Math.abs(du.get('seconds')) > 10) minutes = 1;
+						if (minutes == 0 && Math.abs(du.get('seconds')) > 10) minutes = 1;
 						item.gapText = h + minutes;
-						
+
 						//calculate the delay
 						if (estUTC.isAfter(moment(item.scheduledDepartureUTC).add(60, 'seconds'))) {
 							item.minorDelay = true;
@@ -284,7 +329,7 @@
 			 */
 			fetchServiceStatus() {
 				let body = {
-					routeType: '0',
+					routeType: this.routeType,
 				}
 				net.netUtil(con.DISRUPTION_URL, 'GET', body, res => {
 					if (res.data) {
@@ -294,11 +339,11 @@
 						})
 						res.data.forEach(d => {
 							d.colour = "#ffd500" == d.colour ? "#66cc33" : d.colour
-							this.serviceStatus[d.routeId] = "background-color:" + d.colour;
+							this.serviceStatus[d.routeId] = d.colour;
 							this.status = "1"
 						})
 					}
-				});
+				}, false);
 			},
 
 			openRunDetail(e) {
@@ -307,7 +352,8 @@
 				let terminal = dataset.terminal;
 				let departTime = dataset.departtime;
 				let routeId = dataset.routeid;
-				let line = this.trainRoutesMap[routeId];
+				let lineName = this.trainRoutesMap[routeId];
+				let line = lineName.indexOf("-") == -1 ? lineName : lineName.substr(0, lineName.indexOf("-"));
 				let stop = this.stopName;
 				let statusColor = dataset.statuscolor;
 				uni.navigateTo({
@@ -330,7 +376,12 @@
 					}
 				})
 
-				let directions = uni.getStorageSync("directions");
+				if (this.routeType == 0) {
+					var directions = uni.getStorageSync("directions");
+				} else if (this.routeType == 3) {
+					var directions = uni.getStorageSync("vLineDirections");
+				}
+
 				if (this.directionIds && directions) {
 					this.directionIds.forEach(d => {
 						if (d != 888) {
@@ -346,7 +397,6 @@
 					this.directionIndex = this.directionIds.findIndex(d => {
 						return d == selectedDirect;
 					});
-
 				}
 			},
 
@@ -365,17 +415,34 @@
 			},
 
 			isCityCommuterEnabled() {
-				console.info(this.cityLoop.indexOf(uni.getStorageSync("selectedStop")['stopName']));
 				return uni.getStorageSync("cityCommuter") &&
 					moment().isoWeekday() < 6 && //should be weekday only
 					this.cityLoop.indexOf(uni.getStorageSync("selectedStop")['stopName']) == -1 && //the current stop should not city loop
 					moment().isBetween(this.beforeTime, this.afterTime) //shoudl be in the morning
 			},
 
+
+			/**
+			 * if there's no any record, display the disruption infomation if possible'
+			 */
+			fetchDisruptions() {
+				this.disruptions = [];
+				let disruptions = uni.getStorageSync("disruptions");
+				let routeIds = uni.getStorageSync("selectedRouteIds");
+				if (disruptions) {
+					let disruption = disruptions.filter(d => (routeIds.includes("" + d.routeId) || routeIds.includes(d.routeId)));
+					disruption.forEach(d => {
+						d.descriptions.forEach(des => {
+							this.disruptions.push(des);
+						})
+					})
+				}
+			},
+
 			refreshTimeTable() {
 				this.forceLoadingTimetable();
 			},
-			
+
 			loadMore() {
 				this.partialLoad = false;
 				this.forceLoadingTimetable();
@@ -413,6 +480,47 @@
 				})
 			},
 
+			switchToTrain() {
+				this.themeColor = "#0072ce";
+				uni.setStorageSync("themeColor", this.themeColor);
+				uni.setNavigationBarTitle({title: 'Train Timetable'});
+				uni.setTabBarItem({
+					iconPath: 'static/images/train-inactive.png',
+					selectedIconPath: 'static/images/train.png',
+					text: "Train",
+					index: 0,
+				})
+				this.routeType = 0;
+				uni.setStorageSync("seletecRouteType", 0);
+				uni.setStorageSync("selectedStop", null);
+				uni.setStorageSync("fullTimetables", null);
+				uni.setStorageSync("selectedRouteIds", []);
+				this.trainRoutesMap = {};
+				this.closeDrawer();
+				this.refresh();
+			},
+
+			switchToVline() {
+				this.themeColor = "#8f1995";
+				uni.setStorageSync("themeColor", this.themeColor);
+				uni.setNavigationBarTitle({title: 'V/Line Timetable'});
+				uni.setTabBarItem({
+					iconPath: 'static/images/train-inactive.png',
+					selectedIconPath: 'static/images/vline.png',
+					index: 0,
+					text: 'V/Line',
+				})
+				this.routeType = 3;
+				uni.setStorageSync("seletecRouteType", 3);
+				uni.setStorageSync("selectedStop", null);
+				uni.setStorageSync("fullTimetables", null);
+				uni.setStorageSync("selectedRouteIds", []);
+				this.trainRoutesMap = {};
+				this.closeDrawer();
+				this.refresh();
+
+			},
+
 			comingsoon() {
 				console.info('click');
 				uni.showToast({
@@ -441,7 +549,8 @@
 		top: 0; */
 		margin: 15upx 13upx;
 		/* border: 1px solid #ddd; */
-		border-left: 4px solid #0072ce;
+		border-left: 4px solid;
+		/* border-left-color: #0072CE; */
 		background-color: #fff;
 		border-top-left-radius: 5px;
 		border-bottom-left-radius: 5px;
@@ -463,7 +572,7 @@
 		justify-content: space-around;
 		align-items: center;
 		height: 50px;
-		background-color: #0072ce;
+		/* background-color: #0072ce; */
 		color: white;
 		font-weight: bold;
 	}
@@ -486,6 +595,8 @@
 	}
 
 	.terminal {
+		overflow: hidden;
+		max-width:90%;
 		font-size: 1.1em;
 		padding-left: 10upx;
 		font-weight: bold;
@@ -529,5 +640,13 @@
 		width: 25upx;
 		border-radius: 50%;
 		display: inline-block;
+	}
+
+	.disruption-info {
+		background-color: #f78248;
+		color: white;
+		font-size: 30upx;
+		line-height: 40upx;
+		border-bottom: 1upx solid white;
 	}
 </style>

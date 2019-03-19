@@ -4,6 +4,7 @@
 	import con from '@/common/js/constant.js'
 	import event from "@/common/js/event.js"
 	import init from "@/common/js/data.js"
+	import vline from "@/common/js/vline.js"
 
 	export default {
 		onLaunch: function() {
@@ -29,6 +30,8 @@
 					}
 				}
 			});
+			this.initTabBar();
+			this.initFirstTimeEntry();
 			this.initRoutes();
 			this.initStopNameMap();
 			this.initRouteStop();
@@ -36,7 +39,7 @@
 			this.initPastTime();
 			//this.initStopInfoMap();
 			uni.removeStorageSync("fullTimetables");
-			
+
 			wx.getSystemInfo({
 				success: (res) => {
 					this.windowHeight = (res.windowHeight * (750 / res.windowWidth));
@@ -48,29 +51,43 @@
 
 		methods: {
 
+			initTabBar() {
+				let routeType = uni.getStorageSync("seletecRouteType");
+				if (routeType == 0) {
+					uni.setNavigationBarTitle({title: 'Train Timetable'});
+					uni.setTabBarItem({
+						iconPath: 'static/images/train-inactive.png',
+						selectedIconPath: 'static/images/train.png',
+						text: "Train",
+						index: 0,
+					})
+				} else if (routeType == 3) {
+					uni.setNavigationBarTitle({title: 'V/Line Timetable'});
+					uni.setTabBarItem({
+						iconPath: 'static/images/train-inactive.png',
+						selectedIconPath: 'static/images/vline.png',
+						index: 0,
+						text: 'V/Line',
+					})
+				}
+			},
+
 			initDirections() {
 				if (!uni.getStorageSync("directions")) {
 					uni.setStorageSync("directions", init.initDirections());
 				}
+
+				if (!uni.getStorageSync("vLineDirections")) {
+					uni.setStorageSync("vLineDirections", vline.initVLineDirections());
+				}
 			},
-			
+
 			initStopNameMap() {
 				if (!uni.getStorageSync('stopNameMap')) {
 					uni.setStorageSync('stopNameMap', init.initStopNameList());
-				};
-			},
-
-			initRoutes() {
-				if (!uni.getStorageSync("routes")) {
-					let json = init.initRoutes();
-					let trainRoutesMap = {};
-					uni.setStorageSync("routes", json.routes);
-					json.routes.filter(item => {
-						if (item.route_type == 0) {
-							trainRoutesMap[item.route_id] = item.route_name;
-						}
-					});
-					uni.setStorageSync("trainRoutesMap", trainRoutesMap);
+				}
+				if (!uni.getStorageSync('vLineStopNameMap')) {
+					uni.setStorageSync('vLineStopNameMap', vline.initVLineStopNameList());
 				}
 			},
 
@@ -78,17 +95,36 @@
 				if (!uni.getStorageSync("routeStopMap")) {
 					uni.setStorageSync("routeStopMap", init.initRouteStopList());
 				}
+				if (!uni.getStorageSync("vLineRouteStopMap")) {
+					uni.setStorageSync("vLineRouteStopMap", vline.initVLineRouteStopList());
+				}
 			},
-			
+
 			initStopInfoMap() {
 				if (!uni.getStorageSync("stopInfoMap")) {
 					uni.setStorageSync("stopInfoMap", init.initShopInfoList());
 				}
 			},
-			
+
+			initRoutes() {
+				if (!uni.getStorageSync("routes")) {
+					let json = init.initRoutes();
+					uni.setStorageSync("routes", json.routes);
+				}
+			},
+
 			initPastTime() {
-				if(!uni.getStorageSync("pastTime")) {
+				if (!uni.getStorageSync("pastTime")) {
 					uni.setStorageSync("pastTime", 10);
+				}
+			},
+
+			initFirstTimeEntry() {
+				if (!uni.getStorageSync("themeColor")) {
+					uni.setStorageSync("themeColor", "#0072ce");
+				}
+				if (!uni.getStorageSync("seletecRouteType")) {
+					uni.setStorageSync("seletecRouteType", 0);
 				}
 			},
 
