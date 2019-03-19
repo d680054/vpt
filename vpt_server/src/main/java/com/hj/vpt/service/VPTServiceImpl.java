@@ -42,11 +42,29 @@ public class PTVServiceImpl implements PTVService {
         Map<Integer, Disruption> disruptionMap = new ConcurrentHashMap<>();
         String uri = String.format(URLHelper.URI_DISRUPTION_BY_ROUTE);
         String signedURL = URLHelper.buildSignedURL(uri + "?route_types=" + routeType);
-
         final String response = restTemplate.getForObject(signedURL, String.class);
-
         JSONObject json = JSONObject.parseObject(response);
-        JSONArray disruptionArray = json.getJSONObject("disruptions").getJSONArray("metro_train");
+
+        String disruptionMode = "metro_train";
+        switch (Integer.valueOf(routeType)) {
+            case 0:
+                disruptionMode = "metro_train";  //train
+                break;
+            case 1:
+                disruptionMode = "metro_tram";   //tram
+                break;
+            case 2:
+                disruptionMode = "metro_bus";  //bus
+                break;
+            case 3:
+                disruptionMode = "regional_train";  //vline
+                break;
+            case 4:
+                disruptionMode = "night_bus";   //night bus
+                break;
+        }
+
+        JSONArray disruptionArray = json.getJSONObject("disruptions").getJSONArray(disruptionMode);
         for (Object d : disruptionArray) {
             for (Object r : ((JSONObject) d).getJSONArray("routes")) {
                 int routeId = ((JSONObject) r).getInteger("route_id");

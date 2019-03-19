@@ -27,15 +27,17 @@
 			return {
 				trainRoutes: [],
 				trainLineDisplay: "Select Your Train Lines",
-				v: '1',
 				allSelected: false,
-				allTrainRoutes: ["all", "1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "12", "13", "14", "15", "16", "17",
-					"1482"
-				]
+				allTrainRoutes: ["all"],
+				routeType: uni.getStorageSync("seletecRouteType"),
 			};
 		},
 
 		onLoad: function(e) {
+			uni.setNavigationBarColor({
+				frontColor: '#ffffff',
+				backgroundColor: uni.getStorageSync("themeColor"),
+			})
 			let trainRoutesMap = {};
 			let routes = uni.getStorageSync("routes");
 			let selectedRouteIds = uni.getStorageSync("selectedRouteIds");
@@ -45,8 +47,8 @@
 			};
 			if (routes) {
 				this.trainRoutes = routes.filter(item => {
-					if (item.route_type == 0) {
-						trainRoutesMap[item.route_id] = item.route_name;
+					if (item.route_type == this.routeType) {
+						//trainRoutesMap[item.route_id] = item.route_name;
 						//initialise the checked item
 						if (selectedRouteIds) {
 							selectedRouteIds.filter(id => {
@@ -55,6 +57,7 @@
 								} else if (id == item.route_id) item.checked = true;
 							})
 						}
+						this.allTrainRoutes.push(item.route_id);
 						return item;
 					}
 				});
@@ -62,10 +65,10 @@
 				this.trainRoutes.unshift(allSelected);
 			}
 			this.displayLineNumber(selectedRouteIds);
-			uni.setStorage({
-				key: "trainRoutesMap",
-				data: trainRoutesMap
-			});
+// 			uni.setStorage({
+// 				key: "trainRoutesMap",
+// 				data: trainRoutesMap
+// 			});
 
 		},
 
