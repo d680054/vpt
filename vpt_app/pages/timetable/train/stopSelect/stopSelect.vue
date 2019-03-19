@@ -76,10 +76,23 @@
 				keywordList: [],
 				forbid: '',
 				isShowKeywordList: false,
-				stopNameMap: uni.getStorageSync('stopNameMap'),
+				stopNameMap: [],
+				routeStopMap: [],
 			}
 		},
 		onLoad() {
+			uni.setNavigationBarColor({
+				frontColor: '#ffffff',
+				backgroundColor: uni.getStorageSync("themeColor"),
+			});
+			let routeType = uni.getStorageSync('seletecRouteType');
+			if(routeType == 0) {
+				this.stopNameMap = uni.getStorageSync('stopNameMap');
+				this.routeStopMap = uni.getStorageSync('routeStopMap');
+			} else if(routeType == 3) {
+				this.stopNameMap = uni.getStorageSync('vLineStopNameMap');
+				this.routeStopMap = uni.getStorageSync('vLineRouteStopMap');
+			}
 			this.init();
 		},
 		methods: {
@@ -193,8 +206,7 @@
 					//cityloop的站点不改变route
 					let ret = this.hotKeywordList.filter(s => s == key);
 					if (ret.length == 0) {
-						let routeStopMap = uni.getStorageSync("routeStopMap");
-						let lines = routeStopMap[this.stopNameMap[key]];
+						let lines = this.routeStopMap[this.stopNameMap[key]];
 						uni.setStorageSync("selectedRouteIds", lines);
 					}
 

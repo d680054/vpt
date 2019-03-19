@@ -1,12 +1,12 @@
 <template>
 	<view class="content" style="flex: 1;flex-direction: column;width:100%;">
-		<view class="header-box">
+		<view class="header-box" :style="{'background-color':themeColor}">
 			<view style="justify-content:space-between;font-size:16px;">
 				<view>{{line}} Line</view>
 				<view>{{departTime}}</view>
 			</view>
 			<view style="justify-content:space-between;font-size:1.1em;font-weight:bold;">
-				<view>{{terminal}}</view>
+				<view style="width:50%;white-space: nowrap;overflow: hidden;">{{terminal}}</view>
 				<view style="align-items: center;" @tap="getMore">
 					<text style="padding-right: 12upx;">{{status}}</text>
 					<view class="goodservice-circle" v-if="isGoodService" />
@@ -31,7 +31,7 @@
 					<view class="uni-list-cell-navigate color-bar" :style="item.barColor">
 						<span v-if="!item.skip">
 							<view style="align-items:center">
-								<text class="stop-name">{{item.stopName}}</text>
+								<text class="stop-name">{{item.name}}</text>
 							</view>
 							<view style="padding-top: 8upx;font-size: 33upx;font-weight: 700;color:#6a6d73">
 								{{item.departureLocalTime}} - {{item.gapText}} mins travel time
@@ -43,10 +43,11 @@
 						<view style="align-items: center;" v-if="!item.skip">
 						 <image v-if="item.toilet" src="../../../../static/images/wc.png" style="height:22px;width:22px;"></image>
 						 <image v-if="item.taxiRank" src="../../../../static/images/taxi.png" style="height:20px;width:20px;"></image>
-						 <view v-if="item.parking!=0" style="flex-direction: column;align-items:center;padding-bottom:5px;">
+						 <view v-if="item.parking && item.parking!=0" style="flex-direction: column;align-items:center;padding-bottom:5px;">
 						 	<image src="../../../../static/images/parking.png" style="height:21px;width:21px;"></image>	
 						 	<text style="line-height: 1px;font-size:9px;">{{item.parking}}</text>
 						 </view>
+						 <image v-if="item.cctv" src="../../../../static/images/cctv.png" style="height:20px;width:20px;"></image>
 						</view>	
 					</view>
 				</view>
@@ -79,16 +80,21 @@
 				descriptions: [],
 				showNotice: false,
 				isGoodService: true,
+				themeColor: uni.getStorageSync("themeColor"),
 			};
 		},
 
 		onLoad: function(e) {
+			uni.setNavigationBarColor({
+				frontColor: '#ffffff',
+				backgroundColor: this.themeColor,
+			})
 			this.terminal = e.terminal;
 			this.line = e.line;
 			this.departTime = e.departTime;
 			let stopInfoMap = init.initShopInfoList();
 			let body = {
-				routeType: '0',
+				routeType: uni.getStorageSync("seletecRouteType"),
 				runId: e.runId
 			}
 			net.netUtil(con.STOP_URL, 'GET', body, res => {
@@ -99,18 +105,22 @@
 					this.stops = res.data.filter(stop => {
 						var m1 = moment(stop.scheduledDepartureUTC),
 							m2 = moment(selectedDepartureUTCTime),
-							du = moment.duration(m1 - m2, 'ms').get('minutes');
+							//du = moment.duration(m1 - m2, 'ms').get('minutes');
+							du = m1.diff(m2, 'minutes');
 						if (du > 0) {
 							stop.gapText = du;
-							if(stop.stopId&&stopInfoMap[stop.stopId].zone == 1) {
+							if(stop.stopId && stopInfoMap[stop.stopId] && stopInfoMap[stop.stopId].zone == 1) {
 								stop.barColor = "border-left:10px solid #ffca06";
-							} else 
-							{
+							} else if(stop.stopId && stopInfoMap[stop.stopId] && stopInfoMap[stop.stopId].zone == 2) {
 								stop.barColor = "border-left:10px solid #21c3eb";
+							} else {
+								stop.barColor = "border-left:10px solid #8f1995";
 							}
+							stop.name = stopInfoMap[stop.stopId].stopName;
 							stop.toilet = stopInfoMap[stop.stopId].toilet;
 							stop.taxiRank = stopInfoMap[stop.stopId].taxiRank;
 							stop.parking = stopInfoMap[stop.stopId].parking;
+							stop.cctv = stopInfoMap[stop.stopId].cctv;
 							return stop;
 						}
 					});
@@ -192,7 +202,7 @@
 		justify-content: space-around;
 		flex-direction: column;
 		border-bottom: #929292 1px solid;
-		background-color: #0072CE;
+		/* background-color: #0072CE; */
 		color: whitesmoke;
 		height:100upx;
 	}
@@ -284,11 +294,11 @@
 	}
 
 	.wave.solid.major {
-		color: #66cc33;
+		color: #e5492d;
 	}
 
 	.wave.solid.major .circle {
-		background: #66cc33;
+		background: #e5492d;
 	}
 
 	.wave.solid.suspended {

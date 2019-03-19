@@ -49,6 +49,7 @@ function getLocation(callback) {
 			let body = {
 				"latitude": res.latitude, //res.latitude  : -37.731856,
 				"longitude": res.longitude,//res.longitude 145.100844 //
+				"routeType": uni.getStorageSync("seletecRouteType"),
 			}
 			net.netUtil(con.STOP_GPS_URL, 'GET', body, res => {
 				if (res.data) {

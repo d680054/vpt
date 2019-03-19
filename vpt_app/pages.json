@@ -40,7 +40,8 @@
             "path" : "pages/myki/myki",
             "style" : {
                 "navigationBarTitleText" : "myki",
-                "enablePullDownRefresh" : false
+                "enablePullDownRefresh" : false,
+				"navigationBarBackgroundColor":"#c2d840"
             }
         },
         {
