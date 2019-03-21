@@ -3,8 +3,7 @@ package com.hj.vpt.controller;
 import com.hj.vpt.model.DepartureStop;
 import com.hj.vpt.model.DepartureTerminal;
 import com.hj.vpt.model.Disruption;
-import com.hj.vpt.service.InitService;
-import com.hj.vpt.service.PTVService;
+import com.hj.vpt.service.VPTService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +31,14 @@ import static java.time.temporal.ChronoUnit.MINUTES;
 public class PTVController {
 
     @Autowired
-    private PTVService ptvService;
-
-    @Autowired
-    private InitService initService;
+    private VPTService VPTService;
 
     @RequestMapping(value = "/departures", method = RequestMethod.GET, produces = "application/json")
     public List<DepartureTerminal> fetchDepartures(@RequestParam("routeType") String routeType,
                                                    @RequestParam("stopId") String stopId,
                                                    @RequestParam("routeIds") List<Integer> routeIds,
                                                    @RequestParam(value = "partialLoad", required = false, defaultValue = "true") boolean partialLoad) throws Exception {
-        List<DepartureTerminal> list = ptvService.fetchDepartures(stopId, routeType);
+        List<DepartureTerminal> list = VPTService.fetchDepartures(stopId, routeType);
         List<DepartureTerminal> departures = new ArrayList<>();
         for (DepartureTerminal terminal : list) {
             if (routeIds.contains(terminal.getRouteId())
@@ -53,7 +49,7 @@ public class PTVController {
 
         if (routeIds.size() < 9 && true) {
             List<DepartureTerminal> estDepartures =
-                    routeIds.parallelStream().map(routeId -> ptvService.fetchESTDepartures(stopId, routeType, routeId)).flatMap(Collection::stream)
+                    routeIds.parallelStream().map(routeId -> VPTService.fetchESTDepartures(stopId, routeType, routeId)).flatMap(Collection::stream)
                             .collect(Collectors.toList());
             estDepartures.forEach(estDeparture -> {
                 if (StringUtils.isNotEmpty(estDeparture.getEstimatedDepartureUTC())) {
@@ -73,23 +69,24 @@ public class PTVController {
 
     @RequestMapping(value = "/disruptions", method = RequestMethod.GET, produces = "application/json")
     public Collection<Disruption> fetchDisruptions(@RequestParam("routeType") String routeType) throws Exception {
-        return ptvService.fetchDisruption(routeType);
+        return VPTService.fetchDisruption(routeType);
     }
 
     @RequestMapping(value = "/patterns", method = RequestMethod.GET, produces = "application/json")
     public List<DepartureStop> fetchPatterns(@RequestParam("routeType") String routeType, @RequestParam("runId") Integer runId) throws Exception {
-        return ptvService.fetchPatterns(runId, routeType);
+        return VPTService.fetchPatterns(runId, routeType);
     }
 
     @RequestMapping(value = "/nearme", method = RequestMethod.GET, produces = "application/json")
-    public List<String> fetchStopByGPS(@RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude) throws Exception {
-        return ptvService.fetchStopByGPS(latitude, longitude);
+    public List<String> fetchStopByGPS(@RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude, @RequestParam("routeType") String routeType) throws Exception {
+        String rt = StringUtils.isEmpty(routeType) ? "0" : routeType;
+        return VPTService.fetchStopByGPS(latitude, longitude, rt);
     }
 
     @RequestMapping(value = "/getRouteIdsByStopId", method = RequestMethod.GET, produces = "application/json")
     public Set<Integer> getRoutesByStopId(@RequestParam("stopId") String stopId) throws Exception {
         //init stopRoutes; <1077,[8,10,11..]>
-        List<DepartureTerminal> list = ptvService.fetchDepartures("0", stopId);
+        List<DepartureTerminal> list = VPTService.fetchDepartures("0", stopId);
         Set<Integer> stopRoutes = list.stream().map(x -> x.getRouteId())
                 .collect(Collectors.toSet());
 

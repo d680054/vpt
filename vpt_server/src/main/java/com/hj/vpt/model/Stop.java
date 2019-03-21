@@ -17,4 +17,7 @@ public class Stop implements Serializable {
 
     @JsonProperty("stop_name")
     private String stopName;
+
+    @JsonProperty("route_type")
+    private int routeType;
 }

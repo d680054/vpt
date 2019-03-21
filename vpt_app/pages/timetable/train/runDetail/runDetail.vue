@@ -1,6 +1,6 @@
 <template>
 	<view class="content" style="flex: 1;flex-direction: column;width:100%;">
-		<view class="header-box" :style="{'background-color':themeColor}">
+		<view class="header-box" :style="{'background-color':routeHandler.theme}">
 			<view style="justify-content:space-between;font-size:16px;">
 				<view>{{line}} Line</view>
 				<view>{{departTime}}</view>
@@ -63,6 +63,7 @@
 	import moment from '@/common/js/moment.min.js'
 	import uniIcon from '@/components/uni-icon/uni-icon.vue'
 	import init from '@/common/js/data.js'
+	import util from '@/common/js/util.js'
 
 	export default {
 		components: {
@@ -80,21 +81,21 @@
 				descriptions: [],
 				showNotice: false,
 				isGoodService: true,
-				themeColor: uni.getStorageSync("themeColor"),
+				routeHandler: util.getRouteHandler(),
 			};
 		},
 
 		onLoad: function(e) {
 			uni.setNavigationBarColor({
 				frontColor: '#ffffff',
-				backgroundColor: this.themeColor,
+				backgroundColor: this.routeHandler.theme,
 			})
 			this.terminal = e.terminal;
 			this.line = e.line;
 			this.departTime = e.departTime;
 			let stopInfoMap = init.initShopInfoList();
 			let body = {
-				routeType: uni.getStorageSync("seletecRouteType"),
+				routeType: this.routeHandler.type,
 				runId: e.runId
 			}
 			net.netUtil(con.STOP_URL, 'GET', body, res => {

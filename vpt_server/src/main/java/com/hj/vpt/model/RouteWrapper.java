@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,14 +13,19 @@ import java.util.Map;
  * @date 2019-03-15
  */
 @Data
-public class Route {
+public class RouteWrapper {
 
-    @JsonAlias({"route_type", "routeType"})
-    private int routeType;
+    private List<Route> routes;
 
-    @JsonAlias({"route_id", "routeId"})
-    private int routeId;
+    @Data
+    public static class Route {
 
-    public static Class Route
+        @JsonAlias({"route_type", "routeType"})
+        private int routeType;
+
+        @JsonAlias({"route_id", "routeId"})
+        private int routeId;
+
+    }
 
 }

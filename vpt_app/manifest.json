@@ -17,7 +17,6 @@
         "distribute" : {
             /* 应用发布信息 */
             "android" : {
-				"custompermissions" : true,
                 /* android打包配置 */
                 "permissions" : [
                     "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",

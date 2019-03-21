@@ -2,7 +2,7 @@ package com.hj.vpt.model;
 
 import lombok.Data;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author David.Zheng
@@ -11,6 +11,6 @@ import java.util.List;
 @Data
 public class StopWrapper {
 
-    private List<Stop> stops;
+    private Set<Stop> stops;
 }
 

@@ -121,6 +121,7 @@
 				modalTitle: 'Edit Nickname',
 				nickname: '',
 				focus: false,
+				update: 1,
 			};
 		},
 
@@ -162,6 +163,7 @@
 							c.transactions = null;
 							c.warning = "It's more than six months since the last transaction. No transactions are available.";
 							c.lastUpdate = moment().format('D MMM, YYYY HH:mm:ss');
+							this.update = cardNum;
 						}
 					});
 					uni.setStorageSync("cards", this.cards);

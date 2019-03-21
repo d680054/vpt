@@ -1,6 +1,6 @@
 package com.hj.vpt;
 
-import com.hj.vpt.utils.PTVUtils;
+import com.hj.vpt.utils.VPTUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +15,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
-import java.util.Map;
 
 @Slf4j
 @EnableCaching
@@ -29,8 +28,8 @@ public class VPTApplication {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(VPTApplication.class, args);
-//        PTVUtils ptvUtils = new PTVUtils();
-//        ptvUtils.writeJSONToFile(ptvUtils.generateStopZone());
+//        VPTUtils ptvUtils = new VPTUtils();
+//        ptvUtils.generateStopZone();
     }
 
     @Bean

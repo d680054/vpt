@@ -187,7 +187,7 @@
 		display:inline-flex;
 		flex-wrap:nowrap;
 		flex-shrink:0;
-		width: 120upx;
+		width: 100upx;
 		padding:0 12upx;
 	}
 	
@@ -199,7 +199,7 @@
 	}
 	.uni-navbar-container{
 		width:100%;
-		margin:0 10upx;
+		/* margin:0 10upx; */
 	}
 	.uni-navbar-container-title{
 		font-size:30upx;

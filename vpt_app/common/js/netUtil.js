@@ -1,4 +1,3 @@
-//var CON = require('./constan.js');
 import CON from '@/common/js/constant.js'
 
 /**
