@@ -4,16 +4,15 @@
 	import con from '@/common/js/constant.js'
 	import event from "@/common/js/event.js"
 	import init from "@/common/js/data.js"
-	import vline from "@/common/js/vline.js"
 
 	export default {
 		onLaunch: function() {
 			util.getLocation(nearme => {
+				let selectedStop = uni.getStorageSync("selectedStop");
 				if (nearme && nearme.length > 0) {
-					let selectedStop = uni.getStorageSync("selectedStop");
 					let ret = nearme.filter(s => s == selectedStop['stopName']);
 					if (ret.length == 0) {
-						let stopNameMap = uni.getStorageSync("stopNameMap");
+						let stopNameMap = util.getRouteHandler().stopNameList();
 						let stopId = stopNameMap[nearme[0]];
 						uni.setStorageSync("selectedStop", {
 							'stopName': nearme[0],
@@ -22,7 +21,7 @@
 						let hotKeywordList = ['Flinders Street', 'Southern Cross', 'Melbourne Central', 'Flagstaff', 'Parliament'];
 						let ret = hotKeywordList.filter(s => s == nearme[0]);
 						if (ret.length == 0) {
-							let routeStopMap = uni.getStorageSync("routeStopMap");
+							let routeStopMap = util.getRouteHandler().routeStopList();//uni.getStorageSync("routeStopMap");
 							let lines = routeStopMap[stopId];
 							uni.setStorageSync("selectedRouteIds", lines);
 						}
@@ -30,14 +29,9 @@
 					}
 				}
 			});
-			this.initTabBar();
-			this.initFirstTimeEntry();
+			
 			this.initRoutes();
-			this.initStopNameMap();
-			this.initRouteStop();
-			this.initDirections();
 			this.initPastTime();
-			//this.initStopInfoMap();
 			uni.removeStorageSync("fullTimetables");
 
 			wx.getSystemInfo({
@@ -46,59 +40,9 @@
 					uni.setStorageSync("windowHeight", this.windowHeight);
 				}
 			})
-			//this.loadCards();
 		},
 
 		methods: {
-
-			initTabBar() {
-				let routeType = uni.getStorageSync("seletecRouteType");
-				if (routeType == 0) {
-					uni.setNavigationBarTitle({title: 'Train Timetable'});
-					uni.setTabBarItem({
-						iconPath: 'static/images/train-inactive.png',
-						selectedIconPath: 'static/images/train.png',
-						text: "Train",
-						index: 0,
-					})
-				} else if (routeType == 3) {
-					uni.setNavigationBarTitle({title: 'V/Line Timetable'});
-					uni.setTabBarItem({
-						iconPath: 'static/images/train-inactive.png',
-						selectedIconPath: 'static/images/vline.png',
-						index: 0,
-						text: 'V/Line',
-					})
-				}
-			},
-
-			initDirections() {
-				if (!uni.getStorageSync("directions")) {
-					uni.setStorageSync("directions", init.initDirections());
-				}
-
-				if (!uni.getStorageSync("vLineDirections")) {
-					uni.setStorageSync("vLineDirections", vline.initVLineDirections());
-				}
-			},
-
-			initStopNameMap() {
-				if (!uni.getStorageSync('stopNameMap')) {
-					uni.setStorageSync('stopNameMap', init.initStopNameList());
-				}
-				if (!uni.getStorageSync('vLineStopNameMap')) {
-					uni.setStorageSync('vLineStopNameMap', vline.initVLineStopNameList());
-				}
-			},
-
-			initRouteStop() {
-				if (!uni.getStorageSync("routeStopMap")) {
-					uni.setStorageSync("routeStopMap", init.initRouteStopList());
-				}
-				if (!uni.getStorageSync("vLineRouteStopMap")) {
-					uni.setStorageSync("vLineRouteStopMap", vline.initVLineRouteStopList());
-				}
-			},
 
 			initStopInfoMap() {
 				if (!uni.getStorageSync("stopInfoMap")) {
@@ -119,15 +63,7 @@
 				}
 			},
 
-			initFirstTimeEntry() {
-				if (!uni.getStorageSync("themeColor")) {
-					uni.setStorageSync("themeColor", "#0072ce");
-				}
-				if (!uni.getStorageSync("seletecRouteType")) {
-					uni.setStorageSync("seletecRouteType", 0);
-				}
-			},
-
+			
 			loadCards() {
 				let rememberme = uni.getStorageSync("rememberme");
 				if (rememberme) {

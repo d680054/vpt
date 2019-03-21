@@ -78,28 +78,28 @@
 				isShowKeywordList: false,
 				stopNameMap: [],
 				routeStopMap: [],
+				routeHandler: util.getRouteHandler(),
 			}
 		},
+		
 		onLoad() {
 			uni.setNavigationBarColor({
 				frontColor: '#ffffff',
-				backgroundColor: uni.getStorageSync("themeColor"),
+				backgroundColor: this.routeHandler.theme,
 			});
-			let routeType = uni.getStorageSync('seletecRouteType');
-			if(routeType == 0) {
-				this.stopNameMap = uni.getStorageSync('stopNameMap');
-				this.routeStopMap = uni.getStorageSync('routeStopMap');
-			} else if(routeType == 3) {
-				this.stopNameMap = uni.getStorageSync('vLineStopNameMap');
-				this.routeStopMap = uni.getStorageSync('vLineRouteStopMap');
-			}
+			uni.setNavigationBarTitle({
+				title: 'Select ' + this.routeHandler.name + ' Stop'
+			});
+			this.stopNameMap = this.routeHandler.stopNameList();
+			this.routeStopMap = this.routeHandler.routeStopList();
 			this.init();
 		},
+		
 		methods: {
 			init() {
 				this.loadGPSKeyword();
 				this.loadDefaultKeyword();
-				this.loadOldKeyword();
+				this.loadHistoryKeyword();
 				this.loadHotKeyword();
 			},
 			blur() {
@@ -112,7 +112,7 @@
 				this.defaultKeyword = "Flinders Street";
 			},
 			//加载历史搜索,自动读取本地Storage
-			loadOldKeyword() {
+			loadHistoryKeyword() {
 				uni.getStorage({
 					key: 'OldKeys',
 					success: (res) => {
@@ -123,12 +123,12 @@
 			},
 			//加载热门搜索
 			loadHotKeyword() {
-				//定义热门搜索关键字，可以自己实现ajax请求数据再赋值
-				this.hotKeywordList = ['Flinders Street', 'Southern Cross', 'Melbourne Central', 'Flagstaff', 'Parliament'];
+				//定义热门搜索关键字
+				this.hotKeywordList = this.routeHandler.hotKeywords();
 			},
 			//加载gps周边的站点
 			loadGPSKeyword() {
-				this.gpsKeywordList = uni.getStorageSync('nearMeStops');
+				this.gpsKeywordList = uni.getStorageSync('nearMeStops')[this.routeHandler.type];
 			},
 
 			//
@@ -160,7 +160,8 @@
 				for (var i = 0; i < len; i++) {
 					var row = keywords[i];
 					//定义高亮#9f9f9f
-					var html = row.replace(keyword, "<span style='color: red;'>" + keyword + "</span>");
+					var html = row.replace(new RegExp(`(${keyword})`, 'ig'), 
+					"<span style='color: red;'>" + keyword.charAt(0).toUpperCase() + keyword.slice(1) + "</span>");
 					html = '<div>' + html + '</div>';
 					var tmpObj = {
 						keyword: row,
@@ -230,10 +231,11 @@
 				let keys = Object.keys(this.stopNameMap);
 				let tipList = [];
 				keys.forEach(item => {
-					if (item.toLowerCase().indexOf(keyword.toLowerCase()) != -1) {
+					if (item.toLowerCase().indexOf(keyword.toLowerCase()) != -1 && tipList.length < 20) {
 						tipList.push(item);
 					}
 				})
+
 				return tipList;
 			},
 			//保存关键字到历史记录

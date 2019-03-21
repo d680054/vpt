@@ -22,6 +22,8 @@
 </template>
 
 <script>
+	import util from '@/common/js/util.js'
+	
 	export default {
 		data() {
 			return {
@@ -29,15 +31,18 @@
 				trainLineDisplay: "Select Your Train Lines",
 				allSelected: false,
 				allTrainRoutes: ["all"],
-				routeType: uni.getStorageSync("seletecRouteType"),
+				routeHandler: util.getRouteHandler(),
 			};
 		},
 
 		onLoad: function(e) {
 			uni.setNavigationBarColor({
 				frontColor: '#ffffff',
-				backgroundColor: uni.getStorageSync("themeColor"),
-			})
+				backgroundColor: this.routeHandler.theme,
+			});
+			uni.setNavigationBarTitle({
+				title: 'Select ' + this.routeHandler.name + ' Line'
+			});
 			let trainRoutesMap = {};
 			let routes = uni.getStorageSync("routes");
 			let selectedRouteIds = uni.getStorageSync("selectedRouteIds");
@@ -47,7 +52,7 @@
 			};
 			if (routes) {
 				this.trainRoutes = routes.filter(item => {
-					if (item.route_type == this.routeType) {
+					if (item.route_type == this.routeHandler.type) {
 						//trainRoutesMap[item.route_id] = item.route_name;
 						//initialise the checked item
 						if (selectedRouteIds) {
@@ -62,14 +67,10 @@
 					}
 				});
 
+				this.trainRoutes.sort((a,b)=> a.route_name.localeCompare(b.route_name));
 				this.trainRoutes.unshift(allSelected);
 			}
 			this.displayLineNumber(selectedRouteIds);
-// 			uni.setStorage({
-// 				key: "trainRoutesMap",
-// 				data: trainRoutesMap
-// 			});
-
 		},
 
 		methods: {

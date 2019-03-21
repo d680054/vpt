@@ -30,7 +30,7 @@ public class URLHelper {
 
     public final static String URI_DIRECTION_BY_ROUTE = "/v3/directions/route/%s";
 
-    public final static String URI_STOP_BY_GPS = "/v3/stops/location/%s,%s?route_types=0&max_results=5&max_distance=10000";
+    public final static String URI_STOP_BY_GPS = "/v3/stops/location/%s,%s?route_types=%s&max_results=5&max_distance=10000";
 
     public final static String URI_STOP_INFO = "/v3/stops/%s/route_type/0?stop_location=true&stop_amenities=true&stop_accessibility=true&stop_contact=true&stop_ticket=true";
 

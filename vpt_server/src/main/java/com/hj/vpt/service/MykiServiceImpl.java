@@ -36,7 +36,7 @@ public class MykiServiceImpl implements MykiService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public static final String[] CARD_COLORS = new String[]{"background:#c2d840", "background:#55565a", "background:#b51d2b"};
+    public static final String[] CARD_COLORS = new String[]{"background:linear-gradient(94deg,rgba(194, 216, 64,1),rgba(225, 239, 139,1))", "background:linear-gradient(94deg,rgba(114, 114, 114,1),rgba(163, 163, 163,1))", "background: linear-gradient(94deg,rgba(192,160,105,1),rgba(233,213,172,1))"};
     public static final String LOGIN_URL = "https://www.mymyki.com.au/NTSWebPortal/login.aspx";
     public static final String MYKI_ACCOUNT_URL = "https://www.mymyki.com.au/NTSWebPortal/Registered/MyMykiAccount.aspx?menu=My+myki+account";
     public static final String MYKI_DETAIL_URL = "https://www.mymyki.com.au/NTSWebPortal/Registered/";
