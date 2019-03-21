@@ -11,7 +11,7 @@ import java.util.List;
  * @author David.Zheng
  * @date 2019-01-08
  */
-public interface PTVService {
+public interface VPTService {
 
     Collection<Disruption> fetchDisruption(String routeType) throws Exception;
 
@@ -21,6 +21,6 @@ public interface PTVService {
 
     List<DepartureStop> fetchPatterns(Integer runId, String routeType) throws Exception;
 
-    List<String> fetchStopByGPS(String latitude, String longitude) throws Exception;
+    List<String> fetchStopByGPS(String latitude, String longitude, String routeType) throws Exception;
 
 }

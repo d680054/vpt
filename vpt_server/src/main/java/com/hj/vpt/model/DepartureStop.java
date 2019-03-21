@@ -13,7 +13,7 @@ public class DepartureStop extends Departure{
 
     private String stopName;
 
-    public String getStopName() {
-        return InitServiceImpl.STOP_MAP.get(getStopId());
-    }
+//    public String getStopName() {
+//        return InitServiceImpl.STOP_MAP.get(getStopId());
+//    }
 }

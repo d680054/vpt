@@ -27,17 +27,23 @@ public class StopInfo {
 
     private String parking;
 
+    private boolean cctv;
+
     @JsonProperty("stop")
     private void unpackNested(Map<String, Object> stop) {
         this.stopId = (Integer) stop.get("stop_id");
         this.stopName = (String) stop.get("stop_name");
         this.stationType = (String) stop.get("station_type");
         Map<String, String> stop_ticket = (Map<String, String>) stop.get("stop_ticket");
-        this.zone = StringUtils.remove(stop_ticket.get("zone"), "Zone").trim();
+        if(stop_ticket!=null && stop_ticket.get("zone")!=null) {
+            this.zone = StringUtils.remove(stop_ticket.get("zone"), "Zone").trim();
+        }
         Map<String, Object> stop_amenities = (Map<String, Object>) stop.get("stop_amenities");
         this.toilet = (Boolean)stop_amenities.get("toilet");
         this.taxiRank = (Boolean)stop_amenities.get("taxi_rank");
         this.parking = (String)stop_amenities.get("car_parking");
+        this.cctv = (Boolean)stop_amenities.get("cctv");
+
     }
 
 }

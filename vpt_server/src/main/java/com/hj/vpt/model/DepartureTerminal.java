@@ -3,6 +3,7 @@ package com.hj.vpt.model;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.hj.vpt.service.InitServiceImpl;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author David.Zheng
@@ -24,7 +25,7 @@ public class DepartureTerminal extends Departure {
     public String getTerminal() {
         Run run = InitServiceImpl.TERMINAL_MAP.get(getRunId());
         if (run != null) {
-            return run.getDestinationName();
+            return StringUtils.removeIgnoreCase(run.getDestinationName(),"Railway Station");
         } else return "";
     }
 
@@ -35,6 +36,6 @@ public class DepartureTerminal extends Departure {
         } else {
             return false;
         }
-        //return PTVServiceImpl.TERMINAL_Map.get(getRunId()).getExpressStopCount() > 0;
+        //return VPTServiceImpl.TERMINAL_Map.get(getRunId()).getExpressStopCount() > 0;
     }
 }

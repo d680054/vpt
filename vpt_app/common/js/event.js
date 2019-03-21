@@ -1,7 +1,7 @@
 var events = {};
 
 function on(name, self, callback) {
-	console.info('registering the listener');
+	//console.info('registering the listener');
     var tuple = [self, callback];
     var callbacks = events[name];
     if (Array.isArray(callbacks)) {

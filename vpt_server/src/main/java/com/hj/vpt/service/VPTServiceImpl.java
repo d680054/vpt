@@ -29,7 +29,7 @@ import static com.hj.vpt.service.InitServiceImpl.TERMINAL_MAP;
  */
 @Slf4j
 @Service
-public class PTVServiceImpl implements PTVService {
+public class VPTServiceImpl implements VPTService {
 
     @Value("#{${route.train.fullStops}}")
     private Map<Integer, String> routeFullStops;
@@ -181,11 +181,14 @@ public class PTVServiceImpl implements PTVService {
         return departureWrapper.getDepartures();
     }
 
-    public List<String> fetchStopByGPS(String latitude, String longitude) throws Exception {
-        String uri = String.format(URLHelper.URI_STOP_BY_GPS, latitude, longitude);
+    public List<String> fetchStopByGPS(String latitude, String longitude, String routeType) throws Exception {
+        String uri = String.format(URLHelper.URI_STOP_BY_GPS, latitude, longitude, routeType);
         String signedURL = URLHelper.buildSignedURL(uri);
         StopWrapper list = restTemplate.getForObject(signedURL, StopWrapper.class);
-        List<String> stops = list.getStops().stream().map(x -> StringUtils.trim(x.getStopName())).collect(Collectors.toList());
+        List<String> stops = list.getStops().stream()
+                .map(x -> StringUtils.trim(StringUtils.removeIgnoreCase(x.getStopName(), "Railway Station")))
+                .collect(Collectors.toList());
+
         return stops;
     }
 
