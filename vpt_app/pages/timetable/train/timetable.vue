@@ -105,7 +105,6 @@
 				trainLines: '',
 				stopName: '',
 				stopId: '',
-				trainRoutesMap: {},
 				directionIndex: 0,
 				scrollHeight: "1000upx",
 				directionArr: [],
@@ -128,7 +127,6 @@
 				let selectedStop = uni.getStorageSync("selectedStop");
 				this.stopName = selectedStop['stopName'];
 				this.stopId = selectedStop['stopId'];
-				this.renderLines();
 				this.forceLoadingTimetable();
 			})
 		},
@@ -168,17 +166,16 @@
 		methods: {
 			
 			refresh() {
-				this.renderLines();
 				this.initDefaultStop();
 				this.loadTimetable();
 				this.displayLines();
-				this.fetchServiceStatus();
 			},
 
 			loadTimetable() {
 				this.fullTimetables = uni.getStorageSync("fullTimetables");
 				if (!this.fullTimetables) {
 					this.forceLoadingTimetable();
+					this.fetchServiceStatus();
 				}
 			},
 
@@ -223,28 +220,12 @@
 			},
 
 			/**
-			 * init the lines
-			 */
-			renderLines() {
-				if (this.trainRoutesMap) {
-					uni.getStorageSync("routes").forEach(item => {
-						if (item.route_type == this.routeHandler.type) {
-							this.trainRoutesMap[item.route_id] = item.route_name;
-						}
-					});
-					uni.setStorageSync("trainRoutesMap", this.trainRoutesMap);
-				} else {
-					this.trainRoutesMap = uni.getStorageSync("trainRoutesMap");
-				}
-			},
-
-			/**
 			 * Display the 	line name
 			 */
 			displayLines() {
 				let routeIds = uni.getStorageSync("selectedRouteIds");
 				if (routeIds.length == 1) {
-					let lineName = this.trainRoutesMap[routeIds[0]];
+					let lineName = this.routeHandler.transportLines()[routeIds[0]];
 					this.trainLines = lineName.indexOf("-") == -1 ? lineName : lineName.substr(0, lineName.indexOf("-"));
 				} else if (routeIds.length > 1) {
 					let number = routeIds.length == 18 ? 17 : routeIds.length;
@@ -267,6 +248,7 @@
 						this.stopName = nearme[0];
 						this.stopId = this.routeHandler.stopNameList()[this.stopName];
 						let lines = this.routeHandler.routeStopList()[this.stopId];
+						console.info('reset the lines');
 						uni.setStorageSync("selectedRouteIds", lines);
 						
 					} else {
@@ -349,7 +331,7 @@
 				let terminal = dataset.terminal;
 				let departTime = dataset.departtime;
 				let routeId = dataset.routeid;
-				let lineName = this.trainRoutesMap[routeId];
+				let lineName = this.routeHandler.transportLines()[routeId];
 				let line = lineName.indexOf("-") == -1 ? lineName : lineName.substr(0, lineName.indexOf("-"));
 				let stop = this.stopName;
 				let statusColor = dataset.statuscolor;
@@ -432,6 +414,7 @@
 
 			refreshTimeTable() {
 				this.forceLoadingTimetable();
+				this.fetchServiceStatus();
 			},
 
 			loadMore() {
@@ -441,10 +424,10 @@
 
 			switchToRoute(routeType) {
 				this.routeHandler = util.getRouteHandler(routeType);
+				this.routeHandler.setTabBar();
 				uni.setStorageSync("selectedStop", null);
 				uni.setStorageSync("fullTimetables", null);
 				uni.setStorageSync("selectedRouteIds", []);
-				this.trainRoutesMap = {};
 				this.closeDrawer();
 				this.refresh();
 			},
