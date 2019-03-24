@@ -1,5 +1,10 @@
 <template>
 	<view class="content" style="flex-direction: column;flex:1;">
+		<view style="display:block;">
+			<unik-modal ref="unikModal" :modalTitle="modalTitle" :sureText="sureText" @confirmModal="confirmModal" >
+				<text>Sure to delete the history？</text>
+			</unik-modal>
+		</view>
 		<view class="searchBox">
 			<view class="inputBox">
 				<input type="text" :placeholder="defaultKeyword" @input="inputChange" v-model="keyword" @confirm="doSearch(false)"
@@ -64,10 +69,15 @@
 	import net from '@/common/js/netUtil.js'
 	import con from '@/common/js/constant.js'
 	import util from '@/common/js/util.js'
+	import unikModal from '@/components/uni-modal/uni-modal.vue';
 
 	export default {
+		components: {
+			unikModal
+		},
 		data() {
 			return {
+				sureText: "OK",
 				defaultKeyword: "",
 				keyword: "",
 				oldKeywordList: [],
@@ -81,7 +91,7 @@
 				routeHandler: util.getRouteHandler(),
 			}
 		},
-		
+
 		onLoad() {
 			uni.setNavigationBarColor({
 				frontColor: '#ffffff',
@@ -94,7 +104,7 @@
 			this.routeStopMap = this.routeHandler.routeStopList();
 			this.init();
 		},
-		
+
 		methods: {
 			init() {
 				this.loadGPSKeyword();
@@ -102,6 +112,7 @@
 				this.loadHistoryKeyword();
 				this.loadHotKeyword();
 			},
+			
 			blur() {
 				uni.hideKeyboard();
 				this.isShowKeywordList = false;
@@ -113,13 +124,7 @@
 			},
 			//加载历史搜索,自动读取本地Storage
 			loadHistoryKeyword() {
-				uni.getStorage({
-					key: 'OldKeys',
-					success: (res) => {
-						var OldKeys = JSON.parse(res.data);
-						this.oldKeywordList = OldKeys;
-					}
-				});
+				this.oldKeywordList = this.routeHandler.getSearchHistory();
 			},
 			//加载热门搜索
 			loadHotKeyword() {
@@ -160,8 +165,8 @@
 				for (var i = 0; i < len; i++) {
 					var row = keywords[i];
 					//定义高亮#9f9f9f
-					var html = row.replace(new RegExp(`(${keyword})`, 'ig'), 
-					"<span style='color: red;'>" + keyword.charAt(0).toUpperCase() + keyword.slice(1) + "</span>");
+					var html = row.replace(new RegExp(`(${keyword})`, 'ig'),
+						"<span style='color: red;'>" + keyword.charAt(0).toUpperCase() + keyword.slice(1) + "</span>");
 					html = '<div>' + html + '</div>';
 					var tmpObj = {
 						keyword: row,
@@ -177,17 +182,12 @@
 			},
 			//清除历史搜索
 			oldDelete() {
-				uni.showModal({
-					content: 'Sure to delete the history？',
-					success: (res) => {
-						if (res.confirm) {
-							this.oldKeywordList = [];
-							uni.removeStorage({
-								key: 'OldKeys'
-							});
-						} else if (res.cancel) {}
-					}
-				});
+				this.$refs.unikModal.show();
+			},
+			
+			confirmModal() {
+				this.oldKeywordList = [];
+				this.routeHandler.removeSearchHistory();
 			},
 			//热门搜索开关
 			hotToggle() {
@@ -195,34 +195,36 @@
 			},
 			//执行搜索
 			doSearch(key) {
-				key = key ? key : this.keyword ? this.keyword : this.defaultKeyword;
-				this.keyword = key;
-				let selectedStop = this.searchCache(key);
-				if (selectedStop.length >= 1) {
+				if (key) {
+					key = key ? key : this.keyword ? this.keyword : this.defaultKeyword;
+					this.keyword = key;
+					let keys = Object.keys(this.stopNameMap);
+					let selectedStop = keys.filter(item => item == this.keyword);
+					selectedStop = selectedStop[0];
 					uni.setStorageSync("selectedStop", {
-						'stopName': key,
-						'stopId': this.stopNameMap[key]
+						'stopName': selectedStop,
+						'stopId': this.stopNameMap[selectedStop]
 					});
 
 					//cityloop的站点不改变route
-					let ret = this.hotKeywordList.filter(s => s == key);
+					let ret = this.hotKeywordList.filter(s => s == selectedStop);
 					if (ret.length == 0) {
-						let lines = this.routeStopMap[this.stopNameMap[key]];
+						let lines = this.routeStopMap[this.stopNameMap[selectedStop]];
 						uni.setStorageSync("selectedRouteIds", lines);
 					}
 
-					this.saveKeyword(key); //保存为历史 
+					this.saveKeyword(selectedStop); //保存为历史 
 					//清楚timetable历史
 					uni.removeStorageSync("fullTimetables");
 					uni.navigateBack({
 						delta: 1
-					})
+					});
 				} else {
 					uni.showToast({
 						title: 'Not a valid station name',
 						duration: 2000,
 						icon: 'none'
-					})
+					});
 				}
 
 			},
@@ -238,36 +240,10 @@
 
 				return tipList;
 			},
+
 			//保存关键字到历史记录
 			saveKeyword(keyword) {
-				uni.getStorage({
-					key: 'OldKeys',
-					success: (res) => {
-						var OldKeys = JSON.parse(res.data);
-						var findIndex = OldKeys.indexOf(keyword);
-						if (findIndex == -1) {
-							OldKeys.unshift(keyword);
-						} else {
-							OldKeys.splice(findIndex, 1);
-							OldKeys.unshift(keyword);
-						}
-						//最多10个纪录
-						OldKeys.length > 10 && OldKeys.pop();
-						uni.setStorage({
-							key: 'OldKeys',
-							data: JSON.stringify(OldKeys)
-						});
-						this.oldKeywordList = OldKeys; //更新历史搜索
-					},
-					fail: (e) => {
-						var OldKeys = [keyword];
-						uni.setStorage({
-							key: 'OldKeys',
-							data: JSON.stringify(OldKeys)
-						});
-						this.oldKeywordList = OldKeys; //更新历史搜索
-					}
-				});
+				this.keywordList = this.routeHandler.setSearchHistory(keyword);
 			},
 
 

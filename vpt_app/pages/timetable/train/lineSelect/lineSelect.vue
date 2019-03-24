@@ -43,7 +43,6 @@
 			uni.setNavigationBarTitle({
 				title: 'Select ' + this.routeHandler.name + ' Line'
 			});
-			let trainRoutesMap = {};
 			let routes = uni.getStorageSync("routes");
 			let selectedRouteIds = uni.getStorageSync("selectedRouteIds");
 			let allSelected = {
@@ -53,8 +52,6 @@
 			if (routes) {
 				this.trainRoutes = routes.filter(item => {
 					if (item.route_type == this.routeHandler.type) {
-						//trainRoutesMap[item.route_id] = item.route_name;
-						//initialise the checked item
 						if (selectedRouteIds) {
 							selectedRouteIds.filter(id => {
 								if (id == 'all') {
@@ -113,7 +110,7 @@
 				}
 
 				this.trainRoutes = oldValues;
-				uni.setStorageSync('selectedRouteIds', selectedRoutIds);
+				uni.setStorageSync("selectedRouteIds", selectedRoutIds);
 				this.displayLineNumber(selectedRoutIds);
 				uni.removeStorage({
 					key: 'fullTimetables'
@@ -125,8 +122,7 @@
 				if (routeIds != null && routeIds.length > 0) {
 					let number = routeIds.length;
 					if (number == 1) {
-						let trainRoutesMap = uni.getStorageSync("trainRoutesMap");
-						let trainName = trainRoutesMap[routeIds[0]];
+						let trainName = this.routeHandler.transportLines()[routeIds[0]];
 						this.trainLineDisplay = trainName + " line";
 					} else {
 						number == 18 ? --number : number;

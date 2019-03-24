@@ -4,7 +4,8 @@
 	import con from '@/common/js/constant.js'
 	import event from "@/common/js/event.js"
 	import init from "@/common/js/data.js"
-
+ 	
+	
 	export default {
 		onLaunch: function() {
 			util.getLocation(nearme => {
