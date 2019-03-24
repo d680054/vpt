@@ -1,7 +1,8 @@
 import con from '@/common/js/constant.js'
 import net from '@/common/js/netUtil.js'
-import vline from '@/common/js/vline.js'
-import train from '@/common/js/train.js'
+import {Train, VLine} from "@/common/js/Transport.js"
+const train = new Train();
+const vline = new VLine();
 
 function getLocation(callback) {
 	
@@ -34,22 +35,8 @@ function getRouteHandler(routeType) {
 		uni.setStorageSync("selectedRouteType", rt);
 	} 
 	if (rt == 3) {
-		uni.setTabBarItem({
-			iconPath: 'static/images/train-inactive.png',
-			selectedIconPath: 'static/images/vline.png',
-			index: 0,
-			text: 'V/Line',
-		})
 		return vline;
-
 	} else {
-		uni.setTabBarItem({
-			iconPath: 'static/images/train-inactive.png',
-			selectedIconPath: 'static/images/train.png',
-			index: 0,
-			text: "Train",
-		})
-
 		return train;
 	}
 }
