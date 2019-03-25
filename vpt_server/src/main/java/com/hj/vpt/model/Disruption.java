@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,29 +21,29 @@ public class Disruption {
 
     private int routeId;
 
-    private String type;
+    private String color;
 
-    private String colour;
+    private String grade;
 
-    private List<String> descriptions = new ArrayList<>();
+    private Map<String,String> descriptions = new HashMap<>();
 
     public Disruption(int routeId) {
         this.routeId = routeId;
     }
 
 
-    public void addDesc(String desc) {
-        descriptions.add(desc);
+    public void addDesc(String type, String desc) {
+        descriptions.put(type, desc);
     }
 
     public void setColour(String color) {
-        if (colorOrdering.get(color) < colorOrdering.getOrDefault(this.colour, 999)) {
-            this.colour = color;
+        if (colorOrdering.get(color) < colorOrdering.getOrDefault(this.color, 999)) {
+            this.color = color;
         }
     }
 
-    public String getType() {
-        return colorMap.get(colour);
+    public String getGrade() {
+        return colorMap.get(color);
     }
 
 }
