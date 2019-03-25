@@ -20,7 +20,9 @@
 		<view class="notice-bar" v-show="showNotice" @tap="getMore">
 			<view class="uni-list-cell" v-for="(item,index) in descriptions" :key="index">
 				<view class="uni-list-cell-navigate disruption-info">
-					{{item}}
+					<image v-if="item == 'planned'" src="../../../../static/images/labor.png" style="height:20px;width:20px;"/>
+					<image v-else src="../../../../static/images/warning.png" style="height:13px;width:15px;"/>
+					{{index}}
 				</view>
 			</view>
 		</view>
@@ -132,7 +134,7 @@
 			if (disruptions) {
 				let disruption = disruptions.filter(d => d.routeId == e.routeId);
 				if (disruption.length > 0) {
-					this.status = disruption[0].type;
+					this.status = disruption[0].grade;
 					this.descriptions = disruption[0].descriptions;
 					if (this.status.indexOf('Info') != -1) {
 						this.statusColor = 'info';
@@ -235,6 +237,7 @@
 		font-size: 30upx;
 		line-height: 40upx;
 		border-bottom: 1upx solid white;
+		display:inline;
 	}
 	
 	.color-bar {

@@ -57,7 +57,6 @@ export class Train extends Transport {
 		this.name = "Train";
 		this.type = 0;
 		this.theme = "#0072ce";
-		console.info('Creating Train Object');
 	}
 	
 	stopNameList() {
@@ -1154,7 +1153,6 @@ export class VLine extends Transport {
 		this.name = "V/Line";
 		this.type = 3;
 		this.theme = "#8f1995";
-		console.info('Creating VLine Object');
 	}
 	
 	stopNameList() {
