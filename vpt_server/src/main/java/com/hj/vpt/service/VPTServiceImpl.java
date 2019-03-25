@@ -72,10 +72,10 @@ public class VPTServiceImpl implements VPTService {
 
                 if (Objects.isNull(toDate)) {
                     Timestamp lastUpdated = ((JSONObject) d).getTimestamp("last_updated");
-                    if (lastUpdated.toInstant().plus(3, ChronoUnit.HOURS).isBefore(Instant.now())) continue;
+                    if (lastUpdated.toInstant().plus(2, ChronoUnit.HOURS).isBefore(Instant.now())) continue;
                 }
                 Disruption disruption = disruptionMap.getOrDefault(routeId, new Disruption(routeId));
-                disruption.addDesc(((JSONObject) d).getString("description"));
+                disruption.addDesc(((JSONObject) d).getString("description"), convertDisruptionType(((JSONObject) d).getString("disruption_type")));
                 disruption.setColour(((JSONObject) d).getString("colour"));
                 disruptionMap.put(routeId, disruption);
             }
@@ -213,6 +213,14 @@ public class VPTServiceImpl implements VPTService {
         }
 
         return d;
+    }
+
+    private String convertDisruptionType(String disruptionType) {
+        if(StringUtils.containsIgnoreCase(disruptionType, "Planned")) {
+            return "planned";
+        } else {
+            return disruptionType;
+        }
     }
 
 }

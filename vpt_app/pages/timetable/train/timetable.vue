@@ -317,8 +317,8 @@
 							data: res.data
 						})
 						res.data.forEach(d => {
-							d.colour = "#ffd500" == d.colour ? "#66cc33" : d.colour
-							this.serviceStatus[d.routeId] = d.colour;
+							d.color = "#ffd500" == d.color ? "#66cc33" : d.color
+							this.serviceStatus[d.routeId] = d.color;
 							this.status = "1"
 						})
 					}
