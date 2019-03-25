@@ -18,7 +18,7 @@
 				</uni-collapse-item>
 				<uni-collapse-item name="contact" title="Contact Us">
 					<view style="padding: 30upx;">
-						Email: vptaustralia@gamil.com
+						Email: vptaustralia@gmail.com
 					</view>
 				</uni-collapse-item>
 			</uni-collapse>

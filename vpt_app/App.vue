@@ -4,33 +4,40 @@
 	import con from '@/common/js/constant.js'
 	import event from "@/common/js/event.js"
 	import init from "@/common/js/data.js"
- 	
-	
+
+
 	export default {
 		onLaunch: function() {
-			util.getLocation(nearme => {
-				let selectedStop = uni.getStorageSync("selectedStop");
-				if (nearme && nearme.length > 0) {
-					let ret = nearme.filter(s => s == selectedStop['stopName']);
-					if (ret.length == 0) {
-						let stopNameMap = util.getRouteHandler().stopNameList();
-						let stopId = stopNameMap[nearme[0]];
-						uni.setStorageSync("selectedStop", {
-							'stopName': nearme[0],
-							'stopId': stopId,
-						});
-						let hotKeywordList = ['Flinders Street', 'Southern Cross', 'Melbourne Central', 'Flagstaff', 'Parliament'];
-						let ret = hotKeywordList.filter(s => s == nearme[0]);
-						if (ret.length == 0) {
-							let routeStopMap = util.getRouteHandler().routeStopList();//uni.getStorageSync("routeStopMap");
-							let lines = routeStopMap[stopId];
-							uni.setStorageSync("selectedRouteIds", lines);
+			uni.authorize({
+				scope: 'scope.userLocation',
+				success() {
+					console.info('init location');
+					util.getLocation(nearme => {
+						let selectedStop = uni.getStorageSync("selectedStop");
+						if (nearme && nearme.length > 0) {
+							let ret = nearme.filter(s => s == selectedStop['stopName']);
+							if (ret.length == 0) {
+								let stopNameMap = util.getRouteHandler().stopNameList();
+								let stopId = stopNameMap[nearme[0]];
+								uni.setStorageSync("selectedStop", {
+									'stopName': nearme[0],
+									'stopId': stopId,
+								});
+								let hotKeywordList = ['Flinders Street', 'Southern Cross', 'Melbourne Central', 'Flagstaff', 'Parliament'];
+								let ret = hotKeywordList.filter(s => s == nearme[0]);
+								if (ret.length == 0) {
+									let routeStopMap = util.getRouteHandler().routeStopList(); //uni.getStorageSync("routeStopMap");
+									let lines = routeStopMap[stopId];
+									uni.setStorageSync("selectedRouteIds", lines);
+								}
+								event.emit('DataChanged', 'Log-Page-Btn-Press');
+							}
 						}
-						event.emit('DataChanged', 'Log-Page-Btn-Press');
-					}
+					});	
 				}
-			});
-			
+			})
+
+			util.getRouteHandler().setTabBar();
 			this.initRoutes();
 			this.initPastTime();
 			uni.removeStorageSync("fullTimetables");
@@ -44,7 +51,7 @@
 		},
 
 		methods: {
-
+			
 			initStopInfoMap() {
 				if (!uni.getStorageSync("stopInfoMap")) {
 					uni.setStorageSync("stopInfoMap", init.initShopInfoList());
@@ -64,7 +71,7 @@
 				}
 			},
 
-			
+
 			loadCards() {
 				let rememberme = uni.getStorageSync("rememberme");
 				if (rememberme) {
