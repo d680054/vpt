@@ -19,7 +19,7 @@ const MYKI_TRANSACTIONS_URL = BASE_URL + "/api/ptv/myki/getTransactions";
 
 const HEADERS = {
   'content-type': 'application/json',
-  'Authorization': 'Basic ***REMOVED***'
+  'Authorization': 'Basic cHR2YXVzdHJhbGlhOiY3bkpSPk17V2RXITRaUA=='
 };
 
 
