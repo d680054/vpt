@@ -1,8 +1,11 @@
 import con from '@/common/js/constant.js'
 import net from '@/common/js/netUtil.js'
-import {Train, VLine} from "@/common/js/Transport.js"
+import {Train, VLine, Bus, Tram, NightBus} from "@/common/js/Transport.js"
 const train = new Train();
 const vline = new VLine();
+const bus = new Bus();
+const tram = new Tram();
+const nightBus = new NightBus();
 
 function getLocation(callback) {
 	
@@ -34,9 +37,15 @@ function getRouteHandler(routeType) {
 		rt = routeType;
 		uni.setStorageSync("selectedRouteType", rt);
 	} 
-	if (rt == 3) {
+	if (rt ==1) {
+		return tram;
+	} if (rt == 2) {
+		return bus;
+	} else if (rt == 3) {
 		return vline;
-	} else {
+	} else if (rt ==4) {
+		return nightBus
+	}else {
 		return train;
 	}
 }
