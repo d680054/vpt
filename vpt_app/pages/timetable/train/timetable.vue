@@ -11,9 +11,9 @@
 			<uni-list>
 				<uni-list-item title="Train" @click="switchToRoute(0)" show-arrow="false" thumb="../../../static/images/train.png"></uni-list-item>
 				<uni-list-item title="V/Line" @click="switchToRoute(3)" show-arrow="false" thumb="../../../static/images/vline.png"></uni-list-item>
-				<uni-list-item title="Tram" @click="comingsoon" show-arrow="false" thumb="../../../static/images/tram-inactive.png"></uni-list-item>
-				<uni-list-item title="Bus" @click="comingsoon" show-arrow="false" thumb="../../../static/images/bus-inactive.png"></uni-list-item>
-				<uni-list-item title="SkyBus" @click="comingsoon" show-arrow="false" thumb="../../../static/images/bus-inactive.png"></uni-list-item>
+				<!-- <uni-list-item title="Tram" @click="switchToRoute(1)" show-arrow="false" thumb="../../../static/images/tram.png"></uni-list-item>
+				<uni-list-item title="Bus" @click="switchToRoute(2)" show-arrow="false" thumb="../../../static/images/bus.png"></uni-list-item>
+				<uni-list-item title="Night Bus" @click="switchToRoute(4)" show-arrow="false" thumb="../../../static/images/bus.png"></uni-list-item> -->
 				<uni-list-item title="Setting" @click="gotoSetting" show-extra-icon="true" :extra-icon="{color: '#0072ce',type: 'gear-filled'}"></uni-list-item>
 				<uni-list-item title="About" @click="gotoAbout" show-extra-icon="true" :extra-icon="{color: '#0072ce',type: 'info'}"></uni-list-item>
 			</uni-list>
