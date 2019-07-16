@@ -1,6 +1,6 @@
 //url相关
 const BASE_URL = "https://vpt.hjaustralia.com";
-//const BASE_URL = "http://localhost:8080" 
+//const BASE_URL = "https://localhost:8080" 
 //const BASE_URL = "http://47.75.7.246:8080"
 
 //登录
